@@ -1,0 +1,10 @@
+*dataset*/
+__pycache__
+output/
+logs/
+weights/
+*.png
+*.jpg
+*.jpeg
+*.pt
+*.pth
