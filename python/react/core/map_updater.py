@@ -46,15 +46,25 @@ class MapUpdater:
     name: str = "ReactUpdater"
     instance_clusters: Dict[int, InstanceCluster] = field(default_factory=dict)
     map_views: Dict[int, Dict[int, np.ndarray]] = field(default_factory=dict)
-    global_instance_id: int = 0
-    instance_cluster_id: int = 0
     include_z: bool = False
+    _global_instance_id: int = 0
+    _instance_cluster_id: int = 0
 
     def __str__(self) -> str:
         updater_str = f"\n🌞 Map Updater:\n" + f"- Clusters:\n"
         for cluster in self.instance_clusters.values():
             updater_str += cluster.__str__()
         return updater_str
+
+    def assign_instance_id(self) -> int:
+        id = self._global_instance_id
+        self._global_instance_id += 1
+        return id
+
+    def assign_cluster_id(self) -> int:
+        id = self._instance_cluster_id
+        self._instance_cluster_id += 1
+        return id
 
     def get_object_nodes_from_json_data(
         self,
@@ -103,8 +113,7 @@ class MapUpdater:
                 bbox=bbox,
                 embedding=view_embeddings,
             )
-            self.global_instance_id += 1
-            object_nodes[self.global_instance_id] = new_node
+            object_nodes[self.assign_instance_id()] = new_node
         for node in object_nodes.values():
             logger.debug(node)
         return object_nodes
@@ -118,7 +127,7 @@ class MapUpdater:
         ), f"Cluster ID is not in {self.name}: {other_cluster_id}"
         cluster: InstanceCluster = self.instance_clusters.pop(cluster_id)
         other_cluster: InstanceCluster = self.instance_clusters.pop(other_cluster_id)
-        new_cluster_id = min(cluster.cluster_id, other_cluster.cluster_id)
+        new_cluster_id = self.assign_cluster_id()
         new_instances = cluster.instances
         for inst in other_cluster.instances.values():
             new_instances.update({inst.global_id: inst})
@@ -126,15 +135,14 @@ class MapUpdater:
             cluster_id=new_cluster_id, instances=new_instances
         )
         self.instance_clusters.update({new_cluster_id: new_cluster})
-
-    def reindex_clusters(self):
-        self.instance_cluster_id = 0
-        new_clusters = {}
-        for cluster in self.instance_clusters.values():
-            cluster.cluster_id = self.instance_cluster_id
-            new_clusters.update({self.instance_cluster_id: cluster})
-            self.instance_cluster_id += 1
-        self.instance_clusters = new_clusters
+    #
+    # def reindex_clusters(self):
+    #     self.instance_cluster_id = 0
+    #     new_clusters = {}
+    #     for cluster in self.instance_clusters.values():
+    #         cluster.cluster_id = self.instance_cluster_id
+    #         new_clusters.update({self.instance_cluster_id: cluster})
+    #     self.instance_clusters = new_clusters
 
     def init_instance_clusters(self, scan_id: int, object_nodes: Dict[int, ObjectNode]):
         for global_instance_id, node in object_nodes.items():
@@ -142,11 +150,10 @@ class MapUpdater:
                 global_id=global_instance_id, node_history={scan_id: node}
             )
             instance_cluster = InstanceCluster(
-                cluster_id=self.instance_cluster_id,
+                cluster_id=self.assign_cluster_id(),
                 instances={global_instance_id: instance},
             )
-            self.instance_cluster_id += 1
-            self.instance_clusters.update({self.instance_cluster_id: instance_cluster})
+            self.instance_clusters.update({self.assign_cluster_id(): instance_cluster})
 
     def optimize_cluster(self):
         while True:
@@ -175,11 +182,13 @@ class MapUpdater:
                 )
             else:
                 break
-        self.reindex_clusters()
+        # self.reindex_clusters()
 
     def update_instance_entry(self, cluster_id: int, old_inst_id, new_inst_id):
         self.instance_clusters[cluster_id].merge_two_instances(
-            inst_id=old_inst_id, other_inst_id=new_inst_id
+            inst_id=old_inst_id,
+            other_inst_id=new_inst_id,
+            new_inst_id=self.assign_instance_id(),
         )
 
     def update_position_histories(self, scan_id_old: int, scan_id_new: int):

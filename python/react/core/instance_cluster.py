@@ -142,7 +142,7 @@ class InstanceCluster:
         )
         return matching_old_ids, matching_new_ids
 
-    def merge_two_instances(self, inst_id: int, other_inst_id: int):
+    def merge_two_instances(self, inst_id: int, other_inst_id: int, new_inst_id: int):
         assert (
             inst_id in self.instances
         ), f"Instance ID to be merged is not available: {inst_id}"
@@ -151,7 +151,6 @@ class InstanceCluster:
         ), f"Instance ID to b merged is not available: {other_inst_id}"
         inst: Instance = self.instances.pop(inst_id)
         other_inst: Instance = self.instances.pop(other_inst_id)
-        new_inst_id = min(inst_id, other_inst_id)
         new_node_history = inst.node_history
         for node in other_inst.node_history.values():
             new_node_history.update({node.scan_id: node})
