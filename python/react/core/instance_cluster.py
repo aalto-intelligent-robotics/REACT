@@ -116,7 +116,7 @@ class InstanceCluster:
             self.get_embedding(), other_cluster.get_embedding()
         )
         logger.debug(
-            f"Dist cluster {self.get_name()} {self.cluster_id} - {self.get_name()} {self.cluster_id}: {dist}"
+            f"Dist cluster {self.get_name()} {self.cluster_id} - {other_cluster.get_name()} {other_cluster.cluster_id}: {dist}"
         )
         if dist <= match_threshold:
             return True

@@ -14,9 +14,9 @@ logger = getLogger(name=__name__, log_file="offline_matching.log")
 TODO: Create yaml file for all params here
 Params
 - COFFEE ROOM: 
-  weights: "/home/ros/models/embeddings/iros25/embedding_coffee_room.pth"
+  weights: "/home/ros/models/embeddings/iros25/embedding_coffee_room_2.pth"
   backbone: "efficientnet_b2"
-  match_threshold: 2.0
+  match_threshold: 2.5
 - FLAT:
   weights: "/home/ros/models/embeddings/iros25/embedding_flat.pth"
   backbone: "efficientnet_b2"
@@ -33,12 +33,12 @@ Params
 if __name__ == "__main__":
     # torch.set_printoptions(threshold=10_000)
     embedding_model = get_embedding_model(
-        weights="/home/ros/models/embeddings/iros25/embedding_coffee_room.pth",
+        weights="/home/ros/models/embeddings/iros25/embedding_coffee_room_2.pth",
         backbone="efficientnet_b2",
     )
 
     SAVE_PATH = "./output/"
-    MATCH_THRESHOLD = 1.5
+    MATCH_THRESHOLD = 2.5
     DSG_PATH0 = "/home/ros/dsg_output/coffee_room_1/"
     DSG_PATH1 = "/home/ros/dsg_output/coffee_room_2/"
     dsg_paths = [DSG_PATH0, DSG_PATH1]

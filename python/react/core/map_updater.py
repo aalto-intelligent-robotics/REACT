@@ -86,7 +86,7 @@ class MapUpdater:
 
             assert node_data is not None, f"{node_id} not found from dsg"
             instance_views = {}
-            view_embeddings = torch.zeros(1, num_features)
+            view_embeddings = torch.zeros(len(all_masks_data), num_features)
             for i, mask_data in enumerate(all_masks_data):
                 mask_file = mask_data["file"]
                 map_view_id = mask_data["map_view_id"]
@@ -101,8 +101,9 @@ class MapUpdater:
                 )
                 preprocessed_img = preprocess_image(view_img)
                 embedding = self.embedding_model(preprocessed_img).detach().cpu()
-                view_embeddings += embedding
-            view_embeddings /= len(all_masks_data)
+                # view_embeddings += embedding
+                view_embeddings[i, :] = embedding
+            # view_embeddings /= len(all_masks_data)
             new_node = ObjectNode(
                 scan_id=scan_id,
                 node_id=node_id,
@@ -111,7 +112,7 @@ class MapUpdater:
                 position=np.array(node_data["position"]),
                 instance_views=instance_views,
                 bbox=bbox,
-                embedding=view_embeddings,
+                embedding=torch.quantile(view_embeddings, q=0.5, dim=0),
             )
             object_nodes[self.assign_instance_id()] = new_node
         for node in object_nodes.values():
@@ -135,6 +136,7 @@ class MapUpdater:
             cluster_id=new_cluster_id, instances=new_instances
         )
         self.instance_clusters.update({new_cluster_id: new_cluster})
+
     #
     # def reindex_clusters(self):
     #     self.instance_cluster_id = 0
