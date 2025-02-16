@@ -8,6 +8,7 @@ from react.utils.logger import getLogger
 
 logger: logging.Logger = getLogger(name=__name__, log_file="instance.log")
 
+
 @dataclass
 class Instance:
     """
@@ -22,6 +23,14 @@ class Instance:
     global_id: int
     node_history: Dict[int, ObjectNode]
 
+    def __str__(self) -> str:
+        instance_str = (
+            f"\n⭐ Instance Info:\n"
+            + f"- Global Instance ID: {self.global_id}\n"
+            + f"- Position History: {self.get_position_history(scan_ids=[])}\n"
+        )
+        return instance_str
+
     def get_position_history(
         self, scan_ids: List[int] = [0, 1]
     ) -> Dict[int, np.ndarray]:
@@ -35,8 +44,12 @@ class Instance:
             The history of the instance mapped as {scan_id -> position}
         """
         ph = {}
-        for node in self.node_history.values():
-            if node.scan_id in scan_ids:
+        if scan_ids:
+            for node in self.node_history.values():
+                if node.scan_id in scan_ids:
+                    ph.update({node.scan_id: node.position})
+        else:
+            for node in self.node_history.values():
                 ph.update({node.scan_id: node.position})
         return ph
 
@@ -61,4 +74,4 @@ class Instance:
         return node.name
 
     def empty(self) -> bool:
-        return len(node_history) == 0
+        return len(self.node_history) == 0

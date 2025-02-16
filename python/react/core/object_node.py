@@ -46,11 +46,11 @@ class ObjectNode:
 
     def __str__(self) -> str:
         node_str = (
-            "🌠 Node info:\n"
+            "\n🌠 Node info:\n"
             + f"- Scan ID: {self.scan_id}\n"
             + f"- Node ID: {self.node_id}\n"
             + f"Class ID: {self.class_id}\n"
             + f"Name: {self.name}\n"
-            + f"Position: {self.position}"
+            + f"Position: {self.position}\n"
         )
         return node_str

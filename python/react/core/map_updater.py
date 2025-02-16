@@ -24,6 +24,23 @@ logger: logging.Logger = getLogger(name=__name__, log_file="map_updater.log")
 
 @dataclass
 class MapUpdater:
+    """
+    MapUpdater class to manage instance clusters
+
+    Attributes:
+        match_threshold: distance threshold for visual embedding comparison
+        embedding_model: embedding model to get visual embeddings, see
+            react.net.embedding_net
+        name: name of the MapUpdater object
+        instance_clusters: collection of instance clusters, mapped as
+            {cluster_id -> InstanceCluster}
+        map_views: collection of scene images, mapped as {map_view_id -> image}
+        global_instance_id: counter to generate global instance ids for Instance class
+        instance_cluster_id: counter to generate cluster ids for InstanceCluster class
+        include_z: whether to include z into Euclidean distance calculation for
+            Hungarian matching
+    """
+
     match_threshold: float
     embedding_model: EmbeddingNet
     name: str = "ReactUpdater"
@@ -32,6 +49,12 @@ class MapUpdater:
     global_instance_id: int = 0
     instance_cluster_id: int = 0
     include_z: bool = False
+
+    def __str__(self) -> str:
+        updater_str = f"\n🌞 Map Updater:\n" + f"- Clusters:\n"
+        for cluster in self.instance_clusters.values():
+            updater_str += cluster.__str__()
+        return updater_str
 
     def get_object_nodes_from_json_data(
         self,
@@ -86,6 +109,33 @@ class MapUpdater:
             logger.debug(node)
         return object_nodes
 
+    def merge_two_clusters(self, cluster_id: int, other_cluster_id: int):
+        assert (
+            cluster_id in self.instance_clusters
+        ), f"Cluster ID is not in {self.name}: {cluster_id}"
+        assert (
+            other_cluster_id in self.instance_clusters
+        ), f"Cluster ID is not in {self.name}: {other_cluster_id}"
+        cluster: InstanceCluster = self.instance_clusters.pop(cluster_id)
+        other_cluster: InstanceCluster = self.instance_clusters.pop(other_cluster_id)
+        new_cluster_id = min(cluster.cluster_id, other_cluster.cluster_id)
+        new_instances = cluster.instances
+        for inst in other_cluster.instances.values():
+            new_instances.update({inst.global_id: inst})
+        new_cluster = InstanceCluster(
+            cluster_id=new_cluster_id, instances=new_instances
+        )
+        self.instance_clusters.update({new_cluster_id: new_cluster})
+
+    def reindex_clusters(self):
+        self.instance_cluster_id = 0
+        new_clusters = {}
+        for cluster in self.instance_clusters.values():
+            cluster.cluster_id = self.instance_cluster_id
+            new_clusters.update({self.instance_cluster_id: cluster})
+            self.instance_cluster_id += 1
+        self.instance_clusters = new_clusters
+
     def init_instance_clusters(self, scan_id: int, object_nodes: Dict[int, ObjectNode]):
         for global_instance_id, node in object_nodes.items():
             instance = Instance(
@@ -98,17 +148,67 @@ class MapUpdater:
             self.instance_cluster_id += 1
             self.instance_clusters.update({self.instance_cluster_id: instance_cluster})
 
-    # def cluster(self, object_nodes: Dict[int, ObjectNode]):
-    #     for global_instance_id, node in object_nodes.items():
-    #         pass
+    def optimize_cluster(self):
+        while True:
+            match_pair = None
+            for cid, cluster in self.instance_clusters.items():
+                if match_pair is not None:
+                    break
+                for other_cid, other_cluster in self.instance_clusters.items():
+                    if (
+                        cid != other_cid
+                        and cluster.get_class_id() == other_cluster.get_class_id()
+                    ):
+                        is_match = cluster.is_match(
+                            other_cluster=other_cluster,
+                            match_threshold=self.match_threshold,
+                        )
+                        if is_match:
+                            match_pair = (cid, other_cid)
+                            break
+            if match_pair is not None:
+                assert (
+                    len(match_pair) == 2
+                ), f"Invalid match_pair length, needs to be 2, received {len(match_pair)}"
+                self.merge_two_clusters(
+                    cluster_id=match_pair[0], other_cluster_id=match_pair[1]
+                )
+            else:
+                break
+        self.reindex_clusters()
+
+    def update_instance_entry(self, cluster_id: int, old_inst_id, new_inst_id):
+        self.instance_clusters[cluster_id].merge_two_instances(
+            inst_id=old_inst_id, other_inst_id=new_inst_id
+        )
+
+    def update_position_histories(self, scan_id_old: int, scan_id_new: int):
+        for inst_cluster_id, inst_cluster in self.instance_clusters.items():
+            matching_old_ids, matching_new_ids = inst_cluster.match_position(
+                scan_id_old=scan_id_old,
+                scan_id_new=scan_id_new,
+                include_z=self.include_z,
+            )
+            for old_id, new_id in zip(matching_old_ids, matching_new_ids):
+                self.update_instance_entry(
+                    cluster_id=inst_cluster_id,
+                    old_inst_id=old_id,
+                    new_inst_id=new_id,
+                )
+
+    def get_nodes_in_scan(self, scan_id: int) -> Dict[int, ObjectNode]:
+        nodes = {}
+        for cluster in self.instance_clusters.values():
+            for inst_id, instance in cluster.instances.items():
+                if scan_id in instance.node_history:
+                    node = instance.node_history[scan_id]
+                    nodes.update({inst_id: node})
+        return nodes
 
     def process_dsg(
         self,
         dsg_path: str,
         scan_id: int,
-        # save_path: str = "./output/",
-        # save_json: bool = True,
-        # re_cluster: bool = False,
     ):
         instance_views_data, map_views_data, dsg_data = get_dsg_data(dsg_path)
         self.map_views.update({scan_id: register_map_views(map_views_data)})
@@ -118,11 +218,4 @@ class MapUpdater:
             dsg_data=dsg_data,
         )
         self.init_instance_clusters(scan_id=scan_id, object_nodes=object_nodes)
-        # self.cluster(dsg_id=scan_id)
-        # if re_cluster:
-        #     self.re_cluster()
-        # if save_json:
-        #     save_instance_sets(
-        #         instance_sets=self.instance_sets,
-        #         fname=f"{save_path}/instance_sets{scan_id}.json",
-        #     )
+        self.optimize_cluster()
