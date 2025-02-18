@@ -2,6 +2,7 @@ import logging
 import numpy as np
 from typing import Dict, List
 from dataclasses import dataclass
+from react.core.object_node import ObjectNode
 import torch
 from torch import Tensor
 
@@ -97,7 +98,7 @@ class InstanceCluster:
         self, scan_ids: List[int] = [0, 1]
     ) -> Dict[int, Dict[int, np.ndarray]]:
         """
-        Get the position history of the nodes in the cluster
+        Get the position history of the nodes for specified scans in the cluster
 
         Args:
             scan_ids: scan ids to get history from
@@ -110,6 +111,33 @@ class InstanceCluster:
         for instance_id, instance in self.instances.items():
             ph.update({instance_id: instance.get_position_history(scan_ids=scan_ids)})
         return ph
+
+    def get_node_history(
+        self, scan_ids: List[int] = [0, 1]
+    ) -> Dict[int, Dict[int, ObjectNode]]:
+        """
+        Get the object node history for specified scans in the cluster
+
+        Args:
+            scan_ids: scan ids to get history from. set to [] to select from all scans
+
+        Returns:
+            object nodes histories of instances within cluster mapped as
+            {instance_id -> {scan_id -> object_node}}
+        """
+        nh = {}
+        for instance_id, instance in self.instances.items():
+            for scan, node in instance.node_history.items():
+                if len(scan_ids) == 0:
+                    is_valid_scan = True
+                else:
+                    is_valid_scan = True if scan in scan_ids else False
+                if is_valid_scan:
+                    if instance_id in nh:
+                        nh[instance_id].update({scan: node})
+                    else:
+                        nh[instance_id] = {scan: node}
+        return nh
 
     def is_match(self, other_cluster: "InstanceCluster", match_threshold: float):
         dist = torch.nn.functional.pairwise_distance(
@@ -142,7 +170,9 @@ class InstanceCluster:
         )
         return matching_old_ids, matching_new_ids
 
-    def merge_two_instances(self, inst_id: int, other_inst_id: int, new_inst_id: int):
+    def merge_two_instances(
+        self, inst_id: int, other_inst_id: int, assign_inst_id: int
+    ):
         assert (
             inst_id in self.instances
         ), f"Instance ID to be merged is not available: {inst_id}"
@@ -154,8 +184,8 @@ class InstanceCluster:
         new_node_history = inst.node_history
         for node in other_inst.node_history.values():
             new_node_history.update({node.scan_id: node})
-        new_inst = Instance(global_id=new_inst_id, node_history=new_node_history)
-        self.instances.update({new_inst_id: new_inst})
+        new_inst = Instance(global_id=assign_inst_id, node_history=new_node_history)
+        self.instances.update({assign_inst_id: new_inst})
 
     def empty(self) -> bool:
         return len(self.instances) == 0

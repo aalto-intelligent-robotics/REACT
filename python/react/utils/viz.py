@@ -166,7 +166,7 @@ def draw_base_dsg(
     draw_text: bool = False,
 ) -> List:
     object_nodes = map_updater.get_nodes_in_scan(scan_id=scan_id)
-    instance_clusters = map_updater.instance_clusters
+    instance_clusters = map_updater._instance_clusters
     mesh.translate(np.array([0, 0, dsg_offset_z]))
     dsg_viz = []
     if include_scene_mesh:
@@ -184,19 +184,6 @@ def draw_base_dsg(
         node_geometries[id] = node_viz
         dsg_viz += list(node_viz.values())
     if draw_set:
-        for inst_cluster in instance_clusters.values():
-            for inst in inst_cluster.instances.values():
-                for id, node in inst.node_history.items():
-                    node_viz = draw_node_geometry(
-                        node=node,
-                        mesh=mesh,
-                        node_label_z=node_label_z,
-                        dsg_offset_z=dsg_offset_z,
-                        draw_mesh=include_instance_mesh,
-                        draw_text=draw_text,
-                    )
-                    node_geometries[id] = node_viz
-                    dsg_viz += list(node_viz.values())
         for inst_cluster in instance_clusters.values():
             set_geometry = draw_cluster_geometry(
                 scan_id=scan_id,
@@ -238,7 +225,7 @@ def draw_matching_dsg(
         node_geometries[id] = node_viz
         dsg_viz += list(node_viz.values())
 
-    for inst_cluster in map_updater.instance_clusters.values():
+    for inst_cluster in map_updater._instance_clusters.values():
         for inst_id, ph in inst_cluster.get_cluster_position_history(
             scan_ids=[scan_id_old, scan_id_new]
         ).items():

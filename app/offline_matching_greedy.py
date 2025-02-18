@@ -33,14 +33,14 @@ Params
 if __name__ == "__main__":
     # torch.set_printoptions(threshold=10_000)
     embedding_model = get_embedding_model(
-        weights="/home/ros/models/embeddings/iros25/embedding_coffee_room_2.pth",
+        weights="/home/ros/models/embeddings/iros25/embedding_lab_front.pth",
         backbone="efficientnet_b2",
     )
 
     SAVE_PATH = "./output/"
-    MATCH_THRESHOLD = 2.5
-    DSG_PATH0 = "/home/ros/dsg_output/coffee_room_1/"
-    DSG_PATH1 = "/home/ros/dsg_output/coffee_room_2/"
+    MATCH_THRESHOLD = 2.0
+    DSG_PATH0 = "/home/ros/dsg_output/lab_front_1/"
+    DSG_PATH1 = "/home/ros/dsg_output/lab_front_2/"
     dsg_paths = [DSG_PATH0, DSG_PATH1]
 
     map_updater = MapUpdater(
@@ -49,10 +49,7 @@ if __name__ == "__main__":
 
     viz = []
     for i, path in enumerate(dsg_paths):
-        map_updater.process_dsg(
-            scan_id=i,
-            dsg_path=path,
-        )
+        map_updater.process_dsg(scan_id=i, dsg_path=path, optimize_cluster=False)
         mesh = o3d.io.read_triangle_mesh(f"{path}/backend/mesh.ply")
         if i == 0:
             dsg_viz = draw_base_dsg(
@@ -62,11 +59,12 @@ if __name__ == "__main__":
                 node_label_z=3,
                 set_label_z=5,
                 dsg_offset_z=0,
+                draw_text=True,
                 include_scene_mesh=True,
                 include_instance_mesh=False,
             )
         else:
-            map_updater.update_position_histories(scan_id_old=i - 1, scan_id_new=i)
+            map_updater.greedy_match(scan_id_old=i - 1, scan_id_new=i)
             dsg_viz = draw_matching_dsg(
                 scan_id_old=i - 1,
                 scan_id_new=i,
@@ -79,6 +77,7 @@ if __name__ == "__main__":
             )
         viz += dsg_viz
     results = map_updater.report_match_results(old_scan_id=0, new_scan_id=1)
+    logger.info(map_updater)
     logger.info(map_updater)
     logger.info(f"Matches: {results.matches}")
     logger.info(f"Absent: {results.absent}")
