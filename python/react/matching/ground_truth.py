@@ -9,7 +9,9 @@ class GroundTruth:
 
     Attributes:
         old_scan_id: the reference scan id
+        old_num_nodes: number of old nodes
         new_scan_id: the current scan id
+        new_num_nodes: number of new nodes
         matches: list of matching node ids, mapped as
             {cluster_id -> {scan_id -> node_id}}
     """

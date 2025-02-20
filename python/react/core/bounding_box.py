@@ -10,7 +10,8 @@ logger = getLogger(name=__name__, log_file="bounding_box.log")
 
 @dataclass
 class BoundingBox:
-    """Bounding box class for object nodes
+    """
+    Bounding box class for object nodes
 
     Attributes: 
         min_bounds: min x, y, z (in m)

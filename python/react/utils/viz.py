@@ -6,7 +6,7 @@ import numpy as np
 from hydra_seg_ros.utils.labels import COCO_COLORS
 from react.core.object_node import ObjectNode
 from react.core.instance_cluster import InstanceCluster
-from react.core.map_updater import MapUpdater
+from react.core.react_manager import ReactManager
 
 
 def get_class_color(class_id: int, normalize: bool = True) -> List:
@@ -156,7 +156,7 @@ def draw_cluster_geometry(
 def draw_base_dsg(
     scan_id: int,
     mesh: o3d.geometry.TriangleMesh,
-    map_updater: MapUpdater,
+    map_updater: ReactManager,
     node_label_z: float = 3,
     set_label_z: float = 5,
     dsg_offset_z: float = 0,
@@ -200,7 +200,7 @@ def draw_matching_dsg(
     scan_id_old: int,
     scan_id_new: int,
     mesh: o3d.geometry.TriangleMesh,
-    map_updater: MapUpdater,
+    map_updater: ReactManager,
     old_dsg_offset_z: float = 0,
     new_dsg_offset_z: float = -5,
     include_instance_mesh: bool = True,

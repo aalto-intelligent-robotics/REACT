@@ -62,7 +62,7 @@ class ReactEvaluator:
                     fn_n += 1
         fn_m = self.ground_truth.get_num_matches() - tp_m
 
-        # Check completely new / absent objects (not part of a cluster that is 
+        # Check completely new / absent objects (not part of a cluster that is
         # present in both dsg)
         for new in self.match_results.new:
             if self.is_completely_new(new):
@@ -111,7 +111,6 @@ class ReactEvaluator:
             "fp_n": fp_n,
             "fn_n": fn_n,
         }
-        print(self.results_cnt)
 
     def count_new_results(self) -> Dict[str, int]:
         tp = 0
@@ -120,27 +119,42 @@ class ReactEvaluator:
         fn = self.ground_truth.get_num_new() - tp
         return {"tp": tp, "fp": fp, "fn": fn}
 
-    def calculate_pr(self, tp, fp, fn):
+    def calculate_metrics(self, tp, fp, fn):
         if tp == 0:
             pre = 0
             rec = 0
+            f1 = 0
         else:
             pre = tp / (tp + fp)
             rec = tp / (tp + fn)
-        return {"pre": pre, "rec": rec}
+            f1 = 2 * (pre * rec) / (pre + rec)
+        return {"pre": pre, "rec": rec, "f1": f1}
 
-    def get_precision_recall(self) -> Dict[str, Dict[str, int]]:
+    def get_metrics(self) -> Dict[str, Dict[str, int]]:
         pr = {}
         pr["m"] = {}
-        pr["m"] = self.calculate_pr(
+        pr["m"] = self.calculate_metrics(
             self.results_cnt["tp_m"], self.results_cnt["fp_m"], self.results_cnt["fn_m"]
         )
         pr["a"] = {}
-        pr["a"] = self.calculate_pr(
+        pr["a"] = self.calculate_metrics(
             self.results_cnt["tp_a"], self.results_cnt["fp_a"], self.results_cnt["fn_a"]
         )
         pr["n"] = {}
-        pr["n"] = self.calculate_pr(
+        pr["n"] = self.calculate_metrics(
             self.results_cnt["tp_n"], self.results_cnt["fp_n"], self.results_cnt["fn_n"]
+        )
+
+        pr["all"] = {}
+        pr["all"] = self.calculate_metrics(
+            self.results_cnt["tp_m"]
+            + self.results_cnt["tp_a"]
+            + self.results_cnt["tp_n"],
+            self.results_cnt["fp_m"]
+            + self.results_cnt["fp_a"]
+            + self.results_cnt["fp_n"],
+            self.results_cnt["fn_m"]
+            + self.results_cnt["fn_a"]
+            + self.results_cnt["fn_n"],
         )
         return pr

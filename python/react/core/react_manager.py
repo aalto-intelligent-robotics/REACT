@@ -24,9 +24,9 @@ logger: logging.Logger = getLogger(name=__name__, log_file="map_updater.log")
 
 
 @dataclass
-class MapUpdater:
+class ReactManager:
     """
-    MapUpdater class to manage instance clusters
+    ReactManager class to manage instance clusters
 
     Attributes:
         match_threshold: distance threshold for visual embedding comparison
@@ -157,15 +157,6 @@ class MapUpdater:
             cluster_id=new_cluster_id, instances=new_instances
         )
         self._instance_clusters.update({new_cluster_id: new_cluster})
-
-    #
-    # def reindex_clusters(self):
-    #     self.instance_cluster_id = 0
-    #     new_clusters = {}
-    #     for cluster in self.instance_clusters.values():
-    #         cluster.cluster_id = self.instance_cluster_id
-    #         new_clusters.update({self.instance_cluster_id: cluster})
-    #     self.instance_clusters = new_clusters
 
     def init_instance_clusters(self, scan_id: int, object_nodes: Dict[int, ObjectNode]):
         for global_instance_id, node in object_nodes.items():
@@ -306,17 +297,6 @@ class MapUpdater:
                     results.new.append(nh[new_scan_id].node_id)
         return results
 
-    # def report_travel_dist(self, old_dsg_id: int = 0, new_dsg_id: int = 1):
-    #     total_dists = 0
-    #     assert old_dsg_id < new_dsg_id
-    #     for iset in self._instance_clusters.values():
-    #         for ph in iset.get_cluster_position_history(
-    #             scan_ids=[old_dsg_id, new_dsg_id]
-    #         ).values():
-    #             if old_dsg_id in ph.keys() and new_dsg_id in ph.keys():
-    #                 total_dists += np.linalg.norm(ph[old_dsg_id] - ph[new_dsg_id])
-    #     return total_dists
-
     def process_dsg(self, dsg_path: str, scan_id: int, optimize_cluster: bool = True):
         instance_views_data, map_views_data, dsg_data = get_dsg_data(dsg_path)
         self._map_views.update({scan_id: register_map_views(map_views_data)})
@@ -328,3 +308,6 @@ class MapUpdater:
         self.init_instance_clusters(scan_id=scan_id, object_nodes=object_nodes)
         if optimize_cluster:
             self.optimize_cluster()
+        # Update all embeddings
+        for cluster in self._instance_clusters.values():
+            cluster.get_embedding()

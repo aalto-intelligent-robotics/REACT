@@ -2,7 +2,7 @@ import open3d as o3d
 from open3d import visualization
 import torch
 
-from react.core.map_updater import MapUpdater
+from react.core.react_manager import ReactManager
 from react.net.embedding_net import get_embedding_model
 from react.utils.logger import getLogger
 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     DSG_PATH1 = "/home/ros/dsg_output/coffee_room_2/"
     dsg_paths = [DSG_PATH0, DSG_PATH1]
 
-    map_updater = MapUpdater(
+    map_updater = ReactManager(
         match_threshold=MATCH_THRESHOLD, embedding_model=embedding_model
     )
 

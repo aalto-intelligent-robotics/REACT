@@ -1,6 +1,6 @@
 import logging
 import numpy as np
-from typing import Dict, List
+from typing import Dict, List, Union
 from dataclasses import dataclass
 from react.core.object_node import ObjectNode
 import torch
@@ -153,7 +153,6 @@ class InstanceCluster:
     def match_position(
         self, scan_id_old: int, scan_id_new: int, include_z: bool = False
     ):
-        # Position Histories: {instance_id -> {scan_id -> pos}}
         old_inst_positions = {}
         new_inst_positions = {}
         for inst_id, ph in self.get_cluster_position_history(
