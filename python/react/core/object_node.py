@@ -52,5 +52,6 @@ class ObjectNode:
             + f"Class ID: {self.class_id}\n"
             + f"Name: {self.name}\n"
             + f"Position: {self.position}\n"
+            + f"Embedding: {self.embedding}\n"
         )
         return node_str

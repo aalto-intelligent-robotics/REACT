@@ -33,14 +33,14 @@ Params
 if __name__ == "__main__":
     # torch.set_printoptions(threshold=10_000)
     embedding_model = get_embedding_model(
-        weights="/home/ros/models/embeddings/iros25/embedding_coffee_room_2.pth",
+        weights="/home/ros/models/embeddings/iros25/embedding_lab_front.pth",
         backbone="efficientnet_b2",
     )
 
     SAVE_PATH = "./output/"
     MATCH_THRESHOLD = 2.5
-    DSG_PATH0 = "/home/ros/dsg_output/coffee_room_1/"
-    DSG_PATH1 = "/home/ros/dsg_output/coffee_room_2/"
+    DSG_PATH0 = "/home/ros/dsg_output/lab_front_1/"
+    DSG_PATH1 = "/home/ros/dsg_output/lab_front_2/"
     dsg_paths = [DSG_PATH0, DSG_PATH1]
 
     map_updater = ReactManager(
@@ -84,12 +84,12 @@ if __name__ == "__main__":
     logger.info(f"Absent: {results.absent}")
     logger.info(f"New: {results.new}")
     logger.info(f"Travelled distance: {results.travel_distance}")
-    visualization.draw(viz)
-    # vis = visualization.Visualizer()
-    # vis.create_window(visible=True)
-    # # Call only after creating visualizer window.
-    # vis.get_render_option().background_color = [1, 1, 1]
-    # # vis.add_geometry(pcd)
-    # for geo in viz:
-    #     vis.add_geometry(geo)
-    # vis.run()
+    # visualization.draw(viz)
+    vis = visualization.Visualizer()
+    vis.create_window(visible=True)
+    # Call only after creating visualizer window.
+    vis.get_render_option().background_color = [1, 1, 1]
+    # vis.add_geometry(pcd)
+    for geo in viz:
+        vis.add_geometry(geo)
+    vis.run()

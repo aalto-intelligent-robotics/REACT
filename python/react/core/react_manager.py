@@ -1,7 +1,9 @@
+from copy import deepcopy
 import logging
 import numpy as np
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Set
 from dataclasses import dataclass, field
+from react.core import instance
 import torch
 from torch import Tensor
 import cv2
@@ -61,7 +63,7 @@ class ReactManager:
         return self._instance_clusters
 
     def assign_instance_clusters(self, instance_clusters: Dict[int, InstanceCluster]):
-        self._instance_clusters = instance_clusters
+        self._instance_clusters = deepcopy(instance_clusters)
 
     def assign_instance_id(self) -> int:
         id = self._global_instance_id
@@ -73,20 +75,6 @@ class ReactManager:
         self._instance_cluster_id += 1
         return id
 
-    # def get_object_node_online(
-    #     self,
-    #     dsg_id: int,
-    #     mask_ids: Set,
-    #     num_features: int,
-    #     embedding_library: Dict[int, Tensor],
-    #     node_id: int,
-    #     name: str,
-    #     class_id: int,
-    #     position: List,
-    #     bbox_dims: List,
-    #     bbox_pos: List,
-    #     mesh_connections: Set = set(),
-    # ):
     def get_object_nodes_from_json_data(
         self,
         scan_id: int,
@@ -308,6 +296,3 @@ class ReactManager:
         self.init_instance_clusters(scan_id=scan_id, object_nodes=object_nodes)
         if optimize_cluster:
             self.optimize_cluster()
-        # Update all embeddings
-        for cluster in self._instance_clusters.values():
-            cluster.get_embedding()
