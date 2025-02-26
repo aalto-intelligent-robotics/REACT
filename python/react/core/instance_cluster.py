@@ -1,6 +1,6 @@
 import logging
 import numpy as np
-from typing import Dict, List, Union
+from typing import Dict, List, Tuple
 from dataclasses import dataclass
 from react.core.object_node import ObjectNode
 import torch
@@ -20,12 +20,12 @@ logger: logging.Logger = getLogger(
 
 @dataclass
 class InstanceCluster:
-    """
-    Python interface for REACT Instance Cluster
+    """Python interface for REACT Instance Cluster for managing groups of
+    ObjectNode that represent identical objects.
 
-    Attributes:
-        cluster_id: Id of the cluster
-        instances: a collection of instances {global_instance_id -> Instance}
+    :param cluster_id: id of the cluster
+    :param instances: a collection of instances {global_instance_id ->
+        Instance}
     """
 
     cluster_id: int
@@ -46,33 +46,37 @@ class InstanceCluster:
         return node_str
 
     def get_class_id(self) -> int:
+        """Get the class id of the instance cluster.
+
+        :return: the class id
+        """
         instance = next(iter(self.instances.values()))
         return instance.get_class_id()
 
     def get_name(self) -> str:
+        """Get the name of the instance cluster.
+
+        :return: the name of the instance cluster
+        """
         instance = next(iter(self.instances.values()))
         return instance.get_name()
 
     def get_local_node_id(self, scan_id: int, global_object_id: int) -> int:
-        """
-        Return the id of an ObjectNode given a scan id and the global object id
+        """Return the id of an ObjectNode given a scan id and the global object
+        id.
 
-        Args:
-            scan_id: the scan id of the scene
-            global_object_id: the global object id registered in the object cluster
-
-        Returns:
-            the ObjectNode id
+        :param scan_id: the scan id of the scene
+        :param global_object_id: the global object id registered in the
+            object cluster
+        :return: the ObjectNode id
         """
         return self.instances[global_object_id].node_history[scan_id].node_id
 
     def get_embedding(self) -> Tensor:
-        """
-        Return the average embedding for the cluster. Note that this takes the weighted
-        average depending on how many images a node has
+        """Return the average embedding for the cluster. Note that this takes
+        the weighted average depending on how many images a node has.
 
-        Returns:
-            The average emdbedding for the cluster
+        :return: The average emdbedding for the cluster
         """
         embedding = None
         num_imgs = 0
@@ -97,15 +101,12 @@ class InstanceCluster:
     def get_cluster_position_history(
         self, scan_ids: List[int] = [0, 1]
     ) -> Dict[int, Dict[int, np.ndarray]]:
-        """
-        Get the position history of the nodes for specified scans in the cluster
+        """Get the position history of the nodes for specified scans in the
+        cluster.
 
-        Args:
-            scan_ids: scan ids to get history from
-
-        Returns:
-            position histories of instances within cluster mapped as
-            {instance_id -> {scan_id -> pos}}
+        :param scan_ids: scan ids to get history from
+        :return: position histories of instances within cluster mapped
+            as {instance_id -> {scan_id -> pos}}
         """
         ph = {}
         for instance_id, instance in self.instances.items():
@@ -115,15 +116,12 @@ class InstanceCluster:
     def get_node_history(
         self, scan_ids: List[int] = [0, 1]
     ) -> Dict[int, Dict[int, ObjectNode]]:
-        """
-        Get the object node history for specified scans in the cluster
+        """Get the object node history for specified scans in the cluster.
 
-        Args:
-            scan_ids: scan ids to get history from. set to [] to select from all scans
-
-        Returns:
-            object nodes histories of instances within cluster mapped as
-            {instance_id -> {scan_id -> object_node}}
+        :param scan_ids: scan ids to get history from. set to [] to
+            select from all scans
+        :return: object nodes histories of instances within cluster
+            mapped as {instance_id -> {scan_id -> object_node}}
         """
         nh = {}
         for instance_id, instance in self.instances.items():
@@ -139,12 +137,24 @@ class InstanceCluster:
                         nh[instance_id] = {scan: node}
         return nh
 
-    def is_match(self, other_cluster: "InstanceCluster", match_threshold: float):
+    def is_match(
+        self, other_cluster: "InstanceCluster", match_threshold: float
+    ) -> bool:
+        """Compare with another InstanceCluster.
+
+        :param other_cluster: the other cluster
+        :param match_threshold: the visual difference threshold
+        :return: True if 2 clusters represent similar objects according
+            to the visual difference thresholds, False if they are not
+            the same
+        """
         dist = torch.nn.functional.pairwise_distance(
             self.get_embedding(), other_cluster.get_embedding()
         )
         logger.debug(
-            f"Dist cluster {self.get_name()} {self.cluster_id} - {other_cluster.get_name()} {other_cluster.cluster_id}: {dist}"
+            f"Dist cluster {self.get_name()} {self.cluster_id}"
+            + f" - {other_cluster.get_name()} {other_cluster.cluster_id}"
+            + f": {dist}"
         )
         if dist <= match_threshold:
             return True
@@ -152,7 +162,17 @@ class InstanceCluster:
 
     def match_position(
         self, scan_id_old: int, scan_id_new: int, include_z: bool = False
-    ):
+    ) -> Tuple[List, List]:
+        """Perform instance matching by minimizing traveled distance of all
+        objects using Hungarian algorithm on Instances which contains 2
+        ObjectNodes from the new and old scan ids.
+
+        :param scan_id_old: the old scan id
+        :param scan_id_new: the new scan id
+        :param include_z: include z in traveled distance calculation
+        :return: List of instance ids in the old scan and their matching
+            correspondences in the new scan
+        """
         old_inst_positions = {}
         new_inst_positions = {}
         for inst_id, ph in self.get_cluster_position_history(
@@ -172,6 +192,13 @@ class InstanceCluster:
     def merge_two_instances(
         self, inst_id: int, other_inst_id: int, assign_inst_id: int
     ):
+        """Merge two Instance objects.
+
+        :param inst_id: the instance id of the 1st Instance object
+        :param other_inst_id: the instance id of the 2nd Instance object
+        :param assign_inst_id: the instance id to assign to the merged
+            Instance object
+        """
         assert (
             inst_id in self.instances
         ), f"Instance ID to be merged is not available: {inst_id}"
@@ -187,4 +214,8 @@ class InstanceCluster:
         self.instances.update({assign_inst_id: new_inst})
 
     def empty(self) -> bool:
+        """Check if the cluster is empty
+
+        :return: True if the cluster is empty, False if it is not
+        """
         return len(self.instances) == 0

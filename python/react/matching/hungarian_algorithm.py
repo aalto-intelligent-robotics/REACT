@@ -1,27 +1,33 @@
-from typing import Dict
+from typing import Dict, Tuple, List
 import numpy as np
 from scipy.optimize import linear_sum_assignment
+import logging
 
 from react.utils.logger import getLogger
 
-logger = getLogger(name=__name__, log_file="hungarian_algorithm.log")
+logger: logging.Logger = getLogger(
+    name=__name__,
+    consoleLevel=logging.INFO,
+    fileLevel=logging.DEBUG,
+    log_file="hungarian_algorithm.log",
+)
 
 
 def hungarian_algorithm(
     old_inst_positions: Dict[int, np.ndarray],
     new_inst_positions: Dict[int, np.ndarray],
     include_z: bool = False,
-):
-    """
-    Perform Hungarian algorithm to minimize objects' travelled distance between 2 scans
+) -> Tuple[List, List]:
+    """Perform Hungarian algorithm to minimize objects' travelled distance
+    between 2 scans.
 
-    Args:
-        old_inst_positions: Position at time t {scan_id -> xyz position}
-        new_inst_positions: Position at time t+1 {scan_id -> xyz position}
-        include_z: Include z axis when calculating travelled distance
-
-    Returns:
-        Lists of matching global ids for the reference and current scan
+    :param old_inst_positions: Position at time t {global_inst_id -> xyz
+        position}
+    :param new_inst_positions: Position at time t+1 {global_inst_id ->
+        xyz position}
+    :param include_z: Include z axis when calculating travelled distance
+    :return: Lists of matching global ids for the reference and current
+        scan
     """
     old_inst_ids = list(old_inst_positions.keys())
     new_inst_ids = list(new_inst_positions.keys())

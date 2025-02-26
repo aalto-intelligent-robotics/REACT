@@ -17,21 +17,20 @@ logger: logging.Logger = getLogger(
 
 @dataclass
 class ObjectNode:
-    """
-    Python interface for Object Nodes in Hydra DSG
+    """Python interface for Object Nodes in Hydra DSG.
 
-    Attributes:
-        scan_id: id of the scan the node is in
-        node_id: original node id in Hydra, only valid for one scan
-        class_id: semantic class label
-        name: node name, usually just semantic class
-        position: xyz coordinates of centroid, registered by Hydra
-        instance_views: library of images, stored as {map_view_id -> binary mask}
-        bbox: bounding box of node (see react.core.bounding_box)
-        embedding: visual embedding generated from embedding net (see
-            react.net.embedding_net)
-        mesh_connections: list of indices connected to current mesh (for visualization
-            only)
+    :param scan_id: id of the scan the node is in
+    :param node_id: original node id in Hydra, only valid for one scan
+    :param class_id: semantic class label
+    :param name: node name, usually just semantic class
+    :param position: xyz coordinates of centroid, registered by Hydra
+    :param instance_views: library of images, stored as {map_view_id ->
+        binary mask}
+    :param bbox: bounding box of node (see react.core.bounding_box)
+    :param embedding: visual embedding generated from embedding net (see
+        react.net.embedding_net)
+    :param mesh_connections: list of indices connected to current mesh
+        (for visualization only)
     """
 
     scan_id: int

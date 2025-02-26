@@ -27,21 +27,23 @@ logger: logging.Logger = getLogger(name=__name__, log_file="map_updater.log")
 
 @dataclass
 class ReactManager:
-    """
-    ReactManager class to manage instance clusters
+    """ReactManager class to manage instance clusters.
 
-    Attributes:
-        match_threshold: distance threshold for visual embedding comparison
-        embedding_model: embedding model to get visual embeddings, see
-            react.net.embedding_net
-        name: name of the MapUpdater object
-        include_z: whether to include z into Euclidean distance calculation for
-            Hungarian matching
-        _instance_clusters: collection of instance clusters, mapped as
-            {cluster_id -> InstanceCluster}
-        _map_views: collection of scene images, mapped as {map_view_id -> image}
-        _global_instance_id: counter to generate global instance ids for Instance class
-        _instance_cluster_id: counter to generate cluster ids for InstanceCluster class
+    :param match_threshold: visual difference threshold for visual
+        embedding comparison
+    :param embedding_model: embedding model to get visual embeddings,
+        see react.net.embedding_net
+    :param name: name of the ReactManager object
+    :param include_z: whether to include z into Euclidean distance
+        calculation for Hungarian matching
+    :param _instance_clusters: collection of instance clusters, mapped
+        as {cluster_id -> InstanceCluster}
+    :param _map_views: collection of scene images, mapped as
+        {map_view_id -> image}
+    :param _global_instance_id: counter to generate global instance ids
+        for Instance class
+    :param _instance_cluster_id: counter to generate cluster ids for
+        InstanceCluster class
     """
 
     match_threshold: float
