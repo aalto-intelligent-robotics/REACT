@@ -69,6 +69,10 @@ If you are using our Dockerfile, it the graph should be saved in `/home/ros/dsg_
 
 Unlike the original work, our version of Hydra register object nodes on an instance level, and we use an instance segmentation model (YOLO11) to retrieve the segmentation (the ROS repo for it is [here](https://github.com/aalto-intelligent-robotics/Hydra-Seg-ROS)). Along with the scene graph, we also save the instance views (binary masks of the objects) and the map views (image of the scene).
 
+### 🧠 Embedding Model training
+
+TODO
+
 ### 😎 Online Matching
 If you want to match the 3D scene graphs online, build the second graph with:
 ```bash
