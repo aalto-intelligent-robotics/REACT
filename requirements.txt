@@ -1,0 +1,20 @@
+pandas
+pillow
+yacs
+open3d
+timm
+pytorch-lightning
+tqdm
+onnx
+onnxruntime==1.8.1; python_version<"3.10"
+onnxruntime==1.12.1; python_version=="3.10"
+onnx-graphsurgeon
+onnxslim
+onnxruntime-gpu
+numpy
+pytest
+--extra-index-url https://pypi.ngc.nvidia.com
+torch==2.4.1
+torchvision==0.19.1
+tensorrt
+ultralytics

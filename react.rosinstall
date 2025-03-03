@@ -1,0 +1,40 @@
+- git:
+    local-name: config_utilities
+    uri: git@github.com:MIT-SPARK/config_utilities.git
+- git:
+    local-name: kimera_pgmo
+    uri: git@github.com:MIT-SPARK/Kimera-PGMO.git
+    version: future
+- git:
+    local-name: kimera_rpgo
+    uri: git@github.com:MIT-SPARK/Kimera-RPGO.git
+- git:
+    local-name: pose_graph_tools
+    uri: git@github.com:MIT-SPARK/pose_graph_tools.git
+- git:
+    local-name: spatial_hash
+    uri: git@github.com:MIT-SPARK/Spatial-Hash.git
+- git:
+    local-name: teaser_plusplus
+    uri: git@github.com:MIT-SPARK/TEASER-plusplus.git
+- git:
+    local-name: spark_dsg
+    uri: git@github.com:aalto-intelligent-robotics/Spark-DSG.git
+- git:
+    local-name: hydra
+    uri: git@github.com:aalto-intelligent-robotics/Hydra.git
+- git:
+    local-name: hydra_ros
+    uri: git@github.com:aalto-intelligent-robotics/Hydra-ROS.git
+- git:
+    local-name: hydra_seg_ros
+    uri: git@github.com:aalto-intelligent-robotics/Hydra-Seg-ROS.git
+- git:
+    local-name: hydra_stretch
+    uri: git@github.com:aalto-intelligent-robotics/Hydra-Stretch.git
+- git:
+    local-name: react
+    uri: git@github.com:aalto-intelligent-robotics/REACT.git
+- git:
+    local-name: react_ros
+    uri: git@github.com:aalto-intelligent-robotics/REACT-ROS.git
