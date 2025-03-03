@@ -1,0 +1,137 @@
+command_timeout = 100
+
+format = """
+$os\
+$username\
+$hostname\
+$directory\
+$docker_context\
+$python\
+$conda\
+$custom\
+$git_branch\
+$git_status\
+$cmd_duration\
+$line_break\
+$character
+"""
+
+palette = 'nord'
+
+[palettes.nord]
+bg0 = '#2E3440'
+bg1 = '#3B4252'
+bg2 = '#434C5E'
+bg3 = '#4C566A'
+fg = '#D8DEE9'
+blue1 = '#5e81ac'
+blue2 = '#81a1c1'
+blue3 = '#88c0d0'
+turquoise = '#8fbcbb'
+red = '#BF616A'
+yellow = '#EBCB8B'
+pink = '#b48ead'
+orange = '#d08770'
+green = '#A2BE8A'
+
+[character]
+success_symbol = "[](fg:green)"
+error_symbol = "[](fg:red)"
+
+[os]
+format = '[🐳]($style) '	
+style = "bold turquoise"
+disabled = false
+
+[os.symbols]
+Ubuntu = ""
+
+[username]
+style_user = 'fg bold'
+style_root = 'red bold'
+format = '[$user]($style) '
+disabled = false
+show_always = false
+
+[hostname]
+ssh_symbol = " "
+ssh_only = true
+format = '[$ssh_symbol](bold blue)@[$hostname](bold red) '
+disabled = false
+
+[directory]
+read_only = " 󰌾"
+read_only_style = "red bold"
+style = "blue2 bold"
+home_symbol = "  ~"
+format = '[$path]($style)[$read_only]($read_only_style) '
+
+[cmd_duration]
+style = 'green bold'
+format = '[ $duration]($style) '
+
+[conda]
+symbol = " "
+ignore_base = false
+format = '[$symbol$environment]($style) '
+
+[docker_context]
+style = "blue1 bold"
+symbol = " "
+format = '[$symbol$context]($style) '
+detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile', 'compose.yaml', 'compose.yml']
+
+[git_branch]
+symbol = " "
+style = "pink bold"
+format = '[$symbol$branch]($style) '
+
+[fossil_branch]
+symbol = " "
+
+[git_status]
+format = "[[$conflicted](yellow)[$untracked](218)[$modified$renamed](255)[$staged](green)[$deleted](red)($ahead_behind$stashed)]($style)"
+conflicted = " $count "
+untracked = " $count "
+modified = " $count "
+deleted = " $count "
+staged = " $count "
+renamed = " $count "
+stashed = " $count "
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
+style = "turquoise"
+
+[git_commit]
+style = "yellow bold"
+tag_symbol = '  '
+commit_hash_length = 4
+
+[lua]
+symbol = " "
+format = '[$symbol($version)]($style) '
+
+[memory_usage]
+symbol = "󰍛 "
+format = '$symbol[$ram( | $swap)]($style) '
+
+[package]
+symbol = "󰏗 "
+format = '[$symbol$version]($style) '
+
+[python]
+symbol = " "
+format = '[${symbol}$virtualenv]($style) '
+detect_files = []
+detect_extensions = []
+
+[sudo]
+format = '[as $symbol] '
+
+
+[custom.ros]
+style = "turquoise bold"
+command = "echo '󱜙 '$ROS_DISTRO''"
+when = '[[ -v ROS_DISTRO ]]'
+format = '[$output]($style) '

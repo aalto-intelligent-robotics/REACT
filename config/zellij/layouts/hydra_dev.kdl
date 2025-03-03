@@ -1,0 +1,26 @@
+layout { 
+    default_tab_template {
+        // the default zellij tab-bar and status bar plugins
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+    tab name="dev" focus=true hide_floating_panes=true{
+        pane cwd="/home/ros/hydra_ws/src/hydra" borderless=true {
+        }
+    }
+    tab name="test"{
+        pane split_direction="vertical"{
+            pane cwd="/home/ros/hydra_ws/src/hydra" borderless=true split_direction="horizontal" {}
+            pane cwd="/home/ros/hydra_ws/src/hydra" borderless=true split_direction="horizontal" {}
+        }
+    }
+    tab name="output"{
+        pane cwd="/home/ros/dsg_output" borderless=true {
+        }
+    }
+}

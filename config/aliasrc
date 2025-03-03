@@ -1,0 +1,14 @@
+#!/usr/bin/zsh
+
+alias vim="nvim"
+alias vimc="nvim --clean"
+alias viml="nvim +'colorscheme github_light'"
+alias open="xdg-open"
+alias ls="eza --icons -s extension -l"
+alias lsa="ls -al"
+alias tree="ls -T"
+# open text file in nvim
+alias nnn="nnn -ed"
+alias du="dust"
+alias cp="cp -iv"
+alias mv="mv -iv"

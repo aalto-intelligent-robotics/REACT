@@ -1,0 +1,36 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+    tab name="dev" {
+        pane cwd="/home/ros/hydra_ws/src"
+    } 
+    tab name="build" {
+        pane cwd="/home/ros/hydra_ws"
+    } 
+    tab name="run" split_direction="vertical" {
+        pane cwd="/home/ros" 
+        pane split_direction="horizontal"  {
+            pane cwd="/home/ros/bags/stretch/kitchen_runs" 
+            pane
+        }
+    }
+    tab name="config" {
+        pane cwd="/home/ros/hydra_ws/src/hydra_stretch/config/stretch"
+    } 
+    tab name="matching dev" split_direction="vertical" {
+        pane cwd="/home/ros/hydra_ws/src/instance_matching/python/instance_matching/"
+    } 
+    tab name="matching run" split_direction="vertical" {
+        pane cwd="/home/ros/hydra_ws/src/instance_matching/app/"
+    } 
+    tab name="roscore" {
+        pane command="roscore"
+    } 
+}
