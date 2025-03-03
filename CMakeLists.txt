@@ -10,7 +10,6 @@ endif()
 
 find_package(catkin REQUIRED COMPONENTS
   hydra_seg_ros
-  hydra_stretch_msgs
   roscpp
   rospy
 )
