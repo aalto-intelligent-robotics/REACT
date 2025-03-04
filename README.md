@@ -1,5 +1,8 @@
 # 🚀🚀🚀 REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph
 
+> **:warning: Warning**<br>
+> This repository and some of its requirements are under active development, so many bugs 🐞 and spaghetti codes 🍝 are expected.
+
 ## 🚀 Overview
 
 ![REACT gif](./assets/react_cut.gif)
