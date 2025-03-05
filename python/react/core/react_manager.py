@@ -11,7 +11,7 @@ import cv2
 from react.core.object_node import ObjectNode
 from react.core.instance import Instance
 from react.core.instance_cluster import InstanceCluster
-from react.net.embedding_net import EmbeddingNet
+from react_embedding.embedding_net import EmbeddingNet
 from react.matching.match_results import MatchResults
 from react.utils.logger import getLogger
 from react.utils.read_data import (

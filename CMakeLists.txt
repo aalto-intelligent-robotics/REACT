@@ -10,6 +10,7 @@ endif()
 
 find_package(catkin REQUIRED COMPONENTS
   hydra_seg_ros
+  react_embedding
   roscpp
   rospy
 )

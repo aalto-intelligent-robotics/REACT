@@ -169,30 +169,29 @@ def are_same_objects(node: ObjectNode, other_node: ObjectNode):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s0", "--scene_graph_0", type=str, default="coffee_room_1")
-    parser.add_argument("-s1", "--scene_graph_1", type=str, default="coffee_room_2")
+    parser.add_argument("-s0", "--scene_graph_0", type=str, default="/home/ros/dsg_output/coffee_room_1")
+    parser.add_argument("-s1", "--scene_graph_1", type=str, default="/home/ros/dsg_output/coffee_room_2")
     opts = parser.parse_args()
     logging.basicConfig(
         format="[%(asctime)s %(filename)s][%(levelname)s]: %(message)s",
         level=logging.INFO,
     )
 
-    DSG_PATH = "/home/ros/dsg_output/"
     SCENE_GRAPH_0 = opts.scene_graph_0
     SCENE_GRAPH_1 = opts.scene_graph_1
     SCAN_ID_0 = 0
     SCAN_ID_1 = 1
-    with open(f"{DSG_PATH}/{SCENE_GRAPH_0}/instance_views/instance_views.json") as f:
+    with open(f"{SCENE_GRAPH_0}/instance_views/instance_views.json") as f:
         instance_views_data_0 = json.load(f)
-    with open(f"{DSG_PATH}/{SCENE_GRAPH_0}/map_views/map_views.json") as f:
+    with open(f"{SCENE_GRAPH_0}/map_views/map_views.json") as f:
         map_views_data_0 = json.load(f)
-    with open(f"{DSG_PATH}/{SCENE_GRAPH_0}/backend/dsg.json") as f:
+    with open(f"{SCENE_GRAPH_0}/backend/dsg.json") as f:
         dsg_data_0 = json.load(f)
-    with open(f"{DSG_PATH}/{SCENE_GRAPH_1}/instance_views/instance_views.json") as f:
+    with open(f"{SCENE_GRAPH_1}/instance_views/instance_views.json") as f:
         instance_views_data_1 = json.load(f)
-    with open(f"{DSG_PATH}/{SCENE_GRAPH_1}/map_views/map_views.json") as f:
+    with open(f"{SCENE_GRAPH_1}/map_views/map_views.json") as f:
         map_views_data_1 = json.load(f)
-    with open(f"{DSG_PATH}/{SCENE_GRAPH_1}/backend/dsg.json") as f:
+    with open(f"{SCENE_GRAPH_1}/backend/dsg.json") as f:
         dsg_data_1 = json.load(f)
 
     # MAP 0

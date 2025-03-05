@@ -9,6 +9,7 @@
   <depend>roscpp</depend>
   <depend>rospy</depend>
   <depend>hydra_seg_ros</depend>
+  <depend>react_embedding</depend>
   <export>
   </export>
 </package>

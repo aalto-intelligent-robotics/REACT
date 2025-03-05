@@ -174,13 +174,21 @@ rosbag play --clock path/to/2nd/rosbag
 With 2 graphs built, perform offline matching by going to `app/` and run:
 
 ```bash
+roscd react/app
 python3 offline_matching.py -s <scene_graph_name>
 ```
 
 ## 📈 REACT Evaluation
 
-With 2 graphs built, you can evaluate REACT's performance vs a non-clustering configuration by running:
+With 2 graphs built, extract the ground truth information with:
+```bash
+roscd react/scripts/
+python3 get_gt.py -s0 absolute/path/to/3dsg0 -s1 absolute/path/to/3dsg1
+```
+
+You can evaluate REACT's performance vs a non-clustering configuration by running:
 
 ```bash
+roscd react/app/
 python3 offline_eval.py -s <scene_graph_name>
 ```
