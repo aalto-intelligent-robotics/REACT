@@ -19,27 +19,6 @@ from react.utils.viz import draw_base_dsg, draw_matching_dsg
 
 logger = getLogger(name=__name__, log_file="offline_matching.log")
 
-"""
-TODO: Create yaml file for all params here
-Params
-- COFFEE ROOM: 
-  weights: "/home/ros/models/embeddings/iros25/embedding_coffee_room_2.pth"
-  backbone: "efficientnet_b2"
-  match_threshold: 2.5
-- FLAT:
-  weights: "/home/ros/models/embeddings/iros25/embedding_flat.pth"
-  backbone: "efficientnet_b2"
-  match_threshold: 1.0
-- LAB FRONT:
-  weights: "/home/ros/models/embeddings/iros25/embedding_lab_front.pth"
-  backbone: "efficientnet_b2"
-  match_threshold: 2.0
-- STUDY HALL:
-  weights: "/home/ros/models/embeddings/iros25/embedding_study_hall.pth"
-  backbone: "efficientnet_b2"
-  match_threshold: 2.2
-"""
-
 
 def run(
     m_thresh_f1: List,
@@ -201,22 +180,39 @@ if __name__ == "__main__":
     np.save(f"./exp_outputs/{args.scene_graph}/n_thresh_f1.npy", n_thresh_f1)
     np.save(f"./exp_outputs/{args.scene_graph}/all_thresh_f1.npy", all_thresh_f1)
     np.save(f"./exp_outputs/{args.scene_graph}/travel_dist.npy", travel_dist)
-    np.save(f"./exp_outputs/{args.scene_graph}/m_thresh_f1_greedy.npy", m_thresh_f1_greedy)
-    np.save(f"./exp_outputs/{args.scene_graph}/a_thresh_f1_greedy.npy", a_thresh_f1_greedy)
-    np.save(f"./exp_outputs/{args.scene_graph}/n_thresh_f1_greedy.npy", n_thresh_f1_greedy)
-    np.save(f"./exp_outputs/{args.scene_graph}/all_thresh_f1_greedy.npy", all_thresh_f1_greedy)
-    np.save(f"./exp_outputs/{args.scene_graph}/travel_dist_greedy.npy", travel_dist_greedy)
+    np.save(
+        f"./exp_outputs/{args.scene_graph}/m_thresh_f1_greedy.npy", m_thresh_f1_greedy
+    )
+    np.save(
+        f"./exp_outputs/{args.scene_graph}/a_thresh_f1_greedy.npy", a_thresh_f1_greedy
+    )
+    np.save(
+        f"./exp_outputs/{args.scene_graph}/n_thresh_f1_greedy.npy", n_thresh_f1_greedy
+    )
+    np.save(
+        f"./exp_outputs/{args.scene_graph}/all_thresh_f1_greedy.npy",
+        all_thresh_f1_greedy,
+    )
+    np.save(
+        f"./exp_outputs/{args.scene_graph}/travel_dist_greedy.npy", travel_dist_greedy
+    )
     fig, ax = plt.subplots(5)
-    ax[0].plot(m_thresh_f1[:, 0], m_thresh_f1[:, 1], label='REACT')
-    ax[0].plot(m_thresh_f1_greedy[:, 0], m_thresh_f1_greedy[:, 1], label='w/o cluster')
-    ax[1].plot(a_thresh_f1[:, 0], a_thresh_f1[:, 1], label='REACT')
-    ax[1].plot(a_thresh_f1_greedy[:, 0], a_thresh_f1_greedy[:, 1], label='w/o cluster')
-    ax[2].plot(n_thresh_f1[:, 0], n_thresh_f1[:, 1], label='REACT')
-    ax[2].plot(n_thresh_f1_greedy[:, 0], n_thresh_f1_greedy[:, 1], label='w/o cluster')
-    ax[3].plot(all_thresh_f1[:, 0], all_thresh_f1[:, 1], label='REACT')
-    ax[3].plot(all_thresh_f1_greedy[:, 0], all_thresh_f1_greedy[:, 1], label='w/o cluster')
-    ax[4].plot(travel_dist_greedy[:, 0], travel_dist[:, 1], label='REACT')
-    ax[4].plot(travel_dist_greedy[:, 0], travel_dist_greedy[:, 1], label='w/o cluster')
+    ax[0].plot(m_thresh_f1[:, 0], m_thresh_f1[:, 1], label="REACT")
+    ax[0].plot(m_thresh_f1_greedy[:, 0], m_thresh_f1_greedy[:, 1], label="w/o cluster")
+    ax[0].set_ylim([0, 1])
+    ax[1].plot(a_thresh_f1[:, 0], a_thresh_f1[:, 1], label="REACT")
+    ax[1].plot(a_thresh_f1_greedy[:, 0], a_thresh_f1_greedy[:, 1], label="w/o cluster")
+    ax[1].set_ylim([0, 1])
+    ax[2].plot(n_thresh_f1[:, 0], n_thresh_f1[:, 1], label="REACT")
+    ax[2].plot(n_thresh_f1_greedy[:, 0], n_thresh_f1_greedy[:, 1], label="w/o cluster")
+    ax[2].set_ylim([0, 1])
+    ax[3].plot(all_thresh_f1[:, 0], all_thresh_f1[:, 1], label="REACT")
+    ax[3].plot(
+        all_thresh_f1_greedy[:, 0], all_thresh_f1_greedy[:, 1], label="w/o cluster"
+    )
+    ax[3].set_ylim([0, 1])
+    ax[4].plot(travel_dist_greedy[:, 0], travel_dist[:, 1], label="REACT")
+    ax[4].plot(travel_dist_greedy[:, 0], travel_dist_greedy[:, 1], label="w/o cluster")
     ax[0].legend()
     ax[1].legend()
     ax[2].legend()
