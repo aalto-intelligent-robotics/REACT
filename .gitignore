@@ -5,3 +5,5 @@ dsg_output
 models
 debug
 logs
+zshrc.d
+config

@@ -38,3 +38,6 @@
 - git:
     local-name: react_ros
     uri: git@github.com:aalto-intelligent-robotics/REACT-ROS.git
+- git:
+    local-name: react_embedding
+    uri: git@github.com:aalto-intelligent-robotics/REACT-Embedding.git
