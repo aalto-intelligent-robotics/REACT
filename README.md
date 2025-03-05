@@ -102,7 +102,7 @@ To start Hydra:
 ```bash
 roslaunch hydra_stretch hydra_stretch_yolo.launch slam_mode:=slam dsg_output_prefix:=<scene_graph_name>_1 2> >(grep -v 'TF_REPEATED_DATA\|at line 278\|buffer_core')
 ```
-> **:note: Note**<br>
+> **Note**<br>
 > You can configure Hydra by going to `hydra_stretch/config/stretch` and edit the YAML files.
 
 Then, start playing the ROS bag in a separate terminal:
