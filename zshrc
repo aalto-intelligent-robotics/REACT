@@ -100,4 +100,4 @@ eval "$(zoxide init zsh)"
 # eval "$(starship init zsh)"
 #
 # For Pyright to work with ros packages
-export PYTHONPATH=$PYTHONPATH:$HOME/hydra_ws/src/hydra_seg_ros/python:$HOME/hydra_ws/src/instance_matching/python:$HOME/hydra_ws/src/instance_matching_ros/python:$HOME/hydra_ws/src/react_ros/python:$HOME/hydra_ws/src/react/python
+export PYTHONPATH=$PYTHONPATH:$HOME/hydra_ws/src/hydra_seg_ros/python:$HOME/hydra_ws/src/instance_matching/python:$HOME/hydra_ws/src/instance_matching_ros/python:$HOME/hydra_ws/src/react_ros/python:$HOME/hydra_ws/src/react/python:$HOME/hydra_ws/src/react_embedding/python
