@@ -5,7 +5,9 @@
 
 ## 🚀 Overview
 
-![REACT gif](./assets/react_cut.gif)
+<div align="center">
+    <img src="./assets/react_cut.gif">
+</div>
 
 This repository contains code to cluster object nodes of a 3D scene graph based on their appearance and match them with their correspondences on a reference graph in real-time. This repository is based on:
 
