@@ -28,7 +28,9 @@ If you do not want to use Docker for some reason, REACT was tested on Ubuntu 20.
 > **:warning: Warning**<br>
 > We currently have no plan to support other platform. Issues requesting support on other platforms (e.g., Ubuntu 18.04, Windows) will be automatically closed. If you are not on Ubuntu 20.04, we highly recommend using our Docker image.
 
-## 🐳 Setting up with Docker
+## 🧰 Building REACT
+
+### 🐳 Setting up with Docker
 
 Clone the Docker repo and build the image:
 
@@ -47,7 +49,7 @@ docker compose up react -d
 docker exec -it react_base bash
 ```
 
-## 🧰 Building REACT
+### ⚙ Building dependencies
 
 If you do not have vcs tool install, install it with:
 
@@ -98,6 +100,8 @@ To start Hydra:
 ```bash
 roslaunch hydra_stretch hydra_stretch_yolo.launch slam_mode:=slam dsg_output_prefix:=<scene_graph_name>_1 2> >(grep -v 'TF_REPEATED_DATA\|at line 278\|buffer_core')
 ```
+> **:note: Note**<br>
+> You can configure Hydra by going to `hydra_stretch/config/stretch` and edit the YAML files.
 
 Then, start playing the ROS bag in a separate terminal:
 
@@ -113,24 +117,27 @@ rosservice call /hydra_ros_node/save_graph
 
 If you are using our Dockerfile, it the graph should be saved in `/home/ros/dsg_output`.
 
-Unlike the original work, our version of Hydra register object nodes on an instance level, and we use an instance segmentation model (YOLO11) to retrieve the segmentation (the ROS repo for it is [here](https://github.com/aalto-intelligent-robotics/Hydra-Seg-ROS)). Along with the scene graph, we also save the instance views (binary masks of the objects) in `instance_views` and the map views (image of the scene) in `map_views`.
+Unlike the original work, our version of Hydra register object nodes on an instance level, and we use an instance segmentation model (YOLO11) to retrieve the segmentation (the ROS repo for it is [here](https://github.com/aalto-intelligent-robotics/Hydra-Seg-ROS)). Along with the scene graph, we also save the instance views (binary masks of the objects + metadata in instance_views.json) in `instance_views` and the map views (images of the scene + metadata in map_views.json) in `map_views`.
 
 ### 🧠 Embedding Model training
 
 Due to the stochastic nature of training machine learning models, we provide pretrained models for each scene [here](https://drive.google.com/drive/folders/1cfcZvqPy_1QZ2IkBLu1xnHGHMWdpgQhK?usp=sharing) to re-produce our results.
 
-If you want to train your own model for your own environment, we provide the code [here](https://github.com/aalto-intelligent-robotics/REACT-Embedding). To train a model, you first need to export the training dataset from a [pre-built 3D scene graph](#🗺-build-the-initial-3d-scene-graph). Export the dataset:
+If you want to train your own model for your own environment, we provide the code [here](https://github.com/aalto-intelligent-robotics/REACT-Embedding). To train a model, you first need to export the training dataset from a [pre-built 3D scene graph](#%F0%9F%97%BA-build-the-initial-3d-scene-graph). Export the dataset:
+
 ```bash
 roscd react_embedding/scripts/
 python3 extract_data.py -s path/to/scene/graph -o instance/views/path
 ```
 
 You will be prompted to identify whether 2 objects are the same base on a series of image comparisons. Answer y/n. The results will be saved in the  pre-determined output path. After that, split the data into train and validation sets with:
+
 ```bash
 python3 train_test_split.py -s instance/views/path -o dataset/dir
 ```
 
 Train the model with:
+
 ```bash
 python3 train.py -d dataset/dir -o embedding.pth
 ```
@@ -180,7 +187,8 @@ python3 offline_matching.py -s <scene_graph_name>
 
 ## 📈 REACT Evaluation
 
-With 2 graphs built, extract the ground truth information with:
+With 2 graphs built, extract the ground truth (GT) information with. As mentioned in our paper, this GT ignores errors from the 3D scene graph construction side, e.g., merging multiple nodes together:
+
 ```bash
 roscd react/scripts/
 python3 get_gt.py -s0 absolute/path/to/3dsg0 -s1 absolute/path/to/3dsg1
