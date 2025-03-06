@@ -11,9 +11,21 @@
 
 This repository contains code to cluster object nodes of a 3D scene graph based on their appearance and match them with their correspondences on a reference graph in real-time. This repository is based on:
 
-[REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph](https://arxiv.org)
+[REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph](https://arxiv.org/abs/2503.03412)
 
 If you find this code relevant for your work, please consider citing our paper. A bibtex entry is provided below:
+
+```bibtex
+@misc{nguyen2025reactrealtimeefficientattribute,
+      title={REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph}, 
+      author={Phuoc Nguyen and Francesco Verdoja and Ville Kyrki},
+      year={2025},
+      eprint={2503.03412},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2503.03412}, 
+}
+```
 
 ## 🙏 Acknowledgements
 
@@ -102,6 +114,7 @@ To start Hydra:
 ```bash
 roslaunch hydra_stretch hydra_stretch_yolo.launch slam_mode:=slam dsg_output_prefix:=<scene_graph_name>_1 2> >(grep -v 'TF_REPEATED_DATA\|at line 278\|buffer_core')
 ```
+
 > **Note**<br>
 > You can configure Hydra by going to `hydra_stretch/config/stretch` and edit the YAML files.
 
