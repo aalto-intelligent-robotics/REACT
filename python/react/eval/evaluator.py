@@ -8,6 +8,18 @@ from react.matching.match_results import MatchResults
 
 @dataclass
 class ReactEvaluator:
+    """Class to evaluate the instance matching results of REACT.
+
+    :param ground_truth: Ground truth information from a yaml file.
+    :param match_results: Instance matching results.
+    :param results_cnt: Counts of TP, FP, FN for Matched, Absent, and
+        New sets.
+    :param old_checked_id: Instance IDs that have already been checked
+        from the old scan.
+    :param new_checked_id: Instance IDs that have already been checked
+        from the new scan.
+    """
+
     ground_truth: GroundTruth
     match_results: MatchResults
     results_cnt: Dict[str, int] = field(default_factory=dict)
@@ -15,6 +27,16 @@ class ReactEvaluator:
     new_checked_id: Set = field(default_factory=set)
 
     def is_correct_match(self, pred_match: Tuple[int, int]):
+        """Check if a predicted match is correct.
+
+        This method checks if a predicted match exists in the ground
+        truth matches.
+
+        :param pred_match: A tuple containing the old and new node IDs
+            of the predicted match.
+        :return: True if the predicted match is correct, False
+            otherwise.
+        """
         old_node_id = pred_match[0]
         new_node_id = pred_match[1]
         for gt_match in self.ground_truth.matches.values():
@@ -26,6 +48,16 @@ class ReactEvaluator:
         return False
 
     def is_completely_absent(self, pred: int):
+        """Check if a predicted node is completely absent.
+
+        This method checks if a predicted node from the old scan is
+        found in any ground truth matches, meaning that this object
+        category is only seen in the old scan.
+
+        :param pred: The predicted node ID.
+        :return: True if the predicted node is completely absent, False
+            otherwise.
+        """
         for gt_match in self.ground_truth.matches.values():
             old_gt_cluster = gt_match[self.ground_truth.old_scan_id]
             if pred in old_gt_cluster:
@@ -33,6 +65,16 @@ class ReactEvaluator:
         return True
 
     def is_completely_new(self, pred: int):
+        """Check if a predicted node is completely new.
+
+        This method checks if a predicted node from the new scan is
+        found in any ground truth matches, meaning that this object
+        category is novel and is only seen in the new scan.
+
+        :param pred: The predicted node ID.
+        :return: True if the predicted node is completely new, False
+            otherwise.
+        """
         for gt_match in self.ground_truth.matches.values():
             new_gt_cluster = gt_match[self.ground_truth.new_scan_id]
             if pred in new_gt_cluster:
@@ -40,6 +82,13 @@ class ReactEvaluator:
         return True
 
     def count_matched_results(self):
+        """Count the matched results (TP, FP, FN) for matched, absent, and new
+        sets.
+
+        This method counts the true positives, false positives, and
+        false negatives for matched, absent, and new sets based on the
+        ground truth and predicted match results.
+        """
         # Matched
         tp_m = 0
         fp_m = 0
@@ -84,7 +133,7 @@ class ReactEvaluator:
             new_c = cluster[tmp_gt.new_scan_id]
 
             pred_num_abs = len(old_c)
-            gt_num_abs = tmp_gt.get_cluster_num_abs(cid)
+            gt_num_abs = tmp_gt.get_cluster_num_absent(cid)
             if pred_num_abs < gt_num_abs:
                 fn_a += gt_num_abs - pred_num_abs
                 tp_a += pred_num_abs
@@ -113,6 +162,15 @@ class ReactEvaluator:
         }
 
     def count_new_results(self) -> Dict[str, int]:
+        """Count the true positives, false positives, and false negatives for
+        new results.
+
+        This method counts the true positives (TP), false positives
+        (FP), and false negatives (FN) specifically for new results.
+
+        :return: A dictionary containing the counts of TP, FP, and FN
+            for new results.
+        """
         tp = 0
         fp = 0
 
@@ -120,6 +178,18 @@ class ReactEvaluator:
         return {"tp": tp, "fp": fp, "fn": fn}
 
     def calculate_metrics(self, tp, fp, fn):
+        """Calculate precision, recall, and F1-score.
+
+        This method calculates the precision, recall, and F1-score based
+        on the true positives (TP), false positives (FP), and false
+        negatives (FN).
+
+        :param tp: The number of true positives.
+        :param fp: The number of false positives.
+        :param fn: The number of false negatives.
+        :return: A dictionary containing the precision, recall, and
+            F1-score.
+        """
         if tp == 0:
             pre = 0
             rec = 0
@@ -131,6 +201,16 @@ class ReactEvaluator:
         return {"pre": pre, "rec": rec, "f1": f1}
 
     def get_metrics(self) -> Dict[str, Dict[str, int]]:
+        """Get precision, recall, and F1-score metrics for matched, absent,
+        new, and all sets.
+
+        This method calculates and returns the precision, recall, and
+        F1-score metrics for matched (m), absent (a), new (n), and all
+        sets combined.
+
+        :return: A dictionary containing the precision, recall, and
+            F1-score metrics for each set.
+        """
         pr = {}
         pr["m"] = {}
         pr["m"] = self.calculate_metrics(

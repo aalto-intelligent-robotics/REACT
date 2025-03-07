@@ -24,10 +24,8 @@ from superglue.models.matching import Matching as SuperGlueMatching
 
 
 class SPGMatching(nn.Module):
-    """
-    Implement matching between images using SuperGlue
-    github.com/magicleap/SuperGluePretrainedNetwork
-    """
+    """Implement matching between images using SuperGlue
+    github.com/magicleap/SuperGluePretrainedNetwork."""
 
     def __init__(
         self,
@@ -65,7 +63,8 @@ class SPGMatching(nn.Module):
         show_keypoints=False,
         small_text: List[str] = [],
     ) -> None:
-        """Visualizes matching inference using matplotlib and saves the result to disk"""
+        """Visualizes matching inference using matplotlib and saves the result
+        to disk."""
 
         def plot_image_pair(imgs: List[np.ndarray], dpi: int = 200) -> None:
             fig, ax = plt.subplots(1, 2, figsize=(7.5, 4), dpi=dpi)
@@ -164,7 +163,8 @@ class SPGMatching(nn.Module):
         step: int,
         filename: str = None,
     ) -> None:
-        """Visualize the input/output of running SuperPoint and SuperGlue inference"""
+        """Visualize the input/output of running SuperPoint and SuperGlue
+        inference."""
         if not self.print_images:
             return
 
@@ -218,7 +218,7 @@ class SPGMatching(nn.Module):
             )
 
     def _preprocess_image(self, img: np.ndarray) -> Tensor:
-        """Prepare an image for SuperPoint inference"""
+        """Prepare an image for SuperPoint inference."""
         img_in = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
         img_in = img_in.astype("float32") / 255.0
         img_in = torch.from_numpy(img_in)[None, None]
@@ -228,7 +228,7 @@ class SPGMatching(nn.Module):
     def get_goal_image_keypoints(
         self, goal_image: np.ndarray, idx: int = 0
     ) -> Tuple[np.ndarray, Dict[str, Any]]:
-        """Run SuperPoint inference on a single image"""
+        """Run SuperPoint inference on a single image."""
         goal_img = self._preprocess_image(goal_image)
         pred = self.matcher.superpoint({"image": goal_img})
         return goal_img, {f"{k}{idx}": v for k, v in pred.items()}
@@ -247,6 +247,7 @@ class SPGMatching(nn.Module):
     ):
         """Computes and describes keypoints using SuperPoint and matches
         keypoints between 2 RGB images using SuperGlue.
+
         Either goal_image or goal_image_keypoints must be provided.
         Returns:
             tensor of goal image keypoints

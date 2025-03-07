@@ -18,6 +18,11 @@ logger: logging.Logger = getLogger(
 class BoundingBox:
     """Bounding box class for object nodes.
 
+    This class represents a bounding box defined by its minimum and
+    maximum bounds in 3D space. It provides methods to create an Open3D
+    AxisAlignedBoundingBox for visualization, as well as to get the
+    dimensions and the center of the bounding box.
+
     :param min_bounds: min x, y, z (in m)
     :param max_bounds: max x, y, z (in m)
     """
@@ -25,11 +30,17 @@ class BoundingBox:
     min_bounds: np.ndarray
     max_bounds: np.ndarray
 
-    def create_o3d_aabb(self, color: List) -> o3d.geometry.AxisAlignedBoundingBox:
-        """Create an Open3d AxisAlignedBoundingBox for visualization.
+    def create_o3d_aabb(
+        self, color: List[float]
+    ) -> o3d.geometry.AxisAlignedBoundingBox:
+        """Create an Open3D AxisAlignedBoundingBox for visualization.
 
-        :param color: the color of the bbox
-        :return: an Open3d AxisAlignedBoundingBox
+        This method creates and returns an Open3D AxisAlignedBoundingBox
+        object with the specified color for visualization purposes.
+
+        :param color: The RGB color of the bounding box normalized to
+            [0,1].
+        :return: The Open3D AxisAlignedBoundingBox object.
         """
         bbox_o3d = o3d.geometry.AxisAlignedBoundingBox(
             min_bound=self.min_bounds, max_bound=self.max_bounds
@@ -38,17 +49,23 @@ class BoundingBox:
         return bbox_o3d
 
     def get_dims(self) -> np.ndarray:
-        """Returns the bbox dimensions.
+        """Get the dimensions of the bounding box.
 
-        :return: the bbox dimensions (length, width, height)
+        This method returns the dimensions (length, width, height) of
+        the bounding box by calculating the differences between the
+        maximum and minimum bounds.
+
+        :return: The dimensions of the bounding box (length, width,
+            height).
         """
         return self.max_bounds - self.min_bounds
 
     def get_center(self) -> np.ndarray:
-        """Returns the center of the bounding box (in min and max bounds'
-        coordinates)
+        """Get the center of the bounding box.
 
-        :return: the center of the bounding box (in min and max bounds'
-            coordinates)
+        This method returns the center coordinates of the bounding box
+        by averaging the minimum and maximum bounds.
+
+        :return: The center coordinates of the bounding box.
         """
         return self.max_bounds - (self.get_dims() / 2)

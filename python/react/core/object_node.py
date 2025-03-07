@@ -43,7 +43,7 @@ class ObjectNode:
     embedding: Union[torch.Tensor, None] = None
     mesh_connections: Set[int] = field(default_factory=set)
 
-    def __str__(self) -> str:
+    def pretty_print(self) -> str:
         node_str = (
             "\n🌠 Node info:\n"
             + f"- Scan ID: {self.scan_id}\n"

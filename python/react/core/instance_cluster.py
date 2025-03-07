@@ -20,18 +20,26 @@ logger: logging.Logger = getLogger(
 
 @dataclass
 class InstanceCluster:
-    """Python interface for REACT Instance Cluster for managing groups of
-    ObjectNode that represent identical objects.
+    """Python interface for REACT Instance Cluster for managing Instance groups
+    that represent identical objects.
 
-    :param cluster_id: id of the cluster
-    :param instances: a collection of instances {global_instance_id ->
-        Instance}
+    :param cluster_id: ID of the cluster.
+    :param instances: A collection of instances mapped by their global
+        instance ID.
     """
 
     cluster_id: int
     instances: Dict[int, Instance]
 
-    def __str__(self) -> str:
+    def pretty_print(self) -> str:
+        """Return a string representation of the instance cluster.
+
+        This method provides a detailed string representation of the
+        instance cluster, including its ID, class ID, name, embedding,
+        and instances.
+
+        :return: A string representation of the instance cluster.
+        """
         node_str = (
             "\n🌍 Instance Cluster info:\n"
             + f"- Cluster ID: {self.cluster_id}\n"
@@ -41,14 +49,17 @@ class InstanceCluster:
             + f"- Instances:\n"
         )
         for instance in self.instances.values():
-            node_str += instance.__str__()
+            node_str += instance.pretty_print()
         node_str += "\n"
         return node_str
 
     def get_class_id(self) -> int:
-        """Get the class id of the instance cluster.
+        """Get the class ID of the instance cluster.
 
-        :return: the class id
+        This method returns the class ID of the instance cluster by
+        accessing the class ID of the first instance.
+
+        :return: The class ID of the instance cluster.
         """
         instance = next(iter(self.instances.values()))
         return instance.get_class_id()
@@ -56,27 +67,32 @@ class InstanceCluster:
     def get_name(self) -> str:
         """Get the name of the instance cluster.
 
-        :return: the name of the instance cluster
+        This method returns the name of the instance cluster by
+        accessing the name of the first instance.
+
+        :return: The name of the instance cluster.
         """
         instance = next(iter(self.instances.values()))
         return instance.get_name()
 
     def get_local_node_id(self, scan_id: int, global_object_id: int) -> int:
-        """Return the id of an ObjectNode given a scan id and the global object
-        id.
+        """Return the ID of an ObjectNode given a scan ID and the global object
+        ID.
 
-        :param scan_id: the scan id of the scene
-        :param global_object_id: the global object id registered in the
-            object cluster
-        :return: the ObjectNode id
+        :param scan_id: The scan ID of the scene.
+        :param global_object_id: The global object ID registered in the
+            object cluster.
+        :return: The ObjectNode ID.
         """
         return self.instances[global_object_id].node_history[scan_id].node_id
 
     def get_embedding(self) -> Tensor:
-        """Return the average embedding for the cluster. Note that this takes
-        the weighted average depending on how many images a node has.
+        """Return the average embedding for the cluster.
 
-        :return: The average emdbedding for the cluster
+        This method calculates the weighted average embedding for the
+        cluster based on the number of images a node has.
+
+        :return: The average embedding for the cluster.
         """
         embedding = None
         num_imgs = 0
@@ -104,9 +120,9 @@ class InstanceCluster:
         """Get the position history of the nodes for specified scans in the
         cluster.
 
-        :param scan_ids: scan ids to get history from
-        :return: position histories of instances within cluster mapped
-            as {instance_id -> {scan_id -> pos}}
+        :param scan_ids: Scan IDs to get history from.
+        :return: Position histories of instances within the cluster
+            mapped as {instance_id -> {scan_id -> pos}}.
         """
         ph = {}
         for instance_id, instance in self.instances.items():
@@ -118,10 +134,10 @@ class InstanceCluster:
     ) -> Dict[int, Dict[int, ObjectNode]]:
         """Get the object node history for specified scans in the cluster.
 
-        :param scan_ids: scan ids to get history from. set to [] to
-            select from all scans
-        :return: object nodes histories of instances within cluster
-            mapped as {instance_id -> {scan_id -> object_node}}
+        :param scan_ids: Scan IDs to get history from. Set to [] to
+            select from all scans.
+        :return: Object nodes histories of instances within the cluster
+            mapped as {instance_id -> {scan_id -> object_node}}.
         """
         nh = {}
         for instance_id, instance in self.instances.items():
@@ -138,15 +154,20 @@ class InstanceCluster:
         return nh
 
     def is_match(
-        self, other_cluster: "InstanceCluster", match_threshold: float
+        self, other_cluster: "InstanceCluster", visual_difference_threshold: float
     ) -> bool:
         """Compare with another InstanceCluster.
 
-        :param other_cluster: the other cluster
-        :param match_threshold: the visual difference threshold
-        :return: True if 2 clusters represent similar objects according
-            to the visual difference thresholds, False if they are not
-            the same
+        This method compares the current instance cluster with another
+        instance cluster to determine if they represent similar objects
+        based on a visual difference threshold.
+
+        :param other_cluster: The other instance cluster.
+        :param visual_difference_threshold: The visual difference
+            threshold.
+        :return: True if the two clusters represent similar objects
+            according to the visual difference threshold, False
+            otherwise.
         """
         dist = torch.nn.functional.pairwise_distance(
             self.get_embedding(), other_cluster.get_embedding()
@@ -156,22 +177,26 @@ class InstanceCluster:
             + f" - {other_cluster.get_name()} {other_cluster.cluster_id}"
             + f": {dist}"
         )
-        if dist <= match_threshold:
+        if dist <= visual_difference_threshold:
             return True
         return False
 
     def match_position(
         self, scan_id_old: int, scan_id_new: int, include_z: bool = False
     ) -> Tuple[List, List]:
-        """Perform instance matching by minimizing traveled distance of all
-        objects using Hungarian algorithm on Instances which contains 2
-        ObjectNodes from the new and old scan ids.
+        """Perform instance matching by minimizing traveled distance of objects
+        using the Hungarian algorithm.
 
-        :param scan_id_old: the old scan id
-        :param scan_id_new: the new scan id
-        :param include_z: include z in traveled distance calculation
-        :return: List of instance ids in the old scan and their matching
-            correspondences in the new scan
+        This method uses the Hungarian algorithm on instances that
+        contain two ObjectNodes from the new and old scan IDs to perform
+        instance matching by minimizing the traveled distance.
+
+        :param scan_id_old: The old scan ID.
+        :param scan_id_new: The new scan ID.
+        :param include_z: Whether to include the z-coordinate in
+            distance calculations. Default is False.
+        :return: A tuple containing lists of instance IDs in the old
+            scan and their matching correspondences in the new scan.
         """
         old_inst_positions = {}
         new_inst_positions = {}
@@ -194,10 +219,14 @@ class InstanceCluster:
     ):
         """Merge two Instance objects.
 
-        :param inst_id: the instance id of the 1st Instance object
-        :param other_inst_id: the instance id of the 2nd Instance object
-        :param assign_inst_id: the instance id to assign to the merged
-            Instance object
+        This method merges two Instance objects within the cluster and
+        assigns the merged instance a new instance ID.
+
+        :param inst_id: The instance ID of the first Instance object.
+        :param other_inst_id: The instance ID of the second Instance
+            object.
+        :param assign_inst_id: The instance ID to assign to the merged
+            Instance object.
         """
         assert (
             inst_id in self.instances
@@ -214,8 +243,10 @@ class InstanceCluster:
         self.instances.update({assign_inst_id: new_inst})
 
     def empty(self) -> bool:
-        """Check if the cluster is empty
+        """Check if the cluster is empty.
 
-        :return: True if the cluster is empty, False if it is not
+        This method checks if there are no instances in the cluster.
+
+        :return: True if the cluster is empty, False otherwise.
         """
         return len(self.instances) == 0

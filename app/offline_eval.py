@@ -29,20 +29,20 @@ def run(
     viz: List,
     match_thresholds: np.ndarray,
     greedy: bool,
-    ref_map_updater: ReactManager,
+    ref_manager: ReactManager,
 ):
     for thresh in match_thresholds:
-        map_updater = deepcopy(ref_map_updater)
-        map_updater.match_threshold = thresh
+        react_manager = deepcopy(ref_manager)
+        react_manager.visual_difference_threshold = thresh
         for i, path in enumerate(dsg_paths):
             if not greedy:
-                map_updater.optimize_cluster()
+                react_manager.optimize_cluster()
             mesh = o3d.io.read_triangle_mesh(f"{path}/backend/mesh.ply")
             if i == 0:
                 dsg_viz = draw_base_dsg(
                     scan_id=i,
                     mesh=mesh,
-                    map_updater=map_updater,
+                    react_manager=react_manager,
                     node_label_z=3,
                     set_label_z=5,
                     dsg_offset_z=0,
@@ -51,23 +51,23 @@ def run(
                 )
             else:
                 if not greedy:
-                    map_updater.update_position_histories(
+                    react_manager.update_position_histories(
                         scan_id_old=i - 1, scan_id_new=i
                     )
                 else:
-                    map_updater.greedy_match(scan_id_old=i - 1, scan_id_new=i)
+                    react_manager.greedy_match(scan_id_old=i - 1, scan_id_new=i)
                 dsg_viz = draw_matching_dsg(
                     scan_id_old=i - 1,
                     scan_id_new=i,
                     mesh=mesh,
-                    map_updater=map_updater,
+                    react_manager=react_manager,
                     old_dsg_offset_z=-5 * (i - 1),
                     new_dsg_offset_z=-5 * i,
                     include_scene_mesh=True,
                     include_instance_mesh=False,
                 )
             viz += dsg_viz
-        results: MatchResults = map_updater.report_match_results(
+        results: MatchResults = react_manager.report_match_results(
             old_scan_id=0, new_scan_id=1
         )
         evaluator = ReactEvaluator(ground_truth=gt, match_results=results)
@@ -160,7 +160,7 @@ if __name__ == "__main__":
     # Map updater
     dsg_paths = [DSG_PATH0, DSG_PATH1]
     map_updater = ReactManager(
-        match_threshold=MATCH_THRESHOLDS[0], embedding_model=embedding_model
+        visual_difference_threshold=MATCH_THRESHOLDS[0], embedding_model=embedding_model
     )
 
     viz = []
@@ -181,7 +181,7 @@ if __name__ == "__main__":
         viz=viz,
         match_thresholds=MATCH_THRESHOLDS,
         greedy=False,
-        ref_map_updater=ref_map_updater,
+        ref_manager=ref_map_updater,
     )
     # Run 1v1 Greedy matching
     run(
@@ -193,7 +193,7 @@ if __name__ == "__main__":
         viz=viz,
         match_thresholds=MATCH_THRESHOLDS,
         greedy=True,
-        ref_map_updater=ref_map_updater,
+        ref_manager=ref_map_updater,
     )
     m_thresh_f1 = np.array(m_thresh_f1)
     a_thresh_f1 = np.array(a_thresh_f1)

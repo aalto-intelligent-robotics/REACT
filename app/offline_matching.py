@@ -23,13 +23,13 @@ def main(args: argparse.Namespace):
     dsg_path1 = args.scene_graph_1
     dsg_paths = [dsg_path0, dsg_path1]
 
-    map_updater = ReactManager(
-        match_threshold=match_threshold, embedding_model=embedding_model
+    react_manager = ReactManager(
+        visual_difference_threshold=match_threshold, embedding_model=embedding_model
     )
 
     viz = []
     for i, path in enumerate(dsg_paths):
-        map_updater.process_dsg(
+        react_manager.process_dsg(
             scan_id=i,
             dsg_path=path,
         )
@@ -38,7 +38,7 @@ def main(args: argparse.Namespace):
             dsg_viz = draw_base_dsg(
                 scan_id=i,
                 mesh=mesh,
-                map_updater=map_updater,
+                react_manager=react_manager,
                 node_label_z=3,
                 set_label_z=5,
                 dsg_offset_z=0,
@@ -46,20 +46,20 @@ def main(args: argparse.Namespace):
                 include_instance_mesh=False,
             )
         else:
-            map_updater.update_position_histories(scan_id_old=i - 1, scan_id_new=i)
+            react_manager.update_position_histories(scan_id_old=i - 1, scan_id_new=i)
             dsg_viz = draw_matching_dsg(
                 scan_id_old=i - 1,
                 scan_id_new=i,
                 mesh=mesh,
-                map_updater=map_updater,
+                react_manager=react_manager,
                 old_dsg_offset_z=-5 * (i - 1),
                 new_dsg_offset_z=-5 * i,
                 include_scene_mesh=True,
                 include_instance_mesh=False,
             )
         viz += dsg_viz
-    results = map_updater.report_match_results(old_scan_id=0, new_scan_id=1)
-    logger.info(map_updater)
+    results = react_manager.report_match_results(old_scan_id=0, new_scan_id=1)
+    logger.info(react_manager.pretty_print())
     logger.info(f"Matches: {results.matches}")
     logger.info(f"Absent: {results.absent}")
     logger.info(f"New: {results.new}")
