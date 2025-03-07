@@ -6,13 +6,12 @@ from dataclasses import dataclass, field
 class MatchResults:
     """Class to store instance matching results.
 
-    Attributes:
-        old_scan_id: the reference scan id
-        new_scan_id: the current scan id
-        matches: list of matching node id pairs
-        absent: list of absent node ids
-        new: list of new node ids
-        travel_distance: total travel distances
+    :param old_scan_id: the reference scan id
+    :param new_scan_id: the current scan id
+    :param matches: list of matching node id pairs
+    :param absent: list of absent node ids
+    :param new: list of new node ids
+    :param travel_distance: total travel distances
     """
 
     old_scan_id: int

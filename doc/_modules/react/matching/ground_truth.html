@@ -41,7 +41,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">react</a></li>
 </ul>
 
         </div>
@@ -77,13 +77,12 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">GroundTruth</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to store ground truth instance matching information.</span>
 
-<span class="sd">    Attributes:</span>
-<span class="sd">        old_scan_id (int): The reference scan ID.</span>
-<span class="sd">        old_num_nodes (int): The number of nodes in the old scan.</span>
-<span class="sd">        new_scan_id (int): The current scan ID.</span>
-<span class="sd">        new_num_nodes (int): The number of nodes in the new scan.</span>
-<span class="sd">        matches (Dict[int, Dict[int, List[int]]]): List of matching node IDs, mapped as</span>
-<span class="sd">            {cluster_id -&gt; {scan_id -&gt; node_id}}.</span>
+<span class="sd">    :param old_scan_id: The reference scan ID.</span>
+<span class="sd">    :param old_num_nodes: The number of nodes in the old scan.</span>
+<span class="sd">    :param new_scan_id: The current scan ID.</span>
+<span class="sd">    :param new_num_nodes: The number of nodes in the new scan.</span>
+<span class="sd">    :param matches: List of matching node IDs, mapped as a dictionary</span>
+<span class="sd">        {cluster_id -&gt; {scan_id -&gt; node_id}}.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">old_scan_id</span><span class="p">:</span> <span class="nb">int</span>

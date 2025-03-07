@@ -98,62 +98,18 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">react.matching.ground_truth.</span></span><span class="sig-name descname"><span class="pre">GroundTruth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_scan_id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_num_nodes:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_scan_id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_num_nodes:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matches:</span> <span class="pre">~typing.Dict[int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Dict[int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.List[int]]]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/matching/ground_truth.html#GroundTruth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.matching.ground_truth.GroundTruth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class to store ground truth instance matching information.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="react.matching.ground_truth.GroundTruth.old_scan_id">
-<span class="sig-name descname"><span class="pre">old_scan_id</span></span><a class="headerlink" href="#react.matching.ground_truth.GroundTruth.old_scan_id" title="Permalink to this definition"></a></dt>
-<dd><p>The reference scan ID.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>old_scan_id</strong> – The reference scan ID.</p></li>
+<li><p><strong>old_num_nodes</strong> – The number of nodes in the old scan.</p></li>
+<li><p><strong>new_scan_id</strong> – The current scan ID.</p></li>
+<li><p><strong>new_num_nodes</strong> – The number of nodes in the new scan.</p></li>
+<li><p><strong>matches</strong> – List of matching node IDs, mapped as a dictionary
+{cluster_id -&gt; {scan_id -&gt; node_id}}.</p></li>
+</ul>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="react.matching.ground_truth.GroundTruth.old_num_nodes">
-<span class="sig-name descname"><span class="pre">old_num_nodes</span></span><a class="headerlink" href="#react.matching.ground_truth.GroundTruth.old_num_nodes" title="Permalink to this definition"></a></dt>
-<dd><p>The number of nodes in the old scan.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="react.matching.ground_truth.GroundTruth.new_scan_id">
-<span class="sig-name descname"><span class="pre">new_scan_id</span></span><a class="headerlink" href="#react.matching.ground_truth.GroundTruth.new_scan_id" title="Permalink to this definition"></a></dt>
-<dd><p>The current scan ID.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="react.matching.ground_truth.GroundTruth.new_num_nodes">
-<span class="sig-name descname"><span class="pre">new_num_nodes</span></span><a class="headerlink" href="#react.matching.ground_truth.GroundTruth.new_num_nodes" title="Permalink to this definition"></a></dt>
-<dd><p>The number of nodes in the new scan.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="react.matching.ground_truth.GroundTruth.matches">
-<span class="sig-name descname"><span class="pre">matches</span></span><a class="headerlink" href="#react.matching.ground_truth.GroundTruth.matches" title="Permalink to this definition"></a></dt>
-<dd><p>List of matching node IDs, mapped as
-{cluster_id -&gt; {scan_id -&gt; node_id}}.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict[int, Dict[int, List[int]]]</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="react.matching.ground_truth.GroundTruth.get_cluster_num_absent">
 <span class="sig-name descname"><span class="pre">get_cluster_num_absent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/matching/ground_truth.html#GroundTruth.get_cluster_num_absent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.matching.ground_truth.GroundTruth.get_cluster_num_absent" title="Permalink to this definition"></a></dt>
@@ -226,28 +182,28 @@ new scan but absent in the old scan.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">matches</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="react.matching.ground_truth.GroundTruth.matches">
+<span class="sig-name descname"><span class="pre">matches</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#react.matching.ground_truth.GroundTruth.matches" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">new_num_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id1" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="react.matching.ground_truth.GroundTruth.new_num_nodes">
+<span class="sig-name descname"><span class="pre">new_num_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#react.matching.ground_truth.GroundTruth.new_num_nodes" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">new_scan_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id2" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="react.matching.ground_truth.GroundTruth.new_scan_id">
+<span class="sig-name descname"><span class="pre">new_scan_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#react.matching.ground_truth.GroundTruth.new_scan_id" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">old_num_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id3" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="react.matching.ground_truth.GroundTruth.old_num_nodes">
+<span class="sig-name descname"><span class="pre">old_num_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#react.matching.ground_truth.GroundTruth.old_num_nodes" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id4">
-<span class="sig-name descname"><span class="pre">old_scan_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id4" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="react.matching.ground_truth.GroundTruth.old_scan_id">
+<span class="sig-name descname"><span class="pre">old_scan_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#react.matching.ground_truth.GroundTruth.old_scan_id" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -285,100 +241,46 @@ scan</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">react.matching.match_results.</span></span><span class="sig-name descname"><span class="pre">MatchResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_scan_id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_scan_id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matches:</span> <span class="pre">~typing.List[~typing.Tuple]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absent:</span> <span class="pre">~typing.List[int]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new:</span> <span class="pre">~typing.List[int]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">travel_distance:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/matching/match_results.html#MatchResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.matching.match_results.MatchResults" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class to store instance matching results.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="react.matching.match_results.MatchResults.old_scan_id">
-<span class="sig-name descname"><span class="pre">old_scan_id</span></span><a class="headerlink" href="#react.matching.match_results.MatchResults.old_scan_id" title="Permalink to this definition"></a></dt>
-<dd><p>the reference scan id</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>old_scan_id</strong> – the reference scan id</p></li>
+<li><p><strong>new_scan_id</strong> – the current scan id</p></li>
+<li><p><strong>matches</strong> – list of matching node id pairs</p></li>
+<li><p><strong>absent</strong> – list of absent node ids</p></li>
+<li><p><strong>new</strong> – list of new node ids</p></li>
+<li><p><strong>travel_distance</strong> – total travel distances</p></li>
+</ul>
 </dd>
 </dl>
-</dd></dl>
-
 <dl class="py attribute">
-<dt class="sig sig-object py" id="react.matching.match_results.MatchResults.new_scan_id">
-<span class="sig-name descname"><span class="pre">new_scan_id</span></span><a class="headerlink" href="#react.matching.match_results.MatchResults.new_scan_id" title="Permalink to this definition"></a></dt>
-<dd><p>the current scan id</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+<dt class="sig sig-object py" id="react.matching.match_results.MatchResults.absent">
+<span class="sig-name descname"><span class="pre">absent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#react.matching.match_results.MatchResults.absent" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="react.matching.match_results.MatchResults.matches">
-<span class="sig-name descname"><span class="pre">matches</span></span><a class="headerlink" href="#react.matching.match_results.MatchResults.matches" title="Permalink to this definition"></a></dt>
-<dd><p>list of matching node id pairs</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[Tuple]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="react.matching.match_results.MatchResults.absent">
-<span class="sig-name descname"><span class="pre">absent</span></span><a class="headerlink" href="#react.matching.match_results.MatchResults.absent" title="Permalink to this definition"></a></dt>
-<dd><p>list of absent node ids</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[int]</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">matches</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#react.matching.match_results.MatchResults.matches" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="react.matching.match_results.MatchResults.new">
-<span class="sig-name descname"><span class="pre">new</span></span><a class="headerlink" href="#react.matching.match_results.MatchResults.new" title="Permalink to this definition"></a></dt>
-<dd><p>list of new node ids</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[int]</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">new</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#react.matching.match_results.MatchResults.new" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.matching.match_results.MatchResults.new_scan_id">
+<span class="sig-name descname"><span class="pre">new_scan_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#react.matching.match_results.MatchResults.new_scan_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.matching.match_results.MatchResults.old_scan_id">
+<span class="sig-name descname"><span class="pre">old_scan_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#react.matching.match_results.MatchResults.old_scan_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="react.matching.match_results.MatchResults.travel_distance">
-<span class="sig-name descname"><span class="pre">travel_distance</span></span><a class="headerlink" href="#react.matching.match_results.MatchResults.travel_distance" title="Permalink to this definition"></a></dt>
-<dd><p>total travel distances</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id5">
-<span class="sig-name descname"><span class="pre">absent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id5" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id6">
-<span class="sig-name descname"><span class="pre">matches</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id6" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id7">
-<span class="sig-name descname"><span class="pre">new</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id7" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id8">
-<span class="sig-name descname"><span class="pre">new_scan_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id8" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id9">
-<span class="sig-name descname"><span class="pre">old_scan_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id9" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id10">
-<span class="sig-name descname"><span class="pre">travel_distance</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#id10" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">travel_distance</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#react.matching.match_results.MatchResults.travel_distance" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

@@ -6,13 +6,12 @@ from typing import List, Dict
 class GroundTruth:
     """Class to store ground truth instance matching information.
 
-    Attributes:
-        old_scan_id (int): The reference scan ID.
-        old_num_nodes (int): The number of nodes in the old scan.
-        new_scan_id (int): The current scan ID.
-        new_num_nodes (int): The number of nodes in the new scan.
-        matches (Dict[int, Dict[int, List[int]]]): List of matching node IDs, mapped as
-            {cluster_id -> {scan_id -> node_id}}.
+    :param old_scan_id: The reference scan ID.
+    :param old_num_nodes: The number of nodes in the old scan.
+    :param new_scan_id: The current scan ID.
+    :param new_num_nodes: The number of nodes in the new scan.
+    :param matches: List of matching node IDs, mapped as a dictionary
+        {cluster_id -> {scan_id -> node_id}}.
     """
 
     old_scan_id: int
