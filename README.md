@@ -109,10 +109,19 @@ To test REACT out, you can download 2 scans of a scene. We recommend the *Coffee
 
 ### 🗺 Build the initial 3D Scene Graph
 
+First, download your YOLO model weight for instance segmentation from [here](https://docs.ultralytics.com/tasks/segment/#models) or from [Ultralytics' release page](https://github.com/ultralytics/assets/releases) (choose the weights with suffix `-seg`). We recommend exporting the model to TensorRT for more efficient inference speed using:
+
+```bash
+roscd hydra_seg_ros/scripts
+python3 export_trt.py -i <path/to/pytorch/yolo/weights>
+```
+
+The script generates a TensorRT `.engine` file. For more information on exporting Ultralytics model to TensorRT, please check this [page](https://docs.ultralytics.com/modes/export/#export-formats).
+
 To start Hydra:
 
 ```bash
-roslaunch hydra_stretch hydra_stretch_yolo.launch slam_mode:=slam dsg_output_prefix:=<scene_graph_name>_1 2> >(grep -v 'TF_REPEATED_DATA\|at line 278\|buffer_core')
+roslaunch hydra_stretch hydra_stretch_yolo.launch model_path:=<path/to/yolo/model> slam_mode:=slam dsg_output_prefix:=<scene_graph_name>_1 2> >(grep -v 'TF_REPEATED_DATA\|at line 278\|buffer_core')
 ```
 
 > **Note**<br>
@@ -121,7 +130,7 @@ roslaunch hydra_stretch hydra_stretch_yolo.launch slam_mode:=slam dsg_output_pre
 Then, start playing the ROS bag in a separate terminal:
 
 ```bash
-rosbag play --clock path/to/rosbag
+rosbag play --clock <path/to/rosbag>
 ```
 
 After the Hydra has built the map, save it by going to another terminal and run:
@@ -142,13 +151,13 @@ If you want to train your own model for your own environment, we provide the cod
 
 ```bash
 roscd react_embedding/scripts/
-python3 extract_data.py -s path/to/scene/graph -o instance/views/path
+python3 extract_data.py -s <path/to/scene/graph> -o <instance/views/path>
 ```
 
 You will be prompted to identify whether 2 objects are the same base on a series of image comparisons. Answer y/n. The results will be saved in the  pre-determined output path. After that, split the data into train and validation sets with:
 
 ```bash
-python3 train_test_split.py -s instance/views/path -o dataset/dir
+python3 train_test_split.py -s <instance/views/path> -o dataset/dir
 ```
 
 Train the model with:
@@ -162,19 +171,19 @@ python3 train.py -d dataset/dir -o embedding.pth
 If you want to match the 3D scene graphs online, build the second graph with:
 
 ```bash
-roslaunch hydra_stretch hydra_stretch_yolo.launch slam_mode:=localization dsg_output_prefix:=<scene_graph_name>_2 2> >(grep -v 'TF_REPEATED_DATA\|at line 278\|buffer_core')
+roslaunch hydra_stretch hydra_stretch_yolo.launch model_path:=<path/to/yolo/model> slam_mode:=localization dsg_output_prefix:=<scene_graph_name>_2 2> >(grep -v 'TF_REPEATED_DATA\|at line 278\|buffer_core')
 ```
 
 Run REACT (NOTE: wait for it to finish clustering the nodes of the first graph):
 
 ```bash
-rosrun react_ros react_ros_node.py -s <scene_graph_name>
+rosrun react_ros react_ros_node.py _weights:=<path/to/embedding/weights> _match_threshold:=<visual_difference_threshold>
 ```
 
 After the first graph is clustered (there should be a console message: "Loaded graph..."), run the ROS bag:
 
 ```bash
-rosbag play --clock path/to/2nd/rosbag
+rosbag play --clock <path/to/2nd/rosbag>
 ```
 
 You should see the scene graphs being matched like the GIF at the [beginning](#overview) of this repo.
@@ -190,7 +199,7 @@ roslaunch hydra_stretch hydra_stretch_yolo.launch slam_mode:=localization dsg_ou
 Then, start playing the ROS bag in a separate terminal:
 
 ```bash
-rosbag play --clock path/to/2nd/rosbag
+rosbag play --clock <path/to/2nd/rosbag>
 ```
 
 With 2 graphs built, perform offline matching by going to `app/` and run:
@@ -206,7 +215,7 @@ With 2 graphs built, extract the ground truth (GT) information with. As mentione
 
 ```bash
 roscd react/scripts/
-python3 get_gt.py -s0 absolute/path/to/3dsg0 -s1 absolute/path/to/3dsg1
+python3 get_gt.py -s0 <absolute/path/to/3dsg0> -s1 <absolute/path/to/3dsg1>
 ```
 
 You can evaluate REACT's performance vs a non-clustering configuration by running:
