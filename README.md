@@ -225,7 +225,7 @@ roscd react/app/
 python3 offline_eval.py -s <scene_graph_name>
 ```
 
-# Documentation
+# 📃 Documentation
 To view the documentation of REACT Python API, we provide documentation which can be accessed with:
 ```bash
 cd react/doc
