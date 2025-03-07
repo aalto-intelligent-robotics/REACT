@@ -1,0 +1,53 @@
+react.core package
+==================
+
+Submodules
+----------
+
+react.core.bounding\_box module
+-------------------------------
+
+.. automodule:: react.core.bounding_box
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+react.core.instance module
+--------------------------
+
+.. automodule:: react.core.instance
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+react.core.instance\_cluster module
+-----------------------------------
+
+.. automodule:: react.core.instance_cluster
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+react.core.object\_node module
+------------------------------
+
+.. automodule:: react.core.object_node
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+react.core.react\_manager module
+--------------------------------
+
+.. automodule:: react.core.react_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: react.core
+   :members:
+   :undoc-members:
+   :show-inheritance:

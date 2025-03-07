@@ -1,0 +1,21 @@
+react package
+=============
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   react.core
+   react.eval
+   react.matching
+   react.utils
+
+Module contents
+---------------
+
+.. automodule:: react
+   :members:
+   :undoc-members:
+   :show-inheritance:

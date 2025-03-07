@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>react.eval package &mdash; REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=2389946f"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="react.matching package" href="react.matching.html" />
+    <link rel="prev" title="react.core package" href="react.core.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">react</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="react.html">react package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="react.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="react.core.html">react.core package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">react.eval package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="react.matching.html">react.matching package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="react.utils.html">react.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="react.html#module-react">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">react</a></li>
+          <li class="breadcrumb-item"><a href="react.html">react package</a></li>
+      <li class="breadcrumb-item active">react.eval package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/react.eval.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="react-eval-package">
+<h1>react.eval package<a class="headerlink" href="#react-eval-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-react.eval.evaluator">
+<span id="react-eval-evaluator-module"></span><h2>react.eval.evaluator module<a class="headerlink" href="#module-react.eval.evaluator" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="react.eval.evaluator.ReactEvaluator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">react.eval.evaluator.</span></span><span class="sig-name descname"><span class="pre">ReactEvaluator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ground_truth:</span> <span class="pre">~react.matching.ground_truth.GroundTruth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_results:</span> <span class="pre">~react.matching.match_results.MatchResults</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_cnt:</span> <span class="pre">~typing.Dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_checked_id:</span> <span class="pre">~typing.Set</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_checked_id:</span> <span class="pre">~typing.Set</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/eval/evaluator.html#ReactEvaluator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.eval.evaluator.ReactEvaluator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to evaluate the instance matching results of REACT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ground_truth</strong> – Ground truth information from a yaml file.</p></li>
+<li><p><strong>match_results</strong> – Instance matching results.</p></li>
+<li><p><strong>results_cnt</strong> – Counts of TP, FP, FN for Matched, Absent, and
+New sets.</p></li>
+<li><p><strong>old_checked_id</strong> – Instance IDs that have already been checked
+from the old scan.</p></li>
+<li><p><strong>new_checked_id</strong> – Instance IDs that have already been checked
+from the new scan.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="react.eval.evaluator.ReactEvaluator.calculate_metrics">
+<span class="sig-name descname"><span class="pre">calculate_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/eval/evaluator.html#ReactEvaluator.calculate_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.eval.evaluator.ReactEvaluator.calculate_metrics" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate precision, recall, and F1-score.</p>
+<p>This method calculates the precision, recall, and F1-score based
+on the true positives (TP), false positives (FP), and false
+negatives (FN).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tp</strong> – The number of true positives.</p></li>
+<li><p><strong>fp</strong> – The number of false positives.</p></li>
+<li><p><strong>fn</strong> – The number of false negatives.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the precision, recall, and
+F1-score.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.eval.evaluator.ReactEvaluator.count_matched_results">
+<span class="sig-name descname"><span class="pre">count_matched_results</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/eval/evaluator.html#ReactEvaluator.count_matched_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.eval.evaluator.ReactEvaluator.count_matched_results" title="Permalink to this definition"></a></dt>
+<dd><p>Count the matched results (TP, FP, FN) for matched, absent, and new
+sets.</p>
+<p>This method counts the true positives, false positives, and
+false negatives for matched, absent, and new sets based on the
+ground truth and predicted match results.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.eval.evaluator.ReactEvaluator.count_new_results">
+<span class="sig-name descname"><span class="pre">count_new_results</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/react/eval/evaluator.html#ReactEvaluator.count_new_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.eval.evaluator.ReactEvaluator.count_new_results" title="Permalink to this definition"></a></dt>
+<dd><p>Count the true positives, false positives, and false negatives for
+new results.</p>
+<p>This method counts the true positives (TP), false positives
+(FP), and false negatives (FN) specifically for new results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary containing the counts of TP, FP, and FN
+for new results.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.eval.evaluator.ReactEvaluator.get_metrics">
+<span class="sig-name descname"><span class="pre">get_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/react/eval/evaluator.html#ReactEvaluator.get_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.eval.evaluator.ReactEvaluator.get_metrics" title="Permalink to this definition"></a></dt>
+<dd><p>Get precision, recall, and F1-score metrics for matched, absent,
+new, and all sets.</p>
+<p>This method calculates and returns the precision, recall, and
+F1-score metrics for matched (m), absent (a), new (n), and all
+sets combined.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary containing the precision, recall, and
+F1-score metrics for each set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.eval.evaluator.ReactEvaluator.ground_truth">
+<span class="sig-name descname"><span class="pre">ground_truth</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="react.matching.html#react.matching.ground_truth.GroundTruth" title="react.matching.ground_truth.GroundTruth"><span class="pre">GroundTruth</span></a></em><a class="headerlink" href="#react.eval.evaluator.ReactEvaluator.ground_truth" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.eval.evaluator.ReactEvaluator.is_completely_absent">
+<span class="sig-name descname"><span class="pre">is_completely_absent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/eval/evaluator.html#ReactEvaluator.is_completely_absent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.eval.evaluator.ReactEvaluator.is_completely_absent" title="Permalink to this definition"></a></dt>
+<dd><p>Check if a predicted node is completely absent.</p>
+<p>This method checks if a predicted node from the old scan is
+found in any ground truth matches, meaning that this object
+category is only seen in the old scan.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pred</strong> – The predicted node ID.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the predicted node is completely absent, False
+otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.eval.evaluator.ReactEvaluator.is_completely_new">
+<span class="sig-name descname"><span class="pre">is_completely_new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/eval/evaluator.html#ReactEvaluator.is_completely_new"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.eval.evaluator.ReactEvaluator.is_completely_new" title="Permalink to this definition"></a></dt>
+<dd><p>Check if a predicted node is completely new.</p>
+<p>This method checks if a predicted node from the new scan is
+found in any ground truth matches, meaning that this object
+category is novel and is only seen in the new scan.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pred</strong> – The predicted node ID.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the predicted node is completely new, False
+otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.eval.evaluator.ReactEvaluator.is_correct_match">
+<span class="sig-name descname"><span class="pre">is_correct_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred_match</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/eval/evaluator.html#ReactEvaluator.is_correct_match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.eval.evaluator.ReactEvaluator.is_correct_match" title="Permalink to this definition"></a></dt>
+<dd><p>Check if a predicted match is correct.</p>
+<p>This method checks if a predicted match exists in the ground
+truth matches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pred_match</strong> – A tuple containing the old and new node IDs
+of the predicted match.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the predicted match is correct, False
+otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.eval.evaluator.ReactEvaluator.match_results">
+<span class="sig-name descname"><span class="pre">match_results</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="react.matching.html#react.matching.match_results.MatchResults" title="react.matching.match_results.MatchResults"><span class="pre">MatchResults</span></a></em><a class="headerlink" href="#react.eval.evaluator.ReactEvaluator.match_results" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.eval.evaluator.ReactEvaluator.new_checked_id">
+<span class="sig-name descname"><span class="pre">new_checked_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span></em><a class="headerlink" href="#react.eval.evaluator.ReactEvaluator.new_checked_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.eval.evaluator.ReactEvaluator.old_checked_id">
+<span class="sig-name descname"><span class="pre">old_checked_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span></em><a class="headerlink" href="#react.eval.evaluator.ReactEvaluator.old_checked_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.eval.evaluator.ReactEvaluator.results_cnt">
+<span class="sig-name descname"><span class="pre">results_cnt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#react.eval.evaluator.ReactEvaluator.results_cnt" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-react.eval">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-react.eval" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="react.core.html" class="btn btn-neutral float-left" title="react.core package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="react.matching.html" class="btn btn-neutral float-right" title="react.matching package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Thuan-Phuoc Nguyen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

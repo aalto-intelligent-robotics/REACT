@@ -1,0 +1,882 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>react.core package &mdash; REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=2389946f"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="react.eval package" href="react.eval.html" />
+    <link rel="prev" title="react package" href="react.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">react</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="react.html">react package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="react.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">react.core package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="react.eval.html">react.eval package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="react.matching.html">react.matching package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="react.utils.html">react.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="react.html#module-react">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">react</a></li>
+          <li class="breadcrumb-item"><a href="react.html">react package</a></li>
+      <li class="breadcrumb-item active">react.core package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/react.core.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="react-core-package">
+<h1>react.core package<a class="headerlink" href="#react-core-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-react.core.bounding_box">
+<span id="react-core-bounding-box-module"></span><h2>react.core.bounding_box module<a class="headerlink" href="#module-react.core.bounding_box" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="react.core.bounding_box.BoundingBox">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">react.core.bounding_box.</span></span><span class="sig-name descname"><span class="pre">BoundingBox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_bounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_bounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/bounding_box.html#BoundingBox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.bounding_box.BoundingBox" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Bounding box class for object nodes.</p>
+<p>This class represents a bounding box defined by its minimum and
+maximum bounds in 3D space. It provides methods to create an Open3D
+AxisAlignedBoundingBox for visualization, as well as to get the
+dimensions and the center of the bounding box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_bounds</strong> – min x, y, z (in m)</p></li>
+<li><p><strong>max_bounds</strong> – max x, y, z (in m)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.bounding_box.BoundingBox.create_o3d_aabb">
+<span class="sig-name descname"><span class="pre">create_o3d_aabb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AxisAlignedBoundingBox</span></span></span><a class="reference internal" href="_modules/react/core/bounding_box.html#BoundingBox.create_o3d_aabb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.bounding_box.BoundingBox.create_o3d_aabb" title="Permalink to this definition"></a></dt>
+<dd><p>Create an Open3D AxisAlignedBoundingBox for visualization.</p>
+<p>This method creates and returns an Open3D AxisAlignedBoundingBox
+object with the specified color for visualization purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>color</strong> – The RGB color of the bounding box normalized to
+[0,1].</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Open3D AxisAlignedBoundingBox object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.bounding_box.BoundingBox.get_center">
+<span class="sig-name descname"><span class="pre">get_center</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/react/core/bounding_box.html#BoundingBox.get_center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.bounding_box.BoundingBox.get_center" title="Permalink to this definition"></a></dt>
+<dd><p>Get the center of the bounding box.</p>
+<p>This method returns the center coordinates of the bounding box
+by averaging the minimum and maximum bounds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The center coordinates of the bounding box.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.bounding_box.BoundingBox.get_dims">
+<span class="sig-name descname"><span class="pre">get_dims</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/react/core/bounding_box.html#BoundingBox.get_dims"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.bounding_box.BoundingBox.get_dims" title="Permalink to this definition"></a></dt>
+<dd><p>Get the dimensions of the bounding box.</p>
+<p>This method returns the dimensions (length, width, height) of
+the bounding box by calculating the differences between the
+maximum and minimum bounds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The dimensions of the bounding box (length, width,
+height).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.bounding_box.BoundingBox.max_bounds">
+<span class="sig-name descname"><span class="pre">max_bounds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#react.core.bounding_box.BoundingBox.max_bounds" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.bounding_box.BoundingBox.min_bounds">
+<span class="sig-name descname"><span class="pre">min_bounds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#react.core.bounding_box.BoundingBox.min_bounds" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-react.core.instance">
+<span id="react-core-instance-module"></span><h2>react.core.instance module<a class="headerlink" href="#module-react.core.instance" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="react.core.instance.Instance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">react.core.instance.</span></span><span class="sig-name descname"><span class="pre">Instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">global_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#react.core.object_node.ObjectNode" title="react.core.object_node.ObjectNode"><span class="pre">ObjectNode</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/instance.html#Instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance.Instance" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Global information of an instance through multiple scans.</p>
+<p>This class represents global information about an instance across
+multiple scans. It stores the instance’s global ID and a history of
+nodes representing the instance in different scans.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>global_id</strong> – Global ID of the instance.</p></li>
+<li><p><strong>node_history</strong> – A dictionary mapping scan IDs to ObjectNode
+instances representing the instance in different scans.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance.Instance.empty">
+<span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/react/core/instance.html#Instance.empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance.Instance.empty" title="Permalink to this definition"></a></dt>
+<dd><p>Check if the instance is empty.</p>
+<p>This method checks if the instance has no associated nodes in
+its history.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the instance is empty, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance.Instance.get_class_id">
+<span class="sig-name descname"><span class="pre">get_class_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/react/core/instance.html#Instance.get_class_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance.Instance.get_class_id" title="Permalink to this definition"></a></dt>
+<dd><p>Get the instance class label.</p>
+<p>This method returns the class label of the instance by accessing
+the class ID of the first node in the node history.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The class label of the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance.Instance.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/react/core/instance.html#Instance.get_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance.Instance.get_name" title="Permalink to this definition"></a></dt>
+<dd><p>Get the instance name.</p>
+<p>This method returns the name of the instance by accessing the
+name of the first node in the node history.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The name of the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance.Instance.get_position_history">
+<span class="sig-name descname"><span class="pre">get_position_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[0,</span> <span class="pre">1]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/react/core/instance.html#Instance.get_position_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance.Instance.get_position_history" title="Permalink to this definition"></a></dt>
+<dd><p>Return the position history between specified scans.</p>
+<p>This method retrieves the position history of the instance for
+the given scan IDs. If no scan IDs are provided, it returns the
+positions for all scans.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scan_ids</strong> – The scan IDs to get history from. Default is
+[0, 1].</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The history of the instance mapped as a dictionary
+{scan_id: position}.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.instance.Instance.global_id">
+<span class="sig-name descname"><span class="pre">global_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#react.core.instance.Instance.global_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.instance.Instance.node_history">
+<span class="sig-name descname"><span class="pre">node_history</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#react.core.object_node.ObjectNode" title="react.core.object_node.ObjectNode"><span class="pre">ObjectNode</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#react.core.instance.Instance.node_history" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance.Instance.pretty_print">
+<span class="sig-name descname"><span class="pre">pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/react/core/instance.html#Instance.pretty_print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance.Instance.pretty_print" title="Permalink to this definition"></a></dt>
+<dd><p>Return a string representation of the instance.</p>
+<p>This method provides a detailed string representation of the
+instance, including its global ID and position history.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A string representation of the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-react.core.instance_cluster">
+<span id="react-core-instance-cluster-module"></span><h2>react.core.instance_cluster module<a class="headerlink" href="#module-react.core.instance_cluster" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">react.core.instance_cluster.</span></span><span class="sig-name descname"><span class="pre">InstanceCluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instances</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#react.core.instance.Instance" title="react.core.instance.Instance"><span class="pre">Instance</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/instance_cluster.html#InstanceCluster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Python interface for REACT Instance Cluster for managing Instance groups
+that represent identical objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cluster_id</strong> – ID of the cluster.</p></li>
+<li><p><strong>instances</strong> – A collection of instances mapped by their global
+instance ID.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster.cluster_id">
+<span class="sig-name descname"><span class="pre">cluster_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster.cluster_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster.empty">
+<span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/react/core/instance_cluster.html#InstanceCluster.empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster.empty" title="Permalink to this definition"></a></dt>
+<dd><p>Check if the cluster is empty.</p>
+<p>This method checks if there are no instances in the cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the cluster is empty, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster.get_class_id">
+<span class="sig-name descname"><span class="pre">get_class_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/react/core/instance_cluster.html#InstanceCluster.get_class_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster.get_class_id" title="Permalink to this definition"></a></dt>
+<dd><p>Get the class ID of the instance cluster.</p>
+<p>This method returns the class ID of the instance cluster by
+accessing the class ID of the first instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The class ID of the instance cluster.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster.get_cluster_position_history">
+<span class="sig-name descname"><span class="pre">get_cluster_position_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[0,</span> <span class="pre">1]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/react/core/instance_cluster.html#InstanceCluster.get_cluster_position_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster.get_cluster_position_history" title="Permalink to this definition"></a></dt>
+<dd><p>Get the position history of the nodes for specified scans in the
+cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scan_ids</strong> – Scan IDs to get history from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Position histories of instances within the cluster
+mapped as {instance_id -&gt; {scan_id -&gt; pos}}.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster.get_embedding">
+<span class="sig-name descname"><span class="pre">get_embedding</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="reference internal" href="_modules/react/core/instance_cluster.html#InstanceCluster.get_embedding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster.get_embedding" title="Permalink to this definition"></a></dt>
+<dd><p>Return the average embedding for the cluster.</p>
+<p>This method calculates the weighted average embedding for the
+cluster based on the number of images a node has.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The average embedding for the cluster.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster.get_local_node_id">
+<span class="sig-name descname"><span class="pre">get_local_node_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_object_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/react/core/instance_cluster.html#InstanceCluster.get_local_node_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster.get_local_node_id" title="Permalink to this definition"></a></dt>
+<dd><p>Return the ID of an ObjectNode given a scan ID and the global object
+ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scan_id</strong> – The scan ID of the scene.</p></li>
+<li><p><strong>global_object_id</strong> – The global object ID registered in the
+object cluster.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The ObjectNode ID.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/react/core/instance_cluster.html#InstanceCluster.get_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster.get_name" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name of the instance cluster.</p>
+<p>This method returns the name of the instance cluster by
+accessing the name of the first instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The name of the instance cluster.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster.get_node_history">
+<span class="sig-name descname"><span class="pre">get_node_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[0,</span> <span class="pre">1]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#react.core.object_node.ObjectNode" title="react.core.object_node.ObjectNode"><span class="pre">ObjectNode</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/react/core/instance_cluster.html#InstanceCluster.get_node_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster.get_node_history" title="Permalink to this definition"></a></dt>
+<dd><p>Get the object node history for specified scans in the cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scan_ids</strong> – Scan IDs to get history from. Set to [] to
+select from all scans.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Object nodes histories of instances within the cluster
+mapped as {instance_id -&gt; {scan_id -&gt; object_node}}.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster.instances">
+<span class="sig-name descname"><span class="pre">instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#react.core.instance.Instance" title="react.core.instance.Instance"><span class="pre">Instance</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster.instances" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster.is_match">
+<span class="sig-name descname"><span class="pre">is_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_cluster</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#react.core.instance_cluster.InstanceCluster" title="react.core.instance_cluster.InstanceCluster"><span class="pre">InstanceCluster</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">visual_difference_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/react/core/instance_cluster.html#InstanceCluster.is_match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster.is_match" title="Permalink to this definition"></a></dt>
+<dd><p>Compare with another InstanceCluster.</p>
+<p>This method compares the current instance cluster with another
+instance cluster to determine if they represent similar objects
+based on a visual difference threshold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other_cluster</strong> – The other instance cluster.</p></li>
+<li><p><strong>visual_difference_threshold</strong> – The visual difference
+threshold.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the two clusters represent similar objects
+according to the visual difference threshold, False
+otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster.match_position">
+<span class="sig-name descname"><span class="pre">match_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_id_old</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_id_new</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/react/core/instance_cluster.html#InstanceCluster.match_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster.match_position" title="Permalink to this definition"></a></dt>
+<dd><p>Perform instance matching by minimizing traveled distance of objects
+using the Hungarian algorithm.</p>
+<p>This method uses the Hungarian algorithm on instances that
+contain two ObjectNodes from the new and old scan IDs to perform
+instance matching by minimizing the traveled distance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scan_id_old</strong> – The old scan ID.</p></li>
+<li><p><strong>scan_id_new</strong> – The new scan ID.</p></li>
+<li><p><strong>include_z</strong> – Whether to include the z-coordinate in
+distance calculations. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing lists of instance IDs in the old
+scan and their matching correspondences in the new scan.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster.merge_two_instances">
+<span class="sig-name descname"><span class="pre">merge_two_instances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inst_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_inst_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assign_inst_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/instance_cluster.html#InstanceCluster.merge_two_instances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster.merge_two_instances" title="Permalink to this definition"></a></dt>
+<dd><p>Merge two Instance objects.</p>
+<p>This method merges two Instance objects within the cluster and
+assigns the merged instance a new instance ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inst_id</strong> – The instance ID of the first Instance object.</p></li>
+<li><p><strong>other_inst_id</strong> – The instance ID of the second Instance
+object.</p></li>
+<li><p><strong>assign_inst_id</strong> – The instance ID to assign to the merged
+Instance object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.instance_cluster.InstanceCluster.pretty_print">
+<span class="sig-name descname"><span class="pre">pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/react/core/instance_cluster.html#InstanceCluster.pretty_print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.instance_cluster.InstanceCluster.pretty_print" title="Permalink to this definition"></a></dt>
+<dd><p>Return a string representation of the instance cluster.</p>
+<p>This method provides a detailed string representation of the
+instance cluster, including its ID, class ID, name, embedding,
+and instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A string representation of the instance cluster.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-react.core.object_node">
+<span id="react-core-object-node-module"></span><h2>react.core.object_node module<a class="headerlink" href="#module-react.core.object_node" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="react.core.object_node.ObjectNode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">react.core.object_node.</span></span><span class="sig-name descname"><span class="pre">ObjectNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">scan_id:</span> <span class="pre">int,</span> <span class="pre">node_id:</span> <span class="pre">int,</span> <span class="pre">class_id:</span> <span class="pre">int,</span> <span class="pre">name:</span> <span class="pre">str,</span> <span class="pre">position:</span> <span class="pre">~numpy.ndarray,</span> <span class="pre">instance_views:</span> <span class="pre">~typing.Dict[int,</span> <span class="pre">~numpy.ndarray],</span> <span class="pre">bbox:</span> <span class="pre">~react.core.bounding_box.BoundingBox,</span> <span class="pre">embedding:</span> <span class="pre">~torch.Tensor</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">mesh_connections:</span> <span class="pre">~typing.Set[int]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/object_node.html#ObjectNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.object_node.ObjectNode" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Python interface for Object Nodes in Hydra DSG.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scan_id</strong> – id of the scan the node is in</p></li>
+<li><p><strong>node_id</strong> – original node id in Hydra, only valid for one scan</p></li>
+<li><p><strong>class_id</strong> – semantic class label</p></li>
+<li><p><strong>name</strong> – node name, usually just semantic class</p></li>
+<li><p><strong>position</strong> – xyz coordinates of centroid, registered by Hydra</p></li>
+<li><p><strong>instance_views</strong> – library of images, stored as {map_view_id -&gt;
+binary mask}</p></li>
+<li><p><strong>bbox</strong> – bounding box of node (see react.core.bounding_box)</p></li>
+<li><p><strong>embedding</strong> – visual embedding generated from embedding net (see
+react.net.embedding_net)</p></li>
+<li><p><strong>mesh_connections</strong> – list of indices connected to current mesh
+(for visualization only)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.object_node.ObjectNode.bbox">
+<span class="sig-name descname"><span class="pre">bbox</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#react.core.bounding_box.BoundingBox" title="react.core.bounding_box.BoundingBox"><span class="pre">BoundingBox</span></a></em><a class="headerlink" href="#react.core.object_node.ObjectNode.bbox" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.object_node.ObjectNode.class_id">
+<span class="sig-name descname"><span class="pre">class_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#react.core.object_node.ObjectNode.class_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.object_node.ObjectNode.embedding">
+<span class="sig-name descname"><span class="pre">embedding</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#react.core.object_node.ObjectNode.embedding" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.object_node.ObjectNode.instance_views">
+<span class="sig-name descname"><span class="pre">instance_views</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#react.core.object_node.ObjectNode.instance_views" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.object_node.ObjectNode.mesh_connections">
+<span class="sig-name descname"><span class="pre">mesh_connections</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#react.core.object_node.ObjectNode.mesh_connections" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.object_node.ObjectNode.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#react.core.object_node.ObjectNode.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.object_node.ObjectNode.node_id">
+<span class="sig-name descname"><span class="pre">node_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#react.core.object_node.ObjectNode.node_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.object_node.ObjectNode.position">
+<span class="sig-name descname"><span class="pre">position</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#react.core.object_node.ObjectNode.position" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.object_node.ObjectNode.pretty_print">
+<span class="sig-name descname"><span class="pre">pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/react/core/object_node.html#ObjectNode.pretty_print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.object_node.ObjectNode.pretty_print" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.object_node.ObjectNode.scan_id">
+<span class="sig-name descname"><span class="pre">scan_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#react.core.object_node.ObjectNode.scan_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-react.core.react_manager">
+<span id="react-core-react-manager-module"></span><h2>react.core.react_manager module<a class="headerlink" href="#module-react.core.react_manager" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">react.core.react_manager.</span></span><span class="sig-name descname"><span class="pre">ReactManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">visual_difference_threshold:</span> <span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_model:</span> <span class="pre">~react_embedding.embedding_net.EmbeddingNet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'ReactManager'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_z:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_instance_clusters:</span> <span class="pre">~typing.Dict[int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~react.core.instance_cluster.InstanceCluster]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_map_views:</span> <span class="pre">~typing.Dict[int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Dict[int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~numpy.ndarray]]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_global_instance_id:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_instance_cluster_id:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>ReactManager class to manage instance clusters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>visual_difference_threshold</strong> – Visual difference threshold for
+visual embedding comparison.</p></li>
+<li><p><strong>embedding_model</strong> – Embedding model to get visual embeddings.</p></li>
+<li><p><strong>name</strong> – Name of the ReactManager object.</p></li>
+<li><p><strong>include_z</strong> – Whether to include z axis into Euclidean distance
+calculation for Hungarian matching.</p></li>
+<li><p><strong>_instance_clusters</strong> – Collection of instance clusters, mapped
+as {cluster_id -&gt; InstanceCluster}.</p></li>
+<li><p><strong>_map_views</strong> – Collection of scene images, mapped as
+{map_view_id -&gt; image}.</p></li>
+<li><p><strong>_global_instance_id</strong> – Counter to generate global instance IDs
+for Instance class.</p></li>
+<li><p><strong>_instance_cluster_id</strong> – Counter to generate cluster IDs for
+InstanceCluster class.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.assign_cluster_id">
+<span class="sig-name descname"><span class="pre">assign_cluster_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.assign_cluster_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.assign_cluster_id" title="Permalink to this definition"></a></dt>
+<dd><p>Assign a new cluster ID.</p>
+<p>This method returns the new ID and increments the cluster ID
+counter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new cluster ID.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.assign_instance_clusters">
+<span class="sig-name descname"><span class="pre">assign_instance_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance_clusters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#react.core.instance_cluster.InstanceCluster" title="react.core.instance_cluster.InstanceCluster"><span class="pre">InstanceCluster</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.assign_instance_clusters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.assign_instance_clusters" title="Permalink to this definition"></a></dt>
+<dd><p>Assign instance clusters to ReactManager.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instance_clusters</strong> – A dictionary of instance clusters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.assign_instance_id">
+<span class="sig-name descname"><span class="pre">assign_instance_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.assign_instance_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.assign_instance_id" title="Permalink to this definition"></a></dt>
+<dd><p>Assign a new global instance ID.</p>
+<p>This method returns a new ID and increments the global instance
+ID counter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new global instance ID.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.embedding_model">
+<span class="sig-name descname"><span class="pre">embedding_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">EmbeddingNet</span></em><a class="headerlink" href="#react.core.react_manager.ReactManager.embedding_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.get_instance_clusters">
+<span class="sig-name descname"><span class="pre">get_instance_clusters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.get_instance_clusters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.get_instance_clusters" title="Permalink to this definition"></a></dt>
+<dd><p>Get the instance clusters managed by ReactManager.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The instance clusters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.get_nodes_in_scan">
+<span class="sig-name descname"><span class="pre">get_nodes_in_scan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#react.core.object_node.ObjectNode" title="react.core.object_node.ObjectNode"><span class="pre">ObjectNode</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.get_nodes_in_scan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.get_nodes_in_scan" title="Permalink to this definition"></a></dt>
+<dd><p>Get all object nodes in a specific scan.</p>
+<p>This method retrieves all object nodes present in a specific
+scan across all instance clusters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scan_id</strong> – The scan ID to retrieve nodes from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary of nodes with their instance IDs, mapped
+as a dictionary {global_instance_id : ObjectNode}.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.get_object_nodes_from_json_data">
+<span class="sig-name descname"><span class="pre">get_object_nodes_from_json_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance_views_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dsg_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#react.core.object_node.ObjectNode" title="react.core.object_node.ObjectNode"><span class="pre">ObjectNode</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.get_object_nodes_from_json_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.get_object_nodes_from_json_data" title="Permalink to this definition"></a></dt>
+<dd><p>Get object nodes from JSON data.</p>
+<p>This method processes the given JSON data and retrieves object
+nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scan_id</strong> – The scan ID.</p></li>
+<li><p><strong>instance_views_data</strong> – Instance views data from
+instance_views.json.</p></li>
+<li><p><strong>dsg_data</strong> – DSG data from dsg_with_mesh.json.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary of object nodes, mapped as a dictionary
+{global_instance_id : ObjectNode}.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.greedy_match">
+<span class="sig-name descname"><span class="pre">greedy_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_id_old</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_id_new</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.greedy_match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.greedy_match" title="Permalink to this definition"></a></dt>
+<dd><p>Perform greedy matching of object nodes between two scans.</p>
+<p>This method matches object nodes between an old scan and a new
+scan by minimizing the traveled distance of objects, assuming
+all instance clusters only have one object node each.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scan_id_old</strong> – The old scan ID.</p></li>
+<li><p><strong>scan_id_new</strong> – The new scan ID.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.include_z">
+<span class="sig-name descname"><span class="pre">include_z</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#react.core.react_manager.ReactManager.include_z" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.init_instance_clusters">
+<span class="sig-name descname"><span class="pre">init_instance_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#react.core.object_node.ObjectNode" title="react.core.object_node.ObjectNode"><span class="pre">ObjectNode</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.init_instance_clusters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.init_instance_clusters" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize instance clusters with object nodes.</p>
+<p>This method initializes instance clusters using the provided
+object nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scan_id</strong> – The scan ID.</p></li>
+<li><p><strong>object_nodes</strong> – A dictionary of object nodes, mapped as a
+dictionary {global_instance_id : ObjectNode}.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.merge_two_clusters">
+<span class="sig-name descname"><span class="pre">merge_two_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_cluster_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.merge_two_clusters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.merge_two_clusters" title="Permalink to this definition"></a></dt>
+<dd><p>Merge two instance clusters.</p>
+<p>This method merges two instance clusters into a single cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cluster_id</strong> – The ID of the first cluster.</p></li>
+<li><p><strong>other_cluster_id</strong> – The ID of the second cluster.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ReactManager'</span></em><a class="headerlink" href="#react.core.react_manager.ReactManager.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.optimize_cluster">
+<span class="sig-name descname"><span class="pre">optimize_cluster</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.optimize_cluster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.optimize_cluster" title="Permalink to this definition"></a></dt>
+<dd><p>Optimize the clustering of instances.</p>
+<p>This method iteratively merges clusters that match based on
+visual embeddings until no more matches are found.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.pretty_print">
+<span class="sig-name descname"><span class="pre">pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.pretty_print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.pretty_print" title="Permalink to this definition"></a></dt>
+<dd><p>Return a string representation of the ReactManager.</p>
+<p>This method provides a detailed string representation of the
+ReactManager, including its clusters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A string representation of the ReactManager.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.process_dsg">
+<span class="sig-name descname"><span class="pre">process_dsg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dsg_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize_cluster</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.process_dsg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.process_dsg" title="Permalink to this definition"></a></dt>
+<dd><p>Process DSG data from json files to initialize and optimize instance
+clusters.</p>
+<p>This method processes DSG data from dsg_with_mesh.json,
+instance_views.json and map_views.json to initialize instance
+clusters, and optionally optimize them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dsg_path</strong> – The path to the DSG data files.</p></li>
+<li><p><strong>scan_id</strong> – The scan ID for the current data.</p></li>
+<li><p><strong>optimize_cluster</strong> – Whether to optimize the clusters after
+initialization (default: True).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.report_match_results">
+<span class="sig-name descname"><span class="pre">report_match_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_scan_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_scan_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="react.matching.html#react.matching.match_results.MatchResults" title="react.matching.match_results.MatchResults"><span class="pre">MatchResults</span></a></span></span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.report_match_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.report_match_results" title="Permalink to this definition"></a></dt>
+<dd><p>Report matching results between two scans.</p>
+<p>This method reports the matching results between two scans,
+including travel distance, matches, absent nodes, and new nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>old_scan_id</strong> – The old scan ID (default: 0).</p></li>
+<li><p><strong>new_scan_id</strong> – The new scan ID (default: 1).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An object of MatchResults containing the matching
+details.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.update_instance_entry">
+<span class="sig-name descname"><span class="pre">update_instance_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_inst_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_inst_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.update_instance_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.update_instance_entry" title="Permalink to this definition"></a></dt>
+<dd><p>Update an instance entry by merging two instances within a cluster.</p>
+<p>This method merges two instances in a specific cluster and
+assigns the minimum ID to the merged instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cluster_id</strong> – The ID of the cluster containing the
+instances.</p></li>
+<li><p><strong>old_inst_id</strong> – The instance ID of the first instance.</p></li>
+<li><p><strong>new_inst_id</strong> – The instance ID of the second instance.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.update_position_histories">
+<span class="sig-name descname"><span class="pre">update_position_histories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_id_old</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_id_new</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/core/react_manager.html#ReactManager.update_position_histories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.core.react_manager.ReactManager.update_position_histories" title="Permalink to this definition"></a></dt>
+<dd><p>Update position histories between two scans for all clusters.</p>
+<p>This method updates the position histories between two scans for
+all clusters, matching instances from the old scan to instances
+from the new scan.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scan_id_old</strong> – The old scan ID.</p></li>
+<li><p><strong>scan_id_new</strong> – The new scan ID.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.core.react_manager.ReactManager.visual_difference_threshold">
+<span class="sig-name descname"><span class="pre">visual_difference_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#react.core.react_manager.ReactManager.visual_difference_threshold" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-react.core">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-react.core" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="react.html" class="btn btn-neutral float-left" title="react package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="react.eval.html" class="btn btn-neutral float-right" title="react.eval package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Thuan-Phuoc Nguyen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

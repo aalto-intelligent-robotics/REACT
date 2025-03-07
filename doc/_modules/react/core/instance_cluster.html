@@ -1,0 +1,353 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>react.core.instance_cluster &mdash; REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=2389946f"></script>
+      <script src="../../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">python</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">react.core.instance_cluster</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for react.core.instance_cluster</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">react.core.object_node</span><span class="w"> </span><span class="kn">import</span> <span class="n">ObjectNode</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">react.utils.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">getLogger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">react.core.instance</span><span class="w"> </span><span class="kn">import</span> <span class="n">Instance</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">react.matching.hungarian_algorithm</span><span class="w"> </span><span class="kn">import</span> <span class="n">hungarian_algorithm</span>
+
+<span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="vm">__name__</span><span class="p">,</span>
+    <span class="n">consoleLevel</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+    <span class="n">fileLevel</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+    <span class="n">log_file</span><span class="o">=</span><span class="s2">&quot;instance_sets.log&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="InstanceCluster"><a class="viewcode-back" href="../../../react.core.html#react.core.instance_cluster.InstanceCluster">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">InstanceCluster</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Python interface for REACT Instance Cluster for managing Instance groups</span>
+<span class="sd">    that represent identical objects.</span>
+
+<span class="sd">    :param cluster_id: ID of the cluster.</span>
+<span class="sd">    :param instances: A collection of instances mapped by their global</span>
+<span class="sd">        instance ID.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cluster_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">instances</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Instance</span><span class="p">]</span>
+
+<div class="viewcode-block" id="InstanceCluster.pretty_print"><a class="viewcode-back" href="../../../react.core.html#react.core.instance_cluster.InstanceCluster.pretty_print">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">pretty_print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a string representation of the instance cluster.</span>
+
+<span class="sd">        This method provides a detailed string representation of the</span>
+<span class="sd">        instance cluster, including its ID, class ID, name, embedding,</span>
+<span class="sd">        and instances.</span>
+
+<span class="sd">        :return: A string representation of the instance cluster.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node_str</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">🌍 Instance Cluster info:</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;- Cluster ID: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cluster_id</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;- Class ID: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_class_id</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;- Name: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;- Embedding: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;- Instances:</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">node_str</span> <span class="o">+=</span> <span class="n">instance</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
+        <span class="n">node_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">node_str</span></div>
+
+<div class="viewcode-block" id="InstanceCluster.get_class_id"><a class="viewcode-back" href="../../../react.core.html#react.core.instance_cluster.InstanceCluster.get_class_id">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_class_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the class ID of the instance cluster.</span>
+
+<span class="sd">        This method returns the class ID of the instance cluster by</span>
+<span class="sd">        accessing the class ID of the first instance.</span>
+
+<span class="sd">        :return: The class ID of the instance cluster.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="k">return</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_class_id</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="InstanceCluster.get_name"><a class="viewcode-back" href="../../../react.core.html#react.core.instance_cluster.InstanceCluster.get_name">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the name of the instance cluster.</span>
+
+<span class="sd">        This method returns the name of the instance cluster by</span>
+<span class="sd">        accessing the name of the first instance.</span>
+
+<span class="sd">        :return: The name of the instance cluster.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="k">return</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="InstanceCluster.get_local_node_id"><a class="viewcode-back" href="../../../react.core.html#react.core.instance_cluster.InstanceCluster.get_local_node_id">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_local_node_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scan_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">global_object_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the ID of an ObjectNode given a scan ID and the global object</span>
+<span class="sd">        ID.</span>
+
+<span class="sd">        :param scan_id: The scan ID of the scene.</span>
+<span class="sd">        :param global_object_id: The global object ID registered in the</span>
+<span class="sd">            object cluster.</span>
+<span class="sd">        :return: The ObjectNode ID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="n">global_object_id</span><span class="p">]</span><span class="o">.</span><span class="n">node_history</span><span class="p">[</span><span class="n">scan_id</span><span class="p">]</span><span class="o">.</span><span class="n">node_id</span></div>
+
+<div class="viewcode-block" id="InstanceCluster.get_embedding"><a class="viewcode-back" href="../../../react.core.html#react.core.instance_cluster.InstanceCluster.get_embedding">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_embedding</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the average embedding for the cluster.</span>
+
+<span class="sd">        This method calculates the weighted average embedding for the</span>
+<span class="sd">        cluster based on the number of images a node has.</span>
+
+<span class="sd">        :return: The average embedding for the cluster.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">embedding</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">num_imgs</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">global_node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">global_node</span><span class="o">.</span><span class="n">node_history</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">node_num_imgs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">instance_views</span><span class="p">)</span>
+                <span class="k">assert</span> <span class="n">node</span><span class="o">.</span><span class="n">embedding</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+                <span class="k">if</span> <span class="n">embedding</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">embedding</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">embedding</span> <span class="o">*</span> <span class="n">node_num_imgs</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">embedding</span> <span class="o">+=</span> <span class="n">node</span><span class="o">.</span><span class="n">embedding</span> <span class="o">*</span> <span class="n">node_num_imgs</span>
+
+                <span class="n">num_imgs</span> <span class="o">+=</span> <span class="n">node_num_imgs</span>
+
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">embedding</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">num_imgs</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">embedding</span> <span class="o">/=</span> <span class="n">num_imgs</span>
+        <span class="k">return</span> <span class="n">embedding</span></div>
+
+<div class="viewcode-block" id="InstanceCluster.get_cluster_position_history"><a class="viewcode-back" href="../../../react.core.html#react.core.instance_cluster.InstanceCluster.get_cluster_position_history">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_cluster_position_history</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">scan_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the position history of the nodes for specified scans in the</span>
+<span class="sd">        cluster.</span>
+
+<span class="sd">        :param scan_ids: Scan IDs to get history from.</span>
+<span class="sd">        :return: Position histories of instances within the cluster</span>
+<span class="sd">            mapped as {instance_id -&gt; {scan_id -&gt; pos}}.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ph</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">instance_id</span><span class="p">,</span> <span class="n">instance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">ph</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">instance_id</span><span class="p">:</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_position_history</span><span class="p">(</span><span class="n">scan_ids</span><span class="o">=</span><span class="n">scan_ids</span><span class="p">)})</span>
+        <span class="k">return</span> <span class="n">ph</span></div>
+
+<div class="viewcode-block" id="InstanceCluster.get_node_history"><a class="viewcode-back" href="../../../react.core.html#react.core.instance_cluster.InstanceCluster.get_node_history">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_node_history</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">scan_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">ObjectNode</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the object node history for specified scans in the cluster.</span>
+
+<span class="sd">        :param scan_ids: Scan IDs to get history from. Set to [] to</span>
+<span class="sd">            select from all scans.</span>
+<span class="sd">        :return: Object nodes histories of instances within the cluster</span>
+<span class="sd">            mapped as {instance_id -&gt; {scan_id -&gt; object_node}}.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nh</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">instance_id</span><span class="p">,</span> <span class="n">instance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">scan</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">node_history</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scan_ids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">is_valid_scan</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">is_valid_scan</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">scan</span> <span class="ow">in</span> <span class="n">scan_ids</span> <span class="k">else</span> <span class="kc">False</span>
+                <span class="k">if</span> <span class="n">is_valid_scan</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">instance_id</span> <span class="ow">in</span> <span class="n">nh</span><span class="p">:</span>
+                        <span class="n">nh</span><span class="p">[</span><span class="n">instance_id</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">scan</span><span class="p">:</span> <span class="n">node</span><span class="p">})</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">nh</span><span class="p">[</span><span class="n">instance_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">scan</span><span class="p">:</span> <span class="n">node</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">nh</span></div>
+
+<div class="viewcode-block" id="InstanceCluster.is_match"><a class="viewcode-back" href="../../../react.core.html#react.core.instance_cluster.InstanceCluster.is_match">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_match</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">other_cluster</span><span class="p">:</span> <span class="s2">&quot;InstanceCluster&quot;</span><span class="p">,</span> <span class="n">visual_difference_threshold</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compare with another InstanceCluster.</span>
+
+<span class="sd">        This method compares the current instance cluster with another</span>
+<span class="sd">        instance cluster to determine if they represent similar objects</span>
+<span class="sd">        based on a visual difference threshold.</span>
+
+<span class="sd">        :param other_cluster: The other instance cluster.</span>
+<span class="sd">        :param visual_difference_threshold: The visual difference</span>
+<span class="sd">            threshold.</span>
+<span class="sd">        :return: True if the two clusters represent similar objects</span>
+<span class="sd">            according to the visual difference threshold, False</span>
+<span class="sd">            otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">pairwise_distance</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">(),</span> <span class="n">other_cluster</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Dist cluster </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cluster_id</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot; - </span><span class="si">{</span><span class="n">other_cluster</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">other_cluster</span><span class="o">.</span><span class="n">cluster_id</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;: </span><span class="si">{</span><span class="n">dist</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;=</span> <span class="n">visual_difference_threshold</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="InstanceCluster.match_position"><a class="viewcode-back" href="../../../react.core.html#react.core.instance_cluster.InstanceCluster.match_position">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">match_position</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">scan_id_old</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">scan_id_new</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">include_z</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="n">List</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform instance matching by minimizing traveled distance of objects</span>
+<span class="sd">        using the Hungarian algorithm.</span>
+
+<span class="sd">        This method uses the Hungarian algorithm on instances that</span>
+<span class="sd">        contain two ObjectNodes from the new and old scan IDs to perform</span>
+<span class="sd">        instance matching by minimizing the traveled distance.</span>
+
+<span class="sd">        :param scan_id_old: The old scan ID.</span>
+<span class="sd">        :param scan_id_new: The new scan ID.</span>
+<span class="sd">        :param include_z: Whether to include the z-coordinate in</span>
+<span class="sd">            distance calculations. Default is False.</span>
+<span class="sd">        :return: A tuple containing lists of instance IDs in the old</span>
+<span class="sd">            scan and their matching correspondences in the new scan.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">old_inst_positions</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">new_inst_positions</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">inst_id</span><span class="p">,</span> <span class="n">ph</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cluster_position_history</span><span class="p">(</span>
+            <span class="n">scan_ids</span><span class="o">=</span><span class="p">[</span><span class="n">scan_id_old</span><span class="p">,</span> <span class="n">scan_id_new</span><span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">scan_id_old</span> <span class="ow">in</span> <span class="n">ph</span><span class="p">:</span>
+                <span class="n">old_inst_positions</span><span class="p">[</span><span class="n">inst_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">ph</span><span class="p">[</span><span class="n">scan_id_old</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">scan_id_new</span> <span class="ow">in</span> <span class="n">ph</span><span class="p">:</span>
+                <span class="n">new_inst_positions</span><span class="p">[</span><span class="n">inst_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">ph</span><span class="p">[</span><span class="n">scan_id_new</span><span class="p">]</span>
+        <span class="n">matching_old_ids</span><span class="p">,</span> <span class="n">matching_new_ids</span> <span class="o">=</span> <span class="n">hungarian_algorithm</span><span class="p">(</span>
+            <span class="n">old_inst_positions</span><span class="o">=</span><span class="n">old_inst_positions</span><span class="p">,</span>
+            <span class="n">new_inst_positions</span><span class="o">=</span><span class="n">new_inst_positions</span><span class="p">,</span>
+            <span class="n">include_z</span><span class="o">=</span><span class="n">include_z</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">matching_old_ids</span><span class="p">,</span> <span class="n">matching_new_ids</span></div>
+
+<div class="viewcode-block" id="InstanceCluster.merge_two_instances"><a class="viewcode-back" href="../../../react.core.html#react.core.instance_cluster.InstanceCluster.merge_two_instances">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">merge_two_instances</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">inst_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">other_inst_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">assign_inst_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Merge two Instance objects.</span>
+
+<span class="sd">        This method merges two Instance objects within the cluster and</span>
+<span class="sd">        assigns the merged instance a new instance ID.</span>
+
+<span class="sd">        :param inst_id: The instance ID of the first Instance object.</span>
+<span class="sd">        :param other_inst_id: The instance ID of the second Instance</span>
+<span class="sd">            object.</span>
+<span class="sd">        :param assign_inst_id: The instance ID to assign to the merged</span>
+<span class="sd">            Instance object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="n">inst_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Instance ID to be merged is not available: </span><span class="si">{</span><span class="n">inst_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="n">other_inst_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Instance ID to b merged is not available: </span><span class="si">{</span><span class="n">other_inst_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">inst</span><span class="p">:</span> <span class="n">Instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">inst_id</span><span class="p">)</span>
+        <span class="n">other_inst</span><span class="p">:</span> <span class="n">Instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">other_inst_id</span><span class="p">)</span>
+        <span class="n">new_node_history</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">node_history</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">other_inst</span><span class="o">.</span><span class="n">node_history</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">new_node_history</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">node</span><span class="o">.</span><span class="n">scan_id</span><span class="p">:</span> <span class="n">node</span><span class="p">})</span>
+        <span class="n">new_inst</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">global_id</span><span class="o">=</span><span class="n">assign_inst_id</span><span class="p">,</span> <span class="n">node_history</span><span class="o">=</span><span class="n">new_node_history</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">assign_inst_id</span><span class="p">:</span> <span class="n">new_inst</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="InstanceCluster.empty"><a class="viewcode-back" href="../../../react.core.html#react.core.instance_cluster.InstanceCluster.empty">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">empty</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the cluster is empty.</span>
+
+<span class="sd">        This method checks if there are no instances in the cluster.</span>
+
+<span class="sd">        :return: True if the cluster is empty, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Thuan-Phuoc Nguyen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

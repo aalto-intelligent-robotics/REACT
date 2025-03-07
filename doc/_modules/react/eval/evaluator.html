@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>react.eval.evaluator &mdash; REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=2389946f"></script>
+      <script src="../../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">python</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">react.eval.evaluator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for react.eval.evaluator</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Set</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">react.matching.ground_truth</span><span class="w"> </span><span class="kn">import</span> <span class="n">GroundTruth</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">react.matching.match_results</span><span class="w"> </span><span class="kn">import</span> <span class="n">MatchResults</span>
+
+
+<div class="viewcode-block" id="ReactEvaluator"><a class="viewcode-back" href="../../../react.eval.html#react.eval.evaluator.ReactEvaluator">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ReactEvaluator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to evaluate the instance matching results of REACT.</span>
+
+<span class="sd">    :param ground_truth: Ground truth information from a yaml file.</span>
+<span class="sd">    :param match_results: Instance matching results.</span>
+<span class="sd">    :param results_cnt: Counts of TP, FP, FN for Matched, Absent, and</span>
+<span class="sd">        New sets.</span>
+<span class="sd">    :param old_checked_id: Instance IDs that have already been checked</span>
+<span class="sd">        from the old scan.</span>
+<span class="sd">    :param new_checked_id: Instance IDs that have already been checked</span>
+<span class="sd">        from the new scan.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ground_truth</span><span class="p">:</span> <span class="n">GroundTruth</span>
+    <span class="n">match_results</span><span class="p">:</span> <span class="n">MatchResults</span>
+    <span class="n">results_cnt</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">old_checked_id</span><span class="p">:</span> <span class="n">Set</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">)</span>
+    <span class="n">new_checked_id</span><span class="p">:</span> <span class="n">Set</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ReactEvaluator.is_correct_match"><a class="viewcode-back" href="../../../react.eval.html#react.eval.evaluator.ReactEvaluator.is_correct_match">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_correct_match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred_match</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if a predicted match is correct.</span>
+
+<span class="sd">        This method checks if a predicted match exists in the ground</span>
+<span class="sd">        truth matches.</span>
+
+<span class="sd">        :param pred_match: A tuple containing the old and new node IDs</span>
+<span class="sd">            of the predicted match.</span>
+<span class="sd">        :return: True if the predicted match is correct, False</span>
+<span class="sd">            otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">old_node_id</span> <span class="o">=</span> <span class="n">pred_match</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">new_node_id</span> <span class="o">=</span> <span class="n">pred_match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">gt_match</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ground_truth</span><span class="o">.</span><span class="n">matches</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">old_node_id</span> <span class="ow">in</span> <span class="n">gt_match</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ground_truth</span><span class="o">.</span><span class="n">old_scan_id</span><span class="p">]</span>
+                <span class="ow">and</span> <span class="n">new_node_id</span> <span class="ow">in</span> <span class="n">gt_match</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ground_truth</span><span class="o">.</span><span class="n">new_scan_id</span><span class="p">]</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="ReactEvaluator.is_completely_absent"><a class="viewcode-back" href="../../../react.eval.html#react.eval.evaluator.ReactEvaluator.is_completely_absent">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_completely_absent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if a predicted node is completely absent.</span>
+
+<span class="sd">        This method checks if a predicted node from the old scan is</span>
+<span class="sd">        found in any ground truth matches, meaning that this object</span>
+<span class="sd">        category is only seen in the old scan.</span>
+
+<span class="sd">        :param pred: The predicted node ID.</span>
+<span class="sd">        :return: True if the predicted node is completely absent, False</span>
+<span class="sd">            otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">gt_match</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ground_truth</span><span class="o">.</span><span class="n">matches</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">old_gt_cluster</span> <span class="o">=</span> <span class="n">gt_match</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ground_truth</span><span class="o">.</span><span class="n">old_scan_id</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">old_gt_cluster</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># Could be potential match with something else</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="ReactEvaluator.is_completely_new"><a class="viewcode-back" href="../../../react.eval.html#react.eval.evaluator.ReactEvaluator.is_completely_new">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_completely_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if a predicted node is completely new.</span>
+
+<span class="sd">        This method checks if a predicted node from the new scan is</span>
+<span class="sd">        found in any ground truth matches, meaning that this object</span>
+<span class="sd">        category is novel and is only seen in the new scan.</span>
+
+<span class="sd">        :param pred: The predicted node ID.</span>
+<span class="sd">        :return: True if the predicted node is completely new, False</span>
+<span class="sd">            otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">gt_match</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ground_truth</span><span class="o">.</span><span class="n">matches</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">new_gt_cluster</span> <span class="o">=</span> <span class="n">gt_match</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ground_truth</span><span class="o">.</span><span class="n">new_scan_id</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">new_gt_cluster</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="ReactEvaluator.count_matched_results"><a class="viewcode-back" href="../../../react.eval.html#react.eval.evaluator.ReactEvaluator.count_matched_results">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">count_matched_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Count the matched results (TP, FP, FN) for matched, absent, and new</span>
+<span class="sd">        sets.</span>
+
+<span class="sd">        This method counts the true positives, false positives, and</span>
+<span class="sd">        false negatives for matched, absent, and new sets based on the</span>
+<span class="sd">        ground truth and predicted match results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Matched</span>
+        <span class="n">tp_m</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">fp_m</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">tp_a</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">fp_a</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">fn_a</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">tp_n</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">fp_n</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">fn_n</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">match_results</span><span class="o">.</span><span class="n">matches</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">old_checked_id</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">new_checked_id</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_correct_match</span><span class="p">(</span><span class="n">match</span><span class="p">):</span>
+                <span class="n">tp_m</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fp_m</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_completely_absent</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                    <span class="n">fn_a</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_completely_new</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                    <span class="n">fn_n</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">fn_m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ground_truth</span><span class="o">.</span><span class="n">get_num_matches</span><span class="p">()</span> <span class="o">-</span> <span class="n">tp_m</span>
+
+        <span class="c1"># Check completely new / absent objects (not part of a cluster that is</span>
+        <span class="c1"># present in both dsg)</span>
+        <span class="k">for</span> <span class="n">new</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">match_results</span><span class="o">.</span><span class="n">new</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_completely_new</span><span class="p">(</span><span class="n">new</span><span class="p">):</span>
+                <span class="n">tp_n</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">absent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">match_results</span><span class="o">.</span><span class="n">absent</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_completely_absent</span><span class="p">(</span><span class="n">absent</span><span class="p">):</span>
+                <span class="n">tp_a</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># Calculate conflicts</span>
+        <span class="n">tmp_gt</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ground_truth</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">tmp_gt</span><span class="o">.</span><span class="n">matches</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">old_checked_id</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">match</span><span class="p">[</span><span class="n">tmp_gt</span><span class="o">.</span><span class="n">old_scan_id</span><span class="p">]:</span>
+                    <span class="k">match</span><span class="p">[</span><span class="n">tmp_gt</span><span class="o">.</span><span class="n">old_scan_id</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_checked_id</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">match</span><span class="p">[</span><span class="n">tmp_gt</span><span class="o">.</span><span class="n">new_scan_id</span><span class="p">]:</span>
+                    <span class="k">match</span><span class="p">[</span><span class="n">tmp_gt</span><span class="o">.</span><span class="n">new_scan_id</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">cid</span><span class="p">,</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">tmp_gt</span><span class="o">.</span><span class="n">matches</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">old_c</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">[</span><span class="n">tmp_gt</span><span class="o">.</span><span class="n">old_scan_id</span><span class="p">]</span>
+            <span class="n">new_c</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">[</span><span class="n">tmp_gt</span><span class="o">.</span><span class="n">new_scan_id</span><span class="p">]</span>
+
+            <span class="n">pred_num_abs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">old_c</span><span class="p">)</span>
+            <span class="n">gt_num_abs</span> <span class="o">=</span> <span class="n">tmp_gt</span><span class="o">.</span><span class="n">get_cluster_num_absent</span><span class="p">(</span><span class="n">cid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pred_num_abs</span> <span class="o">&lt;</span> <span class="n">gt_num_abs</span><span class="p">:</span>
+                <span class="n">fn_a</span> <span class="o">+=</span> <span class="n">gt_num_abs</span> <span class="o">-</span> <span class="n">pred_num_abs</span>
+                <span class="n">tp_a</span> <span class="o">+=</span> <span class="n">pred_num_abs</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tp_a</span> <span class="o">+=</span> <span class="n">gt_num_abs</span>
+                <span class="n">fp_a</span> <span class="o">+=</span> <span class="n">pred_num_abs</span> <span class="o">-</span> <span class="n">gt_num_abs</span>
+
+            <span class="n">pred_num_new</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_c</span><span class="p">)</span>
+            <span class="n">gt_num_new</span> <span class="o">=</span> <span class="n">tmp_gt</span><span class="o">.</span><span class="n">get_cluster_num_new</span><span class="p">(</span><span class="n">cid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pred_num_new</span> <span class="o">&lt;</span> <span class="n">gt_num_new</span><span class="p">:</span>
+                <span class="n">fn_n</span> <span class="o">+=</span> <span class="n">gt_num_new</span> <span class="o">-</span> <span class="n">pred_num_new</span>
+                <span class="n">tp_n</span> <span class="o">+=</span> <span class="n">pred_num_new</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tp_n</span> <span class="o">+=</span> <span class="n">gt_num_new</span>
+                <span class="n">fp_n</span> <span class="o">+=</span> <span class="n">pred_num_new</span> <span class="o">-</span> <span class="n">gt_num_new</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;tp_m&quot;</span><span class="p">:</span> <span class="n">tp_m</span><span class="p">,</span>
+            <span class="s2">&quot;fp_m&quot;</span><span class="p">:</span> <span class="n">fp_m</span><span class="p">,</span>
+            <span class="s2">&quot;fn_m&quot;</span><span class="p">:</span> <span class="n">fn_m</span><span class="p">,</span>
+            <span class="s2">&quot;tp_a&quot;</span><span class="p">:</span> <span class="n">tp_a</span><span class="p">,</span>
+            <span class="s2">&quot;fp_a&quot;</span><span class="p">:</span> <span class="n">fp_a</span><span class="p">,</span>
+            <span class="s2">&quot;fn_a&quot;</span><span class="p">:</span> <span class="n">fn_a</span><span class="p">,</span>
+            <span class="s2">&quot;tp_n&quot;</span><span class="p">:</span> <span class="n">tp_n</span><span class="p">,</span>
+            <span class="s2">&quot;fp_n&quot;</span><span class="p">:</span> <span class="n">fp_n</span><span class="p">,</span>
+            <span class="s2">&quot;fn_n&quot;</span><span class="p">:</span> <span class="n">fn_n</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="ReactEvaluator.count_new_results"><a class="viewcode-back" href="../../../react.eval.html#react.eval.evaluator.ReactEvaluator.count_new_results">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">count_new_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Count the true positives, false positives, and false negatives for</span>
+<span class="sd">        new results.</span>
+
+<span class="sd">        This method counts the true positives (TP), false positives</span>
+<span class="sd">        (FP), and false negatives (FN) specifically for new results.</span>
+
+<span class="sd">        :return: A dictionary containing the counts of TP, FP, and FN</span>
+<span class="sd">            for new results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tp</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">fp</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ground_truth</span><span class="o">.</span><span class="n">get_num_new</span><span class="p">()</span> <span class="o">-</span> <span class="n">tp</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;tp&quot;</span><span class="p">:</span> <span class="n">tp</span><span class="p">,</span> <span class="s2">&quot;fp&quot;</span><span class="p">:</span> <span class="n">fp</span><span class="p">,</span> <span class="s2">&quot;fn&quot;</span><span class="p">:</span> <span class="n">fn</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="ReactEvaluator.calculate_metrics"><a class="viewcode-back" href="../../../react.eval.html#react.eval.evaluator.ReactEvaluator.calculate_metrics">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate precision, recall, and F1-score.</span>
+
+<span class="sd">        This method calculates the precision, recall, and F1-score based</span>
+<span class="sd">        on the true positives (TP), false positives (FP), and false</span>
+<span class="sd">        negatives (FN).</span>
+
+<span class="sd">        :param tp: The number of true positives.</span>
+<span class="sd">        :param fp: The number of false positives.</span>
+<span class="sd">        :param fn: The number of false negatives.</span>
+<span class="sd">        :return: A dictionary containing the precision, recall, and</span>
+<span class="sd">            F1-score.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">tp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">pre</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">rec</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">f1</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pre</span> <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span>
+            <span class="n">rec</span> <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">)</span>
+            <span class="n">f1</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">pre</span> <span class="o">*</span> <span class="n">rec</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">pre</span> <span class="o">+</span> <span class="n">rec</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;pre&quot;</span><span class="p">:</span> <span class="n">pre</span><span class="p">,</span> <span class="s2">&quot;rec&quot;</span><span class="p">:</span> <span class="n">rec</span><span class="p">,</span> <span class="s2">&quot;f1&quot;</span><span class="p">:</span> <span class="n">f1</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="ReactEvaluator.get_metrics"><a class="viewcode-back" href="../../../react.eval.html#react.eval.evaluator.ReactEvaluator.get_metrics">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get precision, recall, and F1-score metrics for matched, absent,</span>
+<span class="sd">        new, and all sets.</span>
+
+<span class="sd">        This method calculates and returns the precision, recall, and</span>
+<span class="sd">        F1-score metrics for matched (m), absent (a), new (n), and all</span>
+<span class="sd">        sets combined.</span>
+
+<span class="sd">        :return: A dictionary containing the precision, recall, and</span>
+<span class="sd">            F1-score metrics for each set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pr</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">pr</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">pr</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;tp_m&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;fp_m&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;fn_m&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">pr</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">pr</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;tp_a&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;fp_a&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;fn_a&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">pr</span><span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">pr</span><span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;tp_n&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;fp_n&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;fn_n&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="n">pr</span><span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">pr</span><span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;tp_m&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;tp_a&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;tp_n&quot;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;fp_m&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;fp_a&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;fp_n&quot;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;fn_m&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;fn_a&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_cnt</span><span class="p">[</span><span class="s2">&quot;fn_n&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">pr</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Thuan-Phuoc Nguyen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

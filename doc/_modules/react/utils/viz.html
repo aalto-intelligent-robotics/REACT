@@ -1,0 +1,440 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>react.utils.viz &mdash; REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=2389946f"></script>
+      <script src="../../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">python</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">react.utils.viz</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for react.utils.viz</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">open3d</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">o3d</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">hydra_seg_ros.utils.labels</span><span class="w"> </span><span class="kn">import</span> <span class="n">COCO_COLORS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">react.core.object_node</span><span class="w"> </span><span class="kn">import</span> <span class="n">ObjectNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">react.core.instance_cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">InstanceCluster</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">react.core.react_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReactManager</span>
+
+
+<div class="viewcode-block" id="get_class_color"><a class="viewcode-back" href="../../../react.utils.html#react.utils.viz.get_class_color">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_class_color</span><span class="p">(</span><span class="n">class_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the color corresponding to a class ID from COCO_COLORS.</span>
+
+<span class="sd">    :param class_id: The class ID for which to retrieve the color.</span>
+<span class="sd">    :param normalize: Whether to normalize the color values to [0, 1].</span>
+<span class="sd">        Defaults to True.</span>
+<span class="sd">    :return: A list containing the color values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">COCO_COLORS</span><span class="p">[</span><span class="n">class_id</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">color</span><span class="p">]</span> <span class="k">if</span> <span class="n">normalize</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">color</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="extract_submesh"><a class="viewcode-back" href="../../../react.utils.html#react.utils.viz.extract_submesh">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">extract_submesh</span><span class="p">(</span>
+    <span class="n">mesh</span><span class="p">:</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">ObjectNode</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract a submesh from the given mesh based on the connections in the</span>
+<span class="sd">    node.</span>
+
+<span class="sd">    :param mesh: The original mesh to extract the submesh from.</span>
+<span class="sd">    :param node: The ObjectNode containing the mesh connections.</span>
+<span class="sd">    :return: The extracted submesh as an o3d.geometry.TriangleMesh</span>
+<span class="sd">        object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">vertex_indices_set</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">mesh_connections</span>
+    <span class="c1"># Get all triangles and check which ones have vertices in the vertex_indices</span>
+    <span class="n">triangles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span>
+    <span class="n">vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
+    <span class="c1"># Mask for triangles to keep</span>
+    <span class="n">triangle_mask</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nb">all</span><span class="p">(</span><span class="n">v</span> <span class="ow">in</span> <span class="n">vertex_indices_set</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">triangle</span><span class="p">)</span> <span class="k">for</span> <span class="n">triangle</span> <span class="ow">in</span> <span class="n">triangles</span>
+    <span class="p">]</span>
+    <span class="c1"># Extract the triangles and vertices for the submesh</span>
+    <span class="n">selected_triangles</span> <span class="o">=</span> <span class="n">triangles</span><span class="p">[</span><span class="n">triangle_mask</span><span class="p">]</span>
+    <span class="n">unique_vertex_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">selected_triangles</span><span class="p">)</span>
+    <span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span><span class="n">old</span><span class="p">:</span> <span class="n">new</span> <span class="k">for</span> <span class="n">new</span><span class="p">,</span> <span class="n">old</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">unique_vertex_indices</span><span class="p">)}</span>
+    <span class="n">new_triangles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[[</span><span class="n">mapping</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">triangle</span><span class="p">]</span> <span class="k">for</span> <span class="n">triangle</span> <span class="ow">in</span> <span class="n">selected_triangles</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">new_vertices</span> <span class="o">=</span> <span class="n">vertices</span><span class="p">[</span><span class="n">unique_vertex_indices</span><span class="p">]</span>
+    <span class="c1"># Create the submesh</span>
+    <span class="n">submesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">()</span>
+    <span class="n">submesh</span><span class="o">.</span><span class="n">vertices</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">new_vertices</span><span class="p">)</span>
+    <span class="n">submesh</span><span class="o">.</span><span class="n">triangles</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3iVector</span><span class="p">(</span><span class="n">new_triangles</span><span class="p">)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">get_class_color</span><span class="p">(</span><span class="n">class_id</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">class_id</span><span class="p">)</span>
+    <span class="n">submesh</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>  <span class="c1"># Paint class_color</span>
+    <span class="k">return</span> <span class="n">submesh</span></div>
+
+
+<div class="viewcode-block" id="draw_cube"><a class="viewcode-back" href="../../../react.utils.html#react.utils.viz.draw_cube">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">draw_cube</span><span class="p">(</span>
+    <span class="n">center</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw a cube at a given center with specified dimensions and color.</span>
+
+<span class="sd">    :param center: The center position of the cube.</span>
+<span class="sd">    :param color: The color of the cube. Defaults to [0.5, 0.5, 0.5].</span>
+<span class="sd">    :param dim: The dimension of the cube. Defaults to 0.1.</span>
+<span class="sd">    :return: An o3d.geometry.TriangleMesh object representing the cube.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create the box mesh</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_box</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+    <span class="c1"># Translate the box to the specified center</span>
+    <span class="n">translation</span> <span class="o">=</span> <span class="n">center</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dim</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dim</span> <span class="o">/</span> <span class="mi">2</span><span class="p">])</span>
+    <span class="n">box</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">translation</span><span class="p">)</span>
+    <span class="n">box</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">box</span></div>
+
+
+<div class="viewcode-block" id="draw_text_mesh"><a class="viewcode-back" href="../../../react.utils.html#react.utils.viz.draw_text_mesh">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">draw_text_mesh</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create and draw a 3D text mesh at a specified position.</span>
+
+<span class="sd">    :param text: The text to display in the mesh.</span>
+<span class="sd">    :param position: The position where the text should be placed.</span>
+<span class="sd">    :return: An o3d.geometry.TriangleMesh object representing the text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create a 3D text mesh</span>
+    <span class="n">text_mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">text_mesh</span> <span class="o">=</span> <span class="n">text_mesh</span><span class="o">.</span><span class="n">to_legacy</span><span class="p">()</span>
+    <span class="n">text_mesh</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+    <span class="n">text_mesh</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span>
+        <span class="n">text_mesh</span><span class="o">.</span><span class="n">get_rotation_matrix_from_xyz</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">text_mesh</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">position</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]))</span>
+    <span class="n">text_mesh</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">text_mesh</span></div>
+
+
+<div class="viewcode-block" id="draw_node_geometry"><a class="viewcode-back" href="../../../react.utils.html#react.utils.viz.draw_node_geometry">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">draw_node_geometry</span><span class="p">(</span>
+    <span class="n">node</span><span class="p">:</span> <span class="n">ObjectNode</span><span class="p">,</span>
+    <span class="n">mesh</span><span class="p">:</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">,</span>
+    <span class="n">node_label_z</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">dsg_offset_z</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">draw_bbox</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">draw_mesh</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">draw_lines</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">draw_text</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw the geometry for a specific node, including bounding box, lines,</span>
+<span class="sd">    and text.</span>
+
+<span class="sd">    :param node: The ObjectNode to draw.</span>
+<span class="sd">    :param mesh: The mesh associated with the node.</span>
+<span class="sd">    :param node_label_z: The z-axis position for the node label.</span>
+<span class="sd">        Defaults to 3.</span>
+<span class="sd">    :param dsg_offset_z: The z-axis offset for the DSG visualization.</span>
+<span class="sd">        Defaults to 0.</span>
+<span class="sd">    :param draw_bbox: Whether to draw the bounding box. Defaults to</span>
+<span class="sd">        True.</span>
+<span class="sd">    :param draw_mesh: Whether to draw the submesh. Defaults to True.</span>
+<span class="sd">    :param draw_lines: Whether to draw the lines. Defaults to True.</span>
+<span class="sd">    :param draw_text: Whether to draw the text label. Defaults to True.</span>
+<span class="sd">    :return: A dictionary of the drawn geometries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">node_color</span> <span class="o">=</span> <span class="n">get_class_color</span><span class="p">(</span><span class="n">class_id</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">class_id</span><span class="p">)</span>
+    <span class="n">geometries</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">draw_bbox</span><span class="p">:</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">create_o3d_aabb</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">node_color</span><span class="p">)</span>
+        <span class="n">geometries</span><span class="p">[</span><span class="s2">&quot;bbox&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bbox</span>
+    <span class="k">if</span> <span class="n">draw_lines</span><span class="p">:</span>
+        <span class="n">line_start</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">get_center</span><span class="p">()</span>
+        <span class="n">line_end</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">line_start</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">line_start</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">node_label_z</span><span class="p">])</span>
+
+        <span class="c1"># Create a 3D text mesh</span>
+        <span class="k">if</span> <span class="n">draw_text</span><span class="p">:</span>
+            <span class="n">text_mesh</span> <span class="o">=</span> <span class="n">draw_text_mesh</span><span class="p">(</span>
+                <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">node_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">position</span><span class="o">=</span><span class="n">line_end</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]),</span>
+            <span class="p">)</span>
+            <span class="n">geometries</span><span class="p">[</span><span class="s2">&quot;text_mesh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text_mesh</span>
+
+        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">line_start</span><span class="p">,</span> <span class="n">line_end</span><span class="p">]</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">LineSet</span><span class="p">(</span>
+            <span class="n">points</span><span class="o">=</span><span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">points</span><span class="p">),</span>
+            <span class="n">lines</span><span class="o">=</span><span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector2iVector</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">geometries</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span>
+        <span class="n">node_point</span> <span class="o">=</span> <span class="n">draw_cube</span><span class="p">(</span><span class="n">line_end</span><span class="p">,</span> <span class="n">node_color</span><span class="p">)</span>
+        <span class="n">geometries</span><span class="p">[</span><span class="s2">&quot;node_point&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_point</span>
+    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">geometries</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">g</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dsg_offset_z</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">draw_mesh</span><span class="p">:</span>
+        <span class="n">instance_mesh</span> <span class="o">=</span> <span class="n">extract_submesh</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">geometries</span><span class="p">[</span><span class="s2">&quot;instance_mesh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance_mesh</span>
+    <span class="k">return</span> <span class="n">geometries</span></div>
+
+
+<div class="viewcode-block" id="draw_cluster_geometry"><a class="viewcode-back" href="../../../react.utils.html#react.utils.viz.draw_cluster_geometry">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">draw_cluster_geometry</span><span class="p">(</span>
+    <span class="n">scan_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">node_geometries</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span>
+    <span class="n">instance_cluster</span><span class="p">:</span> <span class="n">InstanceCluster</span><span class="p">,</span>
+    <span class="n">set_label_z</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw the geometry for a cluster of instances, including lines and text</span>
+<span class="sd">    labels.</span>
+
+<span class="sd">    :param scan_id: The current scan ID.</span>
+<span class="sd">    :param node_geometries: A dictionary of node geometries.</span>
+<span class="sd">    :param instance_cluster: The InstanceCluster to draw.</span>
+<span class="sd">    :param set_label_z: The z-axis position for the cluster label.</span>
+<span class="sd">        Defaults to 5.</span>
+<span class="sd">    :return: A dictionary of the drawn geometries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">get_class_color</span><span class="p">(</span><span class="n">instance_cluster</span><span class="o">.</span><span class="n">get_class_id</span><span class="p">())</span>
+    <span class="n">nodes_pos</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">set_geometries</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">inst_ids_in_dsg</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">inst_id</span><span class="p">,</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">instance_cluster</span><span class="o">.</span><span class="n">get_cluster_position_history</span><span class="p">(</span>
+        <span class="n">scan_ids</span><span class="o">=</span><span class="p">[</span><span class="n">scan_id</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">scan_id</span> <span class="ow">in</span> <span class="n">pos</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">nodes_pos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="n">scan_id</span><span class="p">])</span>
+            <span class="n">inst_ids_in_dsg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inst_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes_pos</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">set_center</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">nodes_pos</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">set_center</span><span class="p">]</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">set_center</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">set_label_z</span>
+        <span class="n">text_mesh</span> <span class="o">=</span> <span class="n">draw_text_mesh</span><span class="p">(</span>
+            <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Set </span><span class="si">{</span><span class="n">instance_cluster</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">instance_cluster</span><span class="o">.</span><span class="n">cluster_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">position</span><span class="o">=</span><span class="n">set_center</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">inst_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inst_ids_in_dsg</span><span class="p">):</span>
+            <span class="n">node_label_center</span> <span class="o">=</span> <span class="n">node_geometries</span><span class="p">[</span><span class="n">inst_id</span><span class="p">][</span><span class="s2">&quot;node_point&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_center</span><span class="p">()</span>
+            <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_label_center</span><span class="p">)</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">LineSet</span><span class="p">(</span>
+            <span class="n">points</span><span class="o">=</span><span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">points</span><span class="p">),</span>
+            <span class="n">lines</span><span class="o">=</span><span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector2iVector</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">set_point</span> <span class="o">=</span> <span class="n">draw_cube</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="n">set_center</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+        <span class="n">set_geometries</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;lines&quot;</span><span class="p">:</span> <span class="n">lines</span><span class="p">,</span>
+            <span class="s2">&quot;set_point&quot;</span><span class="p">:</span> <span class="n">set_point</span><span class="p">,</span>
+            <span class="s2">&quot;text_mesh&quot;</span><span class="p">:</span> <span class="n">text_mesh</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="k">return</span> <span class="n">set_geometries</span></div>
+
+
+<div class="viewcode-block" id="draw_base_dsg"><a class="viewcode-back" href="../../../react.utils.html#react.utils.viz.draw_base_dsg">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">draw_base_dsg</span><span class="p">(</span>
+    <span class="n">scan_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">mesh</span><span class="p">:</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">,</span>
+    <span class="n">react_manager</span><span class="p">:</span> <span class="n">ReactManager</span><span class="p">,</span>
+    <span class="n">node_label_z</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">set_label_z</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="n">dsg_offset_z</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">include_scene_mesh</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">include_instance_mesh</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">draw_set</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">draw_text</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw the base DSG visualization, including nodes, clusters, and</span>
+<span class="sd">    optionally text labels.</span>
+
+<span class="sd">    :param scan_id: The current scan ID.</span>
+<span class="sd">    :param mesh: The mesh to include in the DSG visualization.</span>
+<span class="sd">    :param react_manager: The ReactManager instance for updating the</span>
+<span class="sd">        map.</span>
+<span class="sd">    :param node_label_z: The z-axis position for the node labels.</span>
+<span class="sd">        Defaults to 3.</span>
+<span class="sd">    :param set_label_z: The z-axis position for the cluster labels.</span>
+<span class="sd">        Defaults to 5.</span>
+<span class="sd">    :param dsg_offset_z: The z-axis offset for the DSG visualization.</span>
+<span class="sd">        Defaults to 0.</span>
+<span class="sd">    :param include_scene_mesh: Whether to include the scene mesh or not.</span>
+<span class="sd">        Defaults to True.</span>
+<span class="sd">    :param include_instance_mesh: Whether to include the instance meshes</span>
+<span class="sd">        or not. Defaults to True.</span>
+<span class="sd">    :param draw_set: Whether to draw the scene Instance clusters or not.</span>
+<span class="sd">        Defaults to True.</span>
+<span class="sd">    :param draw_text: Whether to draw the text mesh or not. Defaults to</span>
+<span class="sd">        True.</span>
+<span class="sd">    :return: A collection of Open3D objects for visualization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">object_nodes</span> <span class="o">=</span> <span class="n">react_manager</span><span class="o">.</span><span class="n">get_nodes_in_scan</span><span class="p">(</span><span class="n">scan_id</span><span class="o">=</span><span class="n">scan_id</span><span class="p">)</span>
+    <span class="n">instance_clusters</span> <span class="o">=</span> <span class="n">react_manager</span><span class="o">.</span><span class="n">_instance_clusters</span>
+    <span class="n">mesh</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dsg_offset_z</span><span class="p">]))</span>
+    <span class="n">dsg_viz</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">include_scene_mesh</span><span class="p">:</span>
+        <span class="n">dsg_viz</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+    <span class="n">node_geometries</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">object_nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">node_viz</span> <span class="o">=</span> <span class="n">draw_node_geometry</span><span class="p">(</span>
+            <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span>
+            <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span>
+            <span class="n">node_label_z</span><span class="o">=</span><span class="n">node_label_z</span><span class="p">,</span>
+            <span class="n">dsg_offset_z</span><span class="o">=</span><span class="n">dsg_offset_z</span><span class="p">,</span>
+            <span class="n">draw_mesh</span><span class="o">=</span><span class="n">include_instance_mesh</span><span class="p">,</span>
+            <span class="n">draw_text</span><span class="o">=</span><span class="n">draw_text</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">node_geometries</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_viz</span>
+        <span class="n">dsg_viz</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">node_viz</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">draw_set</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">inst_cluster</span> <span class="ow">in</span> <span class="n">instance_clusters</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">set_geometry</span> <span class="o">=</span> <span class="n">draw_cluster_geometry</span><span class="p">(</span>
+                <span class="n">scan_id</span><span class="o">=</span><span class="n">scan_id</span><span class="p">,</span>
+                <span class="n">node_geometries</span><span class="o">=</span><span class="n">node_geometries</span><span class="p">,</span>
+                <span class="n">instance_cluster</span><span class="o">=</span><span class="n">inst_cluster</span><span class="p">,</span>
+                <span class="n">set_label_z</span><span class="o">=</span><span class="n">set_label_z</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">dsg_viz</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">set_geometry</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">dsg_viz</span></div>
+
+
+<div class="viewcode-block" id="draw_matching_dsg"><a class="viewcode-back" href="../../../react.utils.html#react.utils.viz.draw_matching_dsg">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">draw_matching_dsg</span><span class="p">(</span>
+    <span class="n">scan_id_old</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">scan_id_new</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">mesh</span><span class="p">:</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">,</span>
+    <span class="n">react_manager</span><span class="p">:</span> <span class="n">ReactManager</span><span class="p">,</span>
+    <span class="n">old_dsg_offset_z</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">new_dsg_offset_z</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">include_instance_mesh</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">include_scene_mesh</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">draw_text</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw the matching DSG visualization, including nodes, instance matches</span>
+<span class="sd">    and optionally text labels.</span>
+
+<span class="sd">    :param scan_id_old: The reference scan ID.</span>
+<span class="sd">    :param scan_id_new: The current scan ID.</span>
+<span class="sd">    :param mesh: The mesh to include in the DSG visualization.</span>
+<span class="sd">    :param react_manager: The ReactManager instance for updating the</span>
+<span class="sd">        map.</span>
+<span class="sd">    :param old_dsg_offset_z: The z-axis position for the nodes from the</span>
+<span class="sd">        old scan. Defaults to 0.</span>
+<span class="sd">    :param new_dsg_offset_z: The z-axis position for the nodes from the</span>
+<span class="sd">        new scan. Defaults to -5.</span>
+<span class="sd">    :param include_instance_mesh: Whether to include the instance meshes</span>
+<span class="sd">        or not. Defaults to True.</span>
+<span class="sd">    :param include_scene_mesh: Whether to include the scene mesh or not.</span>
+<span class="sd">        Defaults to True.</span>
+<span class="sd">    :return: A collection of Open3D objects for visualization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">object_nodes</span> <span class="o">=</span> <span class="n">react_manager</span><span class="o">.</span><span class="n">get_nodes_in_scan</span><span class="p">(</span><span class="n">scan_id</span><span class="o">=</span><span class="n">scan_id_new</span><span class="p">)</span>
+    <span class="n">mesh</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">new_dsg_offset_z</span><span class="p">]))</span>
+    <span class="n">dsg_viz</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">include_scene_mesh</span><span class="p">:</span>
+        <span class="n">dsg_viz</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+    <span class="n">node_geometries</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">object_nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">node_viz</span> <span class="o">=</span> <span class="n">draw_node_geometry</span><span class="p">(</span>
+            <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span>
+            <span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span>
+            <span class="n">dsg_offset_z</span><span class="o">=</span><span class="n">new_dsg_offset_z</span><span class="p">,</span>
+            <span class="n">draw_lines</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">draw_mesh</span><span class="o">=</span><span class="n">include_instance_mesh</span><span class="p">,</span>
+            <span class="n">draw_text</span><span class="o">=</span><span class="n">draw_text</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">node_geometries</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_viz</span>
+        <span class="n">dsg_viz</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">node_viz</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="k">for</span> <span class="n">inst_cluster</span> <span class="ow">in</span> <span class="n">react_manager</span><span class="o">.</span><span class="n">_instance_clusters</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">inst_id</span><span class="p">,</span> <span class="n">ph</span> <span class="ow">in</span> <span class="n">inst_cluster</span><span class="o">.</span><span class="n">get_cluster_position_history</span><span class="p">(</span>
+            <span class="n">scan_ids</span><span class="o">=</span><span class="p">[</span><span class="n">scan_id_old</span><span class="p">,</span> <span class="n">scan_id_new</span><span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">scan_id_new</span> <span class="ow">in</span> <span class="n">ph</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="n">scan_id_old</span> <span class="ow">in</span> <span class="n">ph</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">old_pos</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">ph</span><span class="p">[</span><span class="n">scan_id_old</span><span class="p">])</span>
+                <span class="n">new_pos</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">ph</span><span class="p">[</span><span class="n">scan_id_new</span><span class="p">])</span>
+                <span class="n">old_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">old_dsg_offset_z</span>
+                <span class="n">new_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">new_dsg_offset_z</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">old_pos</span><span class="p">,</span> <span class="n">new_pos</span><span class="p">]</span>
+                <span class="n">lines</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+                <span class="n">lineset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">LineSet</span><span class="p">(</span>
+                    <span class="n">points</span><span class="o">=</span><span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">points</span><span class="p">),</span>
+                    <span class="n">lines</span><span class="o">=</span><span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector2iVector</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span>
+                <span class="p">)</span>
+                <span class="n">dsg_viz</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lineset</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dsg_viz</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Thuan-Phuoc Nguyen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

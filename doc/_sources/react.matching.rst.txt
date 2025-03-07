@@ -1,0 +1,37 @@
+react.matching package
+======================
+
+Submodules
+----------
+
+react.matching.ground\_truth module
+-----------------------------------
+
+.. automodule:: react.matching.ground_truth
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+react.matching.hungarian\_algorithm module
+------------------------------------------
+
+.. automodule:: react.matching.hungarian_algorithm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+react.matching.match\_results module
+------------------------------------
+
+.. automodule:: react.matching.match_results
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: react.matching
+   :members:
+   :undoc-members:
+   :show-inheritance:

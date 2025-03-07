@@ -1,0 +1,21 @@
+react.eval package
+==================
+
+Submodules
+----------
+
+react.eval.evaluator module
+---------------------------
+
+.. automodule:: react.eval.evaluator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: react.eval
+   :members:
+   :undoc-members:
+   :show-inheritance:

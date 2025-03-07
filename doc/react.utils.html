@@ -1,0 +1,540 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>react.utils package &mdash; REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=2389946f"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="react.matching package" href="react.matching.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">react</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="react.html">react package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="react.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="react.core.html">react.core package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="react.eval.html">react.eval package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="react.matching.html">react.matching package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">react.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="react.html#module-react">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">react</a></li>
+          <li class="breadcrumb-item"><a href="react.html">react package</a></li>
+      <li class="breadcrumb-item active">react.utils package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/react.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="react-utils-package">
+<h1>react.utils package<a class="headerlink" href="#react-utils-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-react.utils.image">
+<span id="react-utils-image-module"></span><h2>react.utils.image module<a class="headerlink" href="#module-react.utils.image" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="react.utils.image.SquarePad">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">react.utils.image.</span></span><span class="sig-name descname"><span class="pre">SquarePad</span></span><a class="reference internal" href="_modules/react/utils/image.html#SquarePad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.image.SquarePad" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to apply square padding to an image.</p>
+<p>This class pads an image to make its dimensions square by adding
+equal padding to all sides.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.image.get_instance_view">
+<span class="sig-prename descclassname"><span class="pre">react.utils.image.</span></span><span class="sig-name descname"><span class="pre">get_instance_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_view_img</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_bg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/react/utils/image.html#get_instance_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.image.get_instance_view" title="Permalink to this definition"></a></dt>
+<dd><p>Get a view of the instance from the provided map view image and mask.</p>
+<p>This function extracts the view of an instance from a map view image
+using the provided mask. It can also crop, mask the background and
+apply padding to the view if specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>map_view_img</strong> – The map view image from which the instance view
+is to be extracted. This is a 3D numpy array with shape (height,
+width, channels).</p></li>
+<li><p><strong>mask</strong> – The mask indicating the region of the instance in the
+map view image.</p></li>
+<li><p><strong>mask_bg</strong> – If True, applies a black mask to the background of
+the image. Default is True.</p></li>
+<li><p><strong>crop</strong> – If True, crops the image to the bounding box of the
+instance. Default is True.</p></li>
+<li><p><strong>padding</strong> – The padding to be applied to the cropped view.
+Default is 5 pixels.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An image of the view of the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.image.preprocess_image">
+<span class="sig-prename descclassname"><span class="pre">react.utils.image.</span></span><span class="sig-name descname"><span class="pre">preprocess_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_cuda</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="reference internal" href="_modules/react/utils/image.html#preprocess_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.image.preprocess_image" title="Permalink to this definition"></a></dt>
+<dd><p>Preprocess the input image for model inference.</p>
+<p>This function preprocesses the input image by applying square
+padding, resizing, normalization, and converting it to a tensor. It
+optionally moves the tensor to GPU.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image0</strong> – The input image to be preprocessed. It is expected to
+be a numpy array with shape (height, width, channels).</p></li>
+<li><p><strong>to_cuda</strong> – If True, moves the preprocessed image tensor to CUDA
+(GPU). Default is True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The preprocessed image tensor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-react.utils.logger">
+<span id="react-utils-logger-module"></span><h2>react.utils.logger module<a class="headerlink" href="#module-react.utils.logger" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="react.utils.logger.LogFormatter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">react.utils.logger.</span></span><span class="sig-name descname"><span class="pre">LogFormatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/utils/logger.html#LogFormatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.logger.LogFormatter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Formatter</span></code></p>
+<p>Logging colored formatter, adapted from
+<a class="reference external" href="https://stackoverflow.com/a/56944256/3638629">https://stackoverflow.com/a/56944256/3638629</a>.</p>
+<p>This class provides a logging formatter that adds colors to log messages
+based on their severity level.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.utils.logger.LogFormatter.blue">
+<span class="sig-name descname"><span class="pre">blue</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[38;5;39m'</span></em><a class="headerlink" href="#react.utils.logger.LogFormatter.blue" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.utils.logger.LogFormatter.bold_red">
+<span class="sig-name descname"><span class="pre">bold_red</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[31;1m'</span></em><a class="headerlink" href="#react.utils.logger.LogFormatter.bold_red" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="react.utils.logger.LogFormatter.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/react/utils/logger.html#LogFormatter.format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.logger.LogFormatter.format" title="Permalink to this definition"></a></dt>
+<dd><p>Format the log record with the appropriate color based on its
+severity level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>record</strong> – The log record to be formatted.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The formatted log message.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.utils.logger.LogFormatter.grey">
+<span class="sig-name descname"><span class="pre">grey</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[38;21m'</span></em><a class="headerlink" href="#react.utils.logger.LogFormatter.grey" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.utils.logger.LogFormatter.red">
+<span class="sig-name descname"><span class="pre">red</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[38;5;196m'</span></em><a class="headerlink" href="#react.utils.logger.LogFormatter.red" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.utils.logger.LogFormatter.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0m'</span></em><a class="headerlink" href="#react.utils.logger.LogFormatter.reset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="react.utils.logger.LogFormatter.yellow">
+<span class="sig-name descname"><span class="pre">yellow</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[38;5;226m'</span></em><a class="headerlink" href="#react.utils.logger.LogFormatter.yellow" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.logger.getLogger">
+<span class="sig-prename descclassname"><span class="pre">react.utils.logger.</span></span><span class="sig-name descname"><span class="pre">getLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">consoleLevel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileLevel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'%(asctime)s</span> <span class="pre">-</span> <span class="pre">%(name)s</span> <span class="pre">-</span> <span class="pre">[%(levelname)s]:</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'/home/ros/logs/2025_03_07_14_53_26'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default.log'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Logger</span></span></span><a class="reference internal" href="_modules/react/utils/logger.html#getLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.logger.getLogger" title="Permalink to this definition"></a></dt>
+<dd><p>Set up and return a logger with both console and file handlers.</p>
+<p>This function sets up a logger with specified name, console logging level, file
+logging level, format, log path, and log file name.
+It configures the logger to log messages both to the console (with colored
+formatting) and to a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the logger.</p></li>
+<li><p><strong>consoleLevel</strong> – The logging level for the console handler.
+Default is logging.INFO.</p></li>
+<li><p><strong>fileLevel</strong> – The logging level for the file handler.
+Default is logging.DEBUG.</p></li>
+<li><p><strong>fmt</strong> – The format string to be used for log messages.
+Default is “%(asctime)s - %(name)s - [%(levelname)s]: “.</p></li>
+<li><p><strong>log_path</strong> – The path where log files will be saved.
+Default is a directory named with the current timestamp.</p></li>
+<li><p><strong>log_file</strong> – The name of the log file.
+Default is “default.log”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The configured logger.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-react.utils.read_data">
+<span id="react-utils-read-data-module"></span><h2>react.utils.read_data module<a class="headerlink" href="#module-react.utils.read_data" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.read_data.get_bbox">
+<span class="sig-prename descclassname"><span class="pre">react.utils.read_data.</span></span><span class="sig-name descname"><span class="pre">get_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimensions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="react.core.html#react.core.bounding_box.BoundingBox" title="react.core.bounding_box.BoundingBox"><span class="pre">BoundingBox</span></a></span></span><a class="reference internal" href="_modules/react/utils/read_data.html#get_bbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.read_data.get_bbox" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the bounding box for given dimensions and position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimensions</strong> – A list containing the dimensions [d, w, h].</p></li>
+<li><p><strong>position</strong> – A list containing the position [xc, yc, zc].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A BoundingBox object with the computed min and max bounds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.read_data.get_dsg_data">
+<span class="sig-prename descclassname"><span class="pre">react.utils.read_data.</span></span><span class="sig-name descname"><span class="pre">get_dsg_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dsg_path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/react/utils/read_data.html#get_dsg_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.read_data.get_dsg_data" title="Permalink to this definition"></a></dt>
+<dd><p>Load DSG data from the specified 3dsg output path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dsg_path</strong> – The path to the directory containing the 3DSG data
+files.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing three dictionaries with instance views
+data, map views data, and 3DSG data respectively.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.read_data.get_node_attrs">
+<span class="sig-prename descclassname"><span class="pre">react.utils.read_data.</span></span><span class="sig-name descname"><span class="pre">get_node_attrs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dsg_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_id</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/react/utils/read_data.html#get_node_attrs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.read_data.get_node_attrs" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve attributes for a specific node in the 3DSG data loaded from
+dsg_with_mesh.json file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dsg_data</strong> – The DSG data  in which the node is located.</p></li>
+<li><p><strong>node_id</strong> – The ID of the node whose attributes are to be
+retrieved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary of attributes for the specified node. Returns
+an empty dictionary if the node is not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.read_data.register_map_views">
+<span class="sig-prename descclassname"><span class="pre">react.utils.read_data.</span></span><span class="sig-name descname"><span class="pre">register_map_views</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_views_data</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/react/utils/read_data.html#register_map_views"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.read_data.register_map_views" title="Permalink to this definition"></a></dt>
+<dd><p>Register map views from provided data and load them as images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>map_views_data</strong> – A list of dictionaries containing map view
+data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary mapping map view IDs to their corresponding
+images as numpy arrays.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-react.utils.viz">
+<span id="react-utils-viz-module"></span><h2>react.utils.viz module<a class="headerlink" href="#module-react.utils.viz" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.viz.draw_base_dsg">
+<span class="sig-prename descclassname"><span class="pre">react.utils.viz.</span></span><span class="sig-name descname"><span class="pre">draw_base_dsg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TriangleMesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">react_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="react.core.html#react.core.react_manager.ReactManager" title="react.core.react_manager.ReactManager"><span class="pre">ReactManager</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_label_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_label_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dsg_offset_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_scene_mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_instance_mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="reference internal" href="_modules/react/utils/viz.html#draw_base_dsg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.viz.draw_base_dsg" title="Permalink to this definition"></a></dt>
+<dd><p>Draw the base DSG visualization, including nodes, clusters, and
+optionally text labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scan_id</strong> – The current scan ID.</p></li>
+<li><p><strong>mesh</strong> – The mesh to include in the DSG visualization.</p></li>
+<li><p><strong>react_manager</strong> – The ReactManager instance for updating the
+map.</p></li>
+<li><p><strong>node_label_z</strong> – The z-axis position for the node labels.
+Defaults to 3.</p></li>
+<li><p><strong>set_label_z</strong> – The z-axis position for the cluster labels.
+Defaults to 5.</p></li>
+<li><p><strong>dsg_offset_z</strong> – The z-axis offset for the DSG visualization.
+Defaults to 0.</p></li>
+<li><p><strong>include_scene_mesh</strong> – Whether to include the scene mesh or not.
+Defaults to True.</p></li>
+<li><p><strong>include_instance_mesh</strong> – Whether to include the instance meshes
+or not. Defaults to True.</p></li>
+<li><p><strong>draw_set</strong> – Whether to draw the scene Instance clusters or not.
+Defaults to True.</p></li>
+<li><p><strong>draw_text</strong> – Whether to draw the text mesh or not. Defaults to
+True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A collection of Open3D objects for visualization</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.viz.draw_cluster_geometry">
+<span class="sig-prename descclassname"><span class="pre">react.utils.viz.</span></span><span class="sig-name descname"><span class="pre">draw_cluster_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_geometries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance_cluster</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="react.core.html#react.core.instance_cluster.InstanceCluster" title="react.core.instance_cluster.InstanceCluster"><span class="pre">InstanceCluster</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_label_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/react/utils/viz.html#draw_cluster_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.viz.draw_cluster_geometry" title="Permalink to this definition"></a></dt>
+<dd><p>Draw the geometry for a cluster of instances, including lines and text
+labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scan_id</strong> – The current scan ID.</p></li>
+<li><p><strong>node_geometries</strong> – A dictionary of node geometries.</p></li>
+<li><p><strong>instance_cluster</strong> – The InstanceCluster to draw.</p></li>
+<li><p><strong>set_label_z</strong> – The z-axis position for the cluster label.
+Defaults to 5.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary of the drawn geometries.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.viz.draw_cube">
+<span class="sig-prename descclassname"><span class="pre">react.utils.viz.</span></span><span class="sig-name descname"><span class="pre">draw_cube</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[0.5,</span> <span class="pre">0.5,</span> <span class="pre">0.5]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TriangleMesh</span></span></span><a class="reference internal" href="_modules/react/utils/viz.html#draw_cube"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.viz.draw_cube" title="Permalink to this definition"></a></dt>
+<dd><p>Draw a cube at a given center with specified dimensions and color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>center</strong> – The center position of the cube.</p></li>
+<li><p><strong>color</strong> – The color of the cube. Defaults to [0.5, 0.5, 0.5].</p></li>
+<li><p><strong>dim</strong> – The dimension of the cube. Defaults to 0.1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An o3d.geometry.TriangleMesh object representing the cube.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.viz.draw_matching_dsg">
+<span class="sig-prename descclassname"><span class="pre">react.utils.viz.</span></span><span class="sig-name descname"><span class="pre">draw_matching_dsg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_id_old</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_id_new</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TriangleMesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">react_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="react.core.html#react.core.react_manager.ReactManager" title="react.core.react_manager.ReactManager"><span class="pre">ReactManager</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_dsg_offset_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_dsg_offset_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_instance_mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_scene_mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="reference internal" href="_modules/react/utils/viz.html#draw_matching_dsg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.viz.draw_matching_dsg" title="Permalink to this definition"></a></dt>
+<dd><p>Draw the matching DSG visualization, including nodes, instance matches
+and optionally text labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scan_id_old</strong> – The reference scan ID.</p></li>
+<li><p><strong>scan_id_new</strong> – The current scan ID.</p></li>
+<li><p><strong>mesh</strong> – The mesh to include in the DSG visualization.</p></li>
+<li><p><strong>react_manager</strong> – The ReactManager instance for updating the
+map.</p></li>
+<li><p><strong>old_dsg_offset_z</strong> – The z-axis position for the nodes from the
+old scan. Defaults to 0.</p></li>
+<li><p><strong>new_dsg_offset_z</strong> – The z-axis position for the nodes from the
+new scan. Defaults to -5.</p></li>
+<li><p><strong>include_instance_mesh</strong> – Whether to include the instance meshes
+or not. Defaults to True.</p></li>
+<li><p><strong>include_scene_mesh</strong> – Whether to include the scene mesh or not.
+Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A collection of Open3D objects for visualization</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.viz.draw_node_geometry">
+<span class="sig-prename descclassname"><span class="pre">react.utils.viz.</span></span><span class="sig-name descname"><span class="pre">draw_node_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="react.core.html#react.core.object_node.ObjectNode" title="react.core.object_node.ObjectNode"><span class="pre">ObjectNode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TriangleMesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_label_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dsg_offset_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_bbox</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/react/utils/viz.html#draw_node_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.viz.draw_node_geometry" title="Permalink to this definition"></a></dt>
+<dd><p>Draw the geometry for a specific node, including bounding box, lines,
+and text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> – The ObjectNode to draw.</p></li>
+<li><p><strong>mesh</strong> – The mesh associated with the node.</p></li>
+<li><p><strong>node_label_z</strong> – The z-axis position for the node label.
+Defaults to 3.</p></li>
+<li><p><strong>dsg_offset_z</strong> – The z-axis offset for the DSG visualization.
+Defaults to 0.</p></li>
+<li><p><strong>draw_bbox</strong> – Whether to draw the bounding box. Defaults to
+True.</p></li>
+<li><p><strong>draw_mesh</strong> – Whether to draw the submesh. Defaults to True.</p></li>
+<li><p><strong>draw_lines</strong> – Whether to draw the lines. Defaults to True.</p></li>
+<li><p><strong>draw_text</strong> – Whether to draw the text label. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary of the drawn geometries.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.viz.draw_text_mesh">
+<span class="sig-prename descclassname"><span class="pre">react.utils.viz.</span></span><span class="sig-name descname"><span class="pre">draw_text_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TriangleMesh</span></span></span><a class="reference internal" href="_modules/react/utils/viz.html#draw_text_mesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.viz.draw_text_mesh" title="Permalink to this definition"></a></dt>
+<dd><p>Create and draw a 3D text mesh at a specified position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> – The text to display in the mesh.</p></li>
+<li><p><strong>position</strong> – The position where the text should be placed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An o3d.geometry.TriangleMesh object representing the text.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.viz.extract_submesh">
+<span class="sig-prename descclassname"><span class="pre">react.utils.viz.</span></span><span class="sig-name descname"><span class="pre">extract_submesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TriangleMesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="react.core.html#react.core.object_node.ObjectNode" title="react.core.object_node.ObjectNode"><span class="pre">ObjectNode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TriangleMesh</span></span></span><a class="reference internal" href="_modules/react/utils/viz.html#extract_submesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.viz.extract_submesh" title="Permalink to this definition"></a></dt>
+<dd><p>Extract a submesh from the given mesh based on the connections in the
+node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mesh</strong> – The original mesh to extract the submesh from.</p></li>
+<li><p><strong>node</strong> – The ObjectNode containing the mesh connections.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The extracted submesh as an o3d.geometry.TriangleMesh
+object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="react.utils.viz.get_class_color">
+<span class="sig-prename descclassname"><span class="pre">react.utils.viz.</span></span><span class="sig-name descname"><span class="pre">get_class_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="reference internal" href="_modules/react/utils/viz.html#get_class_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#react.utils.viz.get_class_color" title="Permalink to this definition"></a></dt>
+<dd><p>Get the color corresponding to a class ID from COCO_COLORS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>class_id</strong> – The class ID for which to retrieve the color.</p></li>
+<li><p><strong>normalize</strong> – Whether to normalize the color values to [0, 1].
+Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list containing the color values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-react.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-react.utils" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="react.matching.html" class="btn btn-neutral float-left" title="react.matching package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Thuan-Phuoc Nguyen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

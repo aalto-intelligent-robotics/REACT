@@ -10,3 +10,4 @@ weights/
 *.pth
 *.npy
 *.svg
+docs_build

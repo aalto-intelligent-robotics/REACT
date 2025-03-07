@@ -1,0 +1,186 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>react.matching.ground_truth &mdash; REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=2389946f"></script>
+      <script src="../../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">python</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">react.matching.ground_truth</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for react.matching.ground_truth</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+
+
+<div class="viewcode-block" id="GroundTruth"><a class="viewcode-back" href="../../../react.matching.html#react.matching.ground_truth.GroundTruth">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GroundTruth</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to store ground truth instance matching information.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        old_scan_id (int): The reference scan ID.</span>
+<span class="sd">        old_num_nodes (int): The number of nodes in the old scan.</span>
+<span class="sd">        new_scan_id (int): The current scan ID.</span>
+<span class="sd">        new_num_nodes (int): The number of nodes in the new scan.</span>
+<span class="sd">        matches (Dict[int, Dict[int, List[int]]]): List of matching node IDs, mapped as</span>
+<span class="sd">            {cluster_id -&gt; {scan_id -&gt; node_id}}.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">old_scan_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">old_num_nodes</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">new_scan_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">new_num_nodes</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">matches</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GroundTruth.get_cluster_num_absent"><a class="viewcode-back" href="../../../react.matching.html#react.matching.ground_truth.GroundTruth.get_cluster_num_absent">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_cluster_num_absent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the number of absent nodes in a cluster.</span>
+
+<span class="sd">        This method calculates the number of nodes present in the old</span>
+<span class="sd">        scan but absent in the new scan for a specific cluster.</span>
+
+<span class="sd">        :param cluster_id: The ID of the cluster.</span>
+<span class="sd">        :return: The number of absent nodes in the cluster.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cluster</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">[</span><span class="n">cluster_id</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cluster</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">old_scan_id</span><span class="p">])</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">cluster</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">new_scan_id</span><span class="p">]))</span></div>
+
+<div class="viewcode-block" id="GroundTruth.get_cluster_num_new"><a class="viewcode-back" href="../../../react.matching.html#react.matching.ground_truth.GroundTruth.get_cluster_num_new">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_cluster_num_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the number of new nodes in a cluster.</span>
+
+<span class="sd">        This method calculates the number of nodes present in the new</span>
+<span class="sd">        scan but absent in the old scan for a specific cluster.</span>
+
+<span class="sd">        :param cluster_id: The ID of the cluster.</span>
+<span class="sd">        :return: The number of new nodes in the cluster.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cluster</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="p">[</span><span class="n">cluster_id</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cluster</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">new_scan_id</span><span class="p">])</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">cluster</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">old_scan_id</span><span class="p">]))</span></div>
+
+<div class="viewcode-block" id="GroundTruth.get_num_matches"><a class="viewcode-back" href="../../../react.matching.html#react.matching.ground_truth.GroundTruth.get_num_matches">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_num_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the number of matching nodes between the old and new scans.</span>
+
+<span class="sd">        This method calculates the total number of matching nodes</span>
+<span class="sd">        between the old and new scans across all clusters.</span>
+
+<span class="sd">        :return: The number of matching nodes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">num_matches</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">matches</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">num_matches</span> <span class="o">+=</span> <span class="nb">min</span><span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">old_scan_id</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">new_scan_id</span><span class="p">])</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">num_matches</span></div>
+
+<div class="viewcode-block" id="GroundTruth.get_num_absent"><a class="viewcode-back" href="../../../react.matching.html#react.matching.ground_truth.GroundTruth.get_num_absent">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_num_absent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the number of absent nodes in the old scan.</span>
+
+<span class="sd">        This method calculates the total number of nodes present in the</span>
+<span class="sd">        old scan but absent in the new scan.</span>
+
+<span class="sd">        :return: The number of absent nodes in the old scan.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">num_matches</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_num_matches</span><span class="p">()</span>
+        <span class="n">num_absent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">old_num_nodes</span> <span class="o">-</span> <span class="n">num_matches</span>
+        <span class="k">return</span> <span class="n">num_absent</span></div>
+
+<div class="viewcode-block" id="GroundTruth.get_num_new"><a class="viewcode-back" href="../../../react.matching.html#react.matching.ground_truth.GroundTruth.get_num_new">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_num_new</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the number of new nodes in the new scan.</span>
+
+<span class="sd">        This method calculates the total number of nodes present in the</span>
+<span class="sd">        new scan but absent in the old scan.</span>
+
+<span class="sd">        :return: The number of new nodes in the new scan.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">num_matches</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_num_matches</span><span class="p">()</span>
+        <span class="n">num_new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_num_nodes</span> <span class="o">-</span> <span class="n">num_matches</span>
+        <span class="k">return</span> <span class="n">num_new</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Thuan-Phuoc Nguyen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
