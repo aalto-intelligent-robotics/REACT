@@ -47,3 +47,5 @@ RUN mkdir -p ${HOME}/.cache/zsh \
 
 RUN mkdir ${HOME}/.config \
     && chown -R ${USERNAME} ${HOME}/.config
+
+RUN python3 -m pip install sphinx sphinx_rtd_theme
