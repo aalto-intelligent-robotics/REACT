@@ -59,7 +59,7 @@ Go grab yourself a coffee because this can take a while ☕
 To start a container:
 
 ```bash
-docker compose up react -d
+docker compose up base -d
 docker exec -it react_base bash
 ```
 
