@@ -107,6 +107,12 @@ catkin build -j 4  # Adjust depending on how many cores your CPU have
 
 To test REACT out, you can download 2 scans of a scene. We recommend the *CoffeeRoom* scene and it can be found [here](https://drive.google.com/drive/folders/13984WvqdFPlq2DJG-6iNYHLAHxNozDFg?usp=sharing). Each scene consists of 2 ROS bags with data collected from a Hello Stretch 2 robot, with an Orbbec Astra 2 RGB-D Camera pointing 10 degrees downwards. Put the saved ROS bags in `REACT-docker/bags/` We use the SLAM toolbox + RP-LiDAR on the Stretch to provide the robot's pose.
 
+Another option is to test with simulated data from the Flat dataset ([download the dataset here](https://projects.asl.ethz.ch/datasets/doku.php?id=panoptic_mapping)). Place the dataset into a directory of your choosing, and copy the scripts `scripts/convert_seg*.py` and `scripts/gt_config.py` there. Extract the segmentation images using `convert_seg.py`, `convert_seg_30.py` or `convert_seg_inst.py` (check `gt_config.py` for the detailed classes to be extracted). For example, to extract instance segmentation images (black background), use:
+
+```bash
+python3 convert_seg_inst.py --data_path <run1 or run2>
+```
+
 ### 🗺 Build the initial 3D Scene Graph
 
 First, download your YOLO model weight for instance segmentation from [here](https://docs.ultralytics.com/tasks/segment/#models) or from [Ultralytics' release page](https://github.com/ultralytics/assets/releases) (choose the weights with suffix `-seg`). We recommend exporting the model to TensorRT for more efficient inference speed using:
@@ -120,8 +126,16 @@ The script generates a TensorRT `.engine` file. For more information on exportin
 
 To start Hydra:
 
+- With ROS bags from Hello Stretch 2 (real data):
+
 ```bash
 roslaunch hydra_stretch hydra_stretch_yolo.launch model_path:=<path/to/yolo/model> slam_mode:=slam dsg_output_prefix:=<scene_graph_name>_1 2> >(grep -v 'TF_REPEATED_DATA\|at line 278\|buffer_core')
+```
+
+- With Flat dataset (simulation data):
+
+```bash
+roslaunch hydra_stretch hydra_flat_inst.launch data_path:=<path to where you save the images>
 ```
 
 > **Note**<br>
