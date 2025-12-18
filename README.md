@@ -60,7 +60,7 @@ To start a container:
 
 ```bash
 docker compose up base -d
-docker exec -it react_base bash
+docker exec -it react_trt bash
 ```
 
 ### ⚙ Building dependencies
@@ -97,6 +97,8 @@ Inside the container, build all packages by running:
 ```bash
 cd hydra_ws
 catkin config -DCMAKE_BUILD_TYPE=Release
+sudo rosdep init
+rosdep update
 cd src
 rosdep install --from-paths . --ignore-src -r -y
 cd ..
