@@ -16,14 +16,17 @@ This repository contains code to cluster object nodes of a 3D scene graph based 
 If you find this code relevant for your work, please consider citing our paper. A bibtex entry is provided below:
 
 ```bibtex
-@misc{nguyen2025reactrealtimeefficientattribute,
-      title={REACT: Real-time Efficient Attribute Clustering and Transfer for Updatable 3D Scene Graph}, 
-      author={Phuoc Nguyen and Francesco Verdoja and Ville Kyrki},
-      year={2025},
-      eprint={2503.03412},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO},
-      url={https://arxiv.org/abs/2503.03412}, 
+@inproceedings{202510_nguyen_react,
+  address = {Hangzhou, China},
+  title = {{REACT}: {Real}-time {Efficient} {Attribute} {Clustering} and {Transfer} for {Updatable} {3D} {Scene} {Graph}},
+  shorttitle = {{REACT}},
+  doi = {10.1109/IROS60139.2025.11247273},
+  booktitle = {2025 {IEEE}/{RSJ} {Int.}\ {Conf.}\ on {Intelligent} {Robots} and {Systems} ({IROS})},
+  publisher = {IEEE},
+  author = {Nguyen, Phuoc and Verdoja, Francesco and Kyrki, Ville},
+  month = oct,
+  year = {2025},
+  pages = {2209--2216},
 }
 ```
 
